@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { PaperProvider } from "react-native-paper";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+import { AuthProvider } from "./src/context/AuthContext";
+import AppNav from "./src/navigation/AppNav";
+
+
+
+const temaPersonalizado = {
+  dark: true, // Establecer en true para el tema oscuro
+  roundness: 4, // Aumentar la redondez de los elementos
+  colors: {
+    primary: "#F27F1B", // Cambiar el color primario
+    accent: "#ffc107", // Cambiar el color secundario
+    background: "#3B8C8C", // Cambiar el color de fondo para el tema oscuro
+    // ...otras personalizaciones de color
   },
-});
+};
+
+const App = () => {
+  return (
+    <>
+      <AuthProvider>
+        <PaperProvider theme={temaPersonalizado}>
+        <AppNav/>
+        </PaperProvider>
+      </AuthProvider>
+    </>
+  );
+};
+
+export default App;
