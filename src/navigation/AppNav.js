@@ -25,7 +25,7 @@ const AppNav = () => {
   return (
     <NavigationContainer>
       {/* si se tiene un token (inicio sesión correcto) se mostraran el resto de páginas */}
-      {userToken !== null ? <AppStack/>:<AuthStack/>}
+      {userToken !==''? <AppStack/>:<AuthStack/>}
     </NavigationContainer>
   );
 };

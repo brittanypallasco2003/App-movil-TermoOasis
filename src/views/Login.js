@@ -27,10 +27,12 @@ const Login = ({navigation}) => {
   const {navigate} = navigation;
 
   //STATE VALIDACIONES
-  const [mensaje, guardarMensaje] = useState(null);
+  // const [mensaje, guardarMensaje] = useState(null);
+  //CONTEXT
+  const {iniciarSesion,mensajeError,guardarMensaje}=useContext(AuthContext)
 
   const mostrarMensaje = () => {
-    Alert.alert('Error', mensaje, [
+    Alert.alert('Error', mensajeError, [
       {
         text: 'Entendido',
         onPress: () => {
@@ -49,8 +51,6 @@ const Login = ({navigation}) => {
     }
   };
 
-  //CONTEXT
-  const {iniciarSesion}=useContext(AuthContext)
 
   //INICIAR SESIÓN
   // const iniciarSesion = async () => {
@@ -137,11 +137,11 @@ const Login = ({navigation}) => {
         <Button
           mode="contained"
           style={{marginTop: 50}}
-          onPress={() => iniciarSesion()}>
+          onPress={() => iniciarSesion(correoForm,passwordForm)}>
           Iniciar Sesión
         </Button>
         {/* muestra un mensaje solo si no es null */}
-        {mensaje && mostrarMensaje()}
+        {mensajeError && mostrarMensaje()}
       </View>
     </View>
   );
