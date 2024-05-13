@@ -14,9 +14,23 @@ export const AuthProvider = ({ children }) => {
     sesionIniciada();
   }, []);
 
+  const verificarCorreoIngresado = textoIngresado => {
+    let re = /\S+@\S+\.\S+/;
+    //si el correo no cumple con el formato salta la alerta
+    if (!re.test(textoIngresado)) {
+      guardarMensaje('Formato de correo Inválido');
+      return true;
+    }
+  };
+
   const iniciarSesion = async (email, contraseña) => {
-    setCargando(true);
-    try {
+      //Validación - formato de correo
+      if(email&& contraseña){
+          let correoInvalido=verificarCorreoIngresado(email)
+          if(correoInvalido) return
+      }
+      try {
+        setCargando(true);
       const response = await axios.post(
         `${process.env.EXPO_PUBLIC_API_URL}/login`,
         {

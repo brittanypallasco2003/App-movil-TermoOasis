@@ -42,14 +42,14 @@ const Login = ({navigation}) => {
     ]);
   };
 
-  const verificarCorreoIngresado = textoIngresado => {
-    let re = /\S+@\S+\.\S+/;
-    //si el correo no cumple con el formato salta la alerta
-    if (!re.test(textoIngresado)) {
-      guardarMensaje('Formato de correo Inválido');
-      return true;
-    }
-  };
+  // const verificarCorreoIngresado = textoIngresado => {
+  //   let re = /\S+@\S+\.\S+/;
+  //   //si el correo no cumple con el formato salta la alerta
+  //   if (!re.test(textoIngresado)) {
+  //     guardarMensaje('Formato de correo Inválido');
+  //     return true;
+  //   }
+  // };
 
 
   //INICIAR SESIÓN
