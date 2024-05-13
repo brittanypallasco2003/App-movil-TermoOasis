@@ -1,15 +1,12 @@
-import { CurrentRenderContext } from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
 const globalStyles = StyleSheet.create({
   contenedor: {
     //toma todo el espacio disponible en la pantalla
     flex: 1,
-  },
-  contenidoInicio: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginHorizontal: '2.5%',
-    flex: 1,
+    flexDirection:'column',
+    justifyContent:'flex-start',
+    paddingHorizontal: 10,
+    alignItems:'center'
   },
   input: {
     marginBottom: 30,
@@ -17,9 +14,10 @@ const globalStyles = StyleSheet.create({
   },
   tituloInicio:{
     textAlign:'center',
-    marginBottom:20,
+    marginVertical:20,
     fontSize:34,
     fontWeight:'bold'
+
   },
   contenidoRecuperar: {
     flexDirection: 'column',
@@ -28,7 +26,12 @@ const globalStyles = StyleSheet.create({
     flex: 1,
   },
   contentenidoTarjeta:{
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius:15,
+    borderBottomRightRadius:15,
+    padding:20
   }
 });
 
