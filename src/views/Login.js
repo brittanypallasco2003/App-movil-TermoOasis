@@ -1,5 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Text, View, Image, StyleSheet, Pressable, Alert } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Pressable,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
 
 import globalStyles from "../styles/global";
@@ -14,16 +22,13 @@ import {
 import {
   LexendExa_600SemiBold,
   LexendExa_700Bold,
-} from '@expo-google-fonts/lexend-exa';
+} from "@expo-google-fonts/lexend-exa";
 
-import { useTheme } from 'react-native-paper';
+import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-
 const Login = ({ navigation }) => {
-
-  const theme=useTheme()
+  const theme = useTheme();
   //STATE SEE PASSWORD
   const [mostrarPassword, setmostrarPassword] = useState(false);
 
@@ -39,18 +44,17 @@ const Login = ({ navigation }) => {
   const { iniciarSesion, mensajeError, guardarMensaje } =
     useContext(AuthContext);
 
-    let [fontsLoaded, fontError] = useFonts({
-      Quicksand_400Regular,
-      Quicksand_600SemiBold,
-      LexendExa_600SemiBold,
-      LexendExa_700Bold,
-    });
+  let [fontsLoaded, fontError] = useFonts({
+    Quicksand_400Regular,
+    Quicksand_600SemiBold,
+    LexendExa_600SemiBold,
+    LexendExa_700Bold,
+  });
 
-    if (!fontsLoaded && !fontError) {
-      return null;
-    }
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
-    
   const mostrarMensaje = () => {
     Alert.alert("Error", mensajeError, [
       {
@@ -109,71 +113,85 @@ const Login = ({ navigation }) => {
   //   }
   // };
 
- 
-
   return (
-    <SafeAreaView style={[globalStyles.contenedor,{backgroundColor:theme.colors.background}]}>
+    <SafeAreaView
+      style={[
+        globalStyles.contenedor,
+        { backgroundColor: theme.colors.background },
+      ]}
+    >
+      <ScrollView>
+        <Headline
+          style={[
+            styles.tituloBienvenida,
+            { fontFamily: "Quicksand_600SemiBold" },
+          ]}
+        >
+          Bienvenido a:
+        </Headline>
+        <Headline style={globalStyles.tituloInicio}>
+          <Text style={{ color: "#A8BF56", fontFamily: "LexendExa_700Bold" }}>
+            Termo{" "}
+          </Text>
+          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold" }}>
+            Oasis
+          </Text>
+        </Headline>
 
-    <View>
-      <Headline
-        style={[
-          styles.tituloBienvenida,
-          { fontFamily: "Quicksand_600SemiBold" },
-        ]}
-      >
-        Bienvenido a:
-      </Headline>
-      <Headline style={globalStyles.tituloInicio}>
-        <Text style={{ color: "#A8BF56",fontFamily:'LexendExa_700Bold' }}>Termo </Text>
-        <Text style={{ color: "#F27F1B",fontFamily:'LexendExa_700Bold' }}>Oasis</Text>
-      </Headline>
+        <Image
+          style={styles.logo}
+          source={require("../../assets/logoTermo.png")}
+        />
 
-      <Image
-        style={styles.logo}
-        source={require("../../assets/logoTermo.png")}
-      />
+        <Text style={styles.textos}>
+          Inicia Sesión con las credenciales enviadas a tu correo
+        </Text>
+        <TextInput
+          style={globalStyles.input}
+          underlineStyle={{
+            borderWidth: 0.7,
+            borderColor: theme.colors.primary,
+          }}
+          label={"Correo Electrónico"}
+          keyboardType={"email-address"}
+          value={correoForm}
+          onChangeText={(texto) => setcorreoForm(texto)}
+        />
+        {}
+        <TextInput
+          style={[globalStyles.input]}
+          underlineStyle={{
+            borderColor: theme.colors.primary,
+            borderWidth: 0.8,
+          }}
+          label="Password"
+          value={passwordForm}
+          // se oculta cambiando a true
+          secureTextEntry={!mostrarPassword}
+          right={
+            <TextInput.Icon
+              icon={cambiarBoton(mostrarPassword)}
+              //si aplasta el boton cambia a false, mostrando el password
+              onPress={() => setmostrarPassword(!mostrarPassword)}
+            />
+          }
+          onChangeText={(texto) => setpasswordForm(texto)}
+        />
 
-      <Text style={styles.textos}>Inicia Sesión con las credenciales enviadas a tu correo</Text>
-      <TextInput
-        style={globalStyles.input}
-        underlineStyle={{borderWidth:1,borderColor:theme.colors.primary}}
-        label={"Correo Electrónico"}
-        keyboardType={"email-address"}
-        value={correoForm}
-        onChangeText={(texto) => setcorreoForm(texto)}
-      />
-      {}
-      <TextInput
-        style={[globalStyles.input,]}
-        underlineStyle={{borderColor:theme.colors.primary,borderWidth:1}}
-        label="Password"
-        value={passwordForm}
-        // se oculta cambiando a true
-        secureTextEntry={!mostrarPassword}
-        right={
-          <TextInput.Icon
-            icon={cambiarBoton(mostrarPassword)}
-            //si aplasta el boton cambia a false, mostrando el password
-            onPress={() => setmostrarPassword(!mostrarPassword)}
-          />
-        }
-        onChangeText={(texto) => setpasswordForm(texto)}
-      />
+        <Pressable onPress={() => navigate("RestablecerPassword")}>
+          <Text style={styles.textos}>¿Olvidaste tu contraseña?</Text>
+        </Pressable>
 
-      <Pressable onPress={() => navigate("RestablecerPassword")}>
-        <Text style={styles.textos}>¿Olvidaste tu contraseña?</Text>
-      </Pressable>
-
-      <Button
-        mode="contained"
-        style={{ marginTop: 50 }}
-        onPress={() => iniciarSesion(correoForm, passwordForm)}
-      >
-        Iniciar Sesión
-      </Button>
-      {/* muestra un mensaje solo si no es null */}
-      {mensajeError && mostrarMensaje()}
-    </View>
+        <Button
+          mode="contained"
+          style={{ marginTop: 50 }}
+          onPress={() => iniciarSesion(correoForm, passwordForm)}
+        >
+          Iniciar Sesión
+        </Button>
+        {/* muestra un mensaje solo si no es null */}
+        {mensajeError && mostrarMensaje()}
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -182,21 +200,21 @@ const styles = StyleSheet.create({
   tituloBienvenida: {
     textAlign: "left",
     fontSize: 25,
-    color:'#fff',
-    marginVertical:20
+    color: "#fff",
+    marginVertical: 20,
   },
   logo: {
     height: 220,
     aspectRatio: 1,
-    marginLeft:'auto',
-    marginRight:'auto',
-    marginBottom:20
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 20,
   },
-  textos:{
-    fontFamily: 'Quicksand_600SemiBold',
-    fontSize:14,
-    color:'#fff',
-    textAlign:'center'
-  }
+  textos: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: 14,
+    color: "#fff",
+    textAlign: "center",
+  },
 });
 export default Login;

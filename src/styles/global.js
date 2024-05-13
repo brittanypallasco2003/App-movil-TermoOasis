@@ -14,9 +14,9 @@ const globalStyles = StyleSheet.create({
   },
   tituloInicio:{
     textAlign:'center',
-    marginVertical:20,
+    marginVertical:13,
     fontSize:34,
-    fontWeight:'bold'
+    padding:5
 
   },
   contenidoRecuperar: {
