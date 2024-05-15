@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
   Text,
-  View,
   Image,
   StyleSheet,
   Pressable,
@@ -13,19 +12,9 @@ import { TextInput, Button, Headline } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { AuthContext } from "../context/AuthContext";
 
-import {
-  useFonts,
-  Quicksand_400Regular,
-  Quicksand_600SemiBold,
-} from "@expo-google-fonts/quicksand";
-
-import {
-  LexendExa_600SemiBold,
-  LexendExa_700Bold,
-} from "@expo-google-fonts/lexend-exa";
-
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const Login = ({ navigation }) => {
   const theme = useTheme();
@@ -35,25 +24,15 @@ const Login = ({ navigation }) => {
   //STATE FORM
   const [correoForm, setcorreoForm] = useState("");
   const [passwordForm, setpasswordForm] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const cambiarBoton = () => (mostrarPassword ? "eye-off" : "eye");
 
   //REACT NAVIGATION
   const { navigate } = navigation;
 
   //CONTEXT
-  const { iniciarSesion, mensajeError, guardarMensaje } =
+  const { iniciarSesion, mensajeError, guardarMensaje, cargando } =
     useContext(AuthContext);
-
-  let [fontsLoaded, fontError] = useFonts({
-    Quicksand_400Regular,
-    Quicksand_600SemiBold,
-    LexendExa_600SemiBold,
-    LexendExa_700Bold,
-  });
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
 
   const mostrarMensaje = () => {
     Alert.alert("Error", mensajeError, [
@@ -120,20 +99,20 @@ const Login = ({ navigation }) => {
         { backgroundColor: theme.colors.background },
       ]}
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Headline
           style={[
             styles.tituloBienvenida,
             { fontFamily: "Quicksand_600SemiBold" },
           ]}
         >
-          Bienvenido a:
+          Bienvenido a
         </Headline>
         <Headline style={globalStyles.tituloInicio}>
           <Text style={{ color: "#A8BF56", fontFamily: "LexendExa_700Bold" }}>
             Termo{" "}
           </Text>
-          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold" }}>
+          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold",}}>
             Oasis
           </Text>
         </Headline>
@@ -143,15 +122,16 @@ const Login = ({ navigation }) => {
           source={require("../../assets/logoTermo.png")}
         />
 
-        <Text style={styles.textos}>
+        <Text style={[styles.textos,{marginBottom:32}]}>
           Inicia Sesión con las credenciales enviadas a tu correo
         </Text>
         <TextInput
-          style={globalStyles.input}
+          style={[globalStyles.inputInicio,]}
           underlineStyle={{
             borderWidth: 0.7,
             borderColor: theme.colors.primary,
           }}
+          textColor="#fff"
           label={"Correo Electrónico"}
           keyboardType={"email-address"}
           value={correoForm}
@@ -159,18 +139,21 @@ const Login = ({ navigation }) => {
         />
         {}
         <TextInput
-          style={[globalStyles.input]}
+          style={[globalStyles.inputInicio]}
           underlineStyle={{
             borderColor: theme.colors.primary,
             borderWidth: 0.8,
           }}
           label="Password"
           value={passwordForm}
+          textColor="#fff"
           // se oculta cambiando a true
           secureTextEntry={!mostrarPassword}
+
           right={
             <TextInput.Icon
-              icon={cambiarBoton(mostrarPassword)}
+              icon={mostrarPassword ? "eye-off" : "eye"}
+              color="#fff"
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
             />
@@ -178,13 +161,17 @@ const Login = ({ navigation }) => {
           onChangeText={(texto) => setpasswordForm(texto)}
         />
 
-        <Pressable onPress={() => navigate("RestablecerPassword")}>
-          <Text style={styles.textos}>¿Olvidaste tu contraseña?</Text>
-        </Pressable>
+        <Button mode='text' labelStyle={globalStyles.botonTexto}
+        background='transparent'
+        textColor="#fff"
+        onPress={() => navigate("RestablecerPassword")}>
+          ¿Olvidaste tu contraseña?
+        </Button>
 
         <Button
           mode="contained"
-          style={{ marginTop: 50 }}
+          labelStyle={{fontFamily:'Quicksand_600SemiBold'}}
+          style={{ marginTop: 45 }}
           onPress={() => iniciarSesion(correoForm, passwordForm)}
         >
           Iniciar Sesión
@@ -198,21 +185,22 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   tituloBienvenida: {
-    textAlign: "left",
-    fontSize: 25,
+    textAlign: "center",
+    fontSize: 22,
     color: "#fff",
-    marginVertical: 20,
+    marginTop: 28,
+    marginBottom:10
   },
   logo: {
-    height: 220,
+    height: 215,
     aspectRatio: 1,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 20,
+    marginBottom: 23,
   },
   textos: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: 14,
+    fontSize: 13.8,
     color: "#fff",
     textAlign: "center",
   },

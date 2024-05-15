@@ -2,6 +2,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 
+
+
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -34,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(
         `${process.env.EXPO_PUBLIC_API_URL}/login`,
         {
-          email: email.toLocaleLowerCase(),
+          email:email.toLowerCase(),
           contraseña,
         }
       );
