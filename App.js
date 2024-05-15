@@ -10,8 +10,8 @@ import AppNav from "./src/navigation/AppNav";
 
 import {
   useFonts,
-  Quicksand_400Regular,
   Quicksand_600SemiBold,
+  Quicksand_700Bold
 } from "@expo-google-fonts/quicksand";
 
 import {
@@ -31,8 +31,8 @@ const theme = {
 
 const App = () => {
   let [fontsLoaded, fontError] = useFonts({
-    Quicksand_400Regular,
     Quicksand_600SemiBold,
+    Quicksand_700Bold,
     LexendExa_600SemiBold,
     LexendExa_700Bold,
   });

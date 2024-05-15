@@ -17,46 +17,53 @@ const RestablecerPassword = ({ navigation }) => {
         { backgroundColor: theme.colors.background },
       ]}
     >
-      <View style={globalStyles.contentenidoTarjeta}>
-        <Headline style={[styles.title, { color: theme.colors.secondary }]}>
-          Restablecer Contraseña
-        </Headline>
-        <Text
-          style={{
-            fontFamily: "Quicksand_600SemiBold",
-            color: theme.colors.secondary,
-            textAlign: "center",
-            marginTop: 7,
-          }}
-        >
-          Ingresa tu correo electrónico para que puedas recuperar tu cuenta
-        </Text>
-        <TextInput
-          label={"Correo Electrónico"}
-          style={[globalStyles.inputRestablecer, { marginTop: 20 }]}
-          underlineStyle={{
-            borderWidth: 1,
-            borderColor: theme.colors.secondary,
-          }}
-        />
-      </View>
-      <Button mode="contained"
-      labelStyle={{fontFamily:'Quicksand_600SemiBold'}}
-      style={{ marginTop: 50 }}>
-        Enviar correo electrónico
-      </Button>
-
-      <Text style={styles.textos}>
-        ¿Ya recordaste?
+      <View>
+        <View style={globalStyles.contentenidoTarjeta}>
+          <Headline style={[styles.title, { color: theme.colors.secondary }]}>
+            Restablecer Contraseña
+          </Headline>
+          <Text
+            style={[styles.textoDescripcion, { color: theme.colors.secondary }]}
+          >
+            Ingresa tu correo electrónico para que puedas recuperar tu cuenta
+          </Text>
+          <TextInput
+            label={"Correo Electrónico"}
+            selectionColor={theme.colors.secondary}
+            activeUnderlineColor={theme.colors.secondary}
+            cursorColor={theme.colors.secondary}
+            textColor={theme.colors.secondary}
+            style={[globalStyles.inputRestablecer]}
+            underlineStyle={{
+              borderWidth: 0.8,
+              borderColor: theme.colors.secondary,
+            }}
+          />
+        </View>
         <Button
-          mode="text"
-          onPress={() => navigate("Login")}
-          background="transparent"
-          labelStyle={globalStyles.botonTexto}
+          mode="contained"
+          labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
+          style={{ marginTop: 50 }}
         >
-          Inicia Sesión
+          Enviar correo electrónico
         </Button>
-        </Text>
+        <View style={styles.ContenedorBotonInicio}>
+          <Text style={styles.textos}>
+            ¿Ya recordaste?
+          </Text>
+          <Button
+              mode="text"
+              onPress={() => navigate("Login")}
+              background="transparent"
+              labelStyle={[
+                globalStyles.botonTexto,
+                { textDecorationLine: "underline" },
+              ]}
+            >
+              Inicia Sesión
+            </Button>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -64,7 +71,7 @@ const RestablecerPassword = ({ navigation }) => {
 const styles = StyleSheet.create({
   textos: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: 14,
+    fontSize: 13,
     color: "#fff",
     textAlign: "center",
   },
@@ -72,11 +79,24 @@ const styles = StyleSheet.create({
     fontFamily: "LexendExa_600SemiBold",
     fontSize: 19,
     marginBottom: 15,
+    textAlign: "center",
   },
   textoNavInicio: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: 14,
     textAlign: "center",
+  },
+  textoDescripcion: {
+    fontFamily: "Quicksand_600SemiBold",
+    textAlign: "center",
+    marginTop: 7,
+    fontSize: 13.8,
+  },
+  ContenedorBotonInicio: {
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:17
   },
 });
 

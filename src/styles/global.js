@@ -24,7 +24,7 @@ const globalStyles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
@@ -33,10 +33,11 @@ const globalStyles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     padding: 23,
-    height: "38%",
   },
   inputRestablecer: {
     backgroundColor: "transparent",
+    fontSize:14,
+    marginTop:20
   },
   botonTexto:{
     fontFamily:'Quicksand_600SemiBold',
