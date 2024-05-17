@@ -1,10 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { Text, Image, StyleSheet, ScrollView } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
 
 import globalStyles from "../styles/global";
@@ -14,11 +9,7 @@ import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Alerta from "../components/Alerta";
 
-
-
 const Login = ({ navigation }) => {
-
-
   const theme = useTheme();
   //STATE SEE PASSWORD
   const [mostrarPassword, setmostrarPassword] = useState(false);
@@ -26,14 +17,12 @@ const Login = ({ navigation }) => {
   //STATE FORM
   const [correoForm, setcorreoForm] = useState("");
   const [passwordForm, setpasswordForm] = useState("");
-  
 
   //REACT NAVIGATION
   const { navigate } = navigation;
 
   //CONTEXT
-  const { iniciarSesion } =
-    useContext(AuthContext);
+  const { iniciarSesion } = useContext(AuthContext);
 
   // const verificarCorreoIngresado = textoIngresado => {
   //   let re = /\S+@\S+\.\S+/;
@@ -76,7 +65,7 @@ const Login = ({ navigation }) => {
   //     await AsyncStorage.setItem('token', token);
   //     console.log(token);
   //     //REDIRECCIONAR
-  //     navigate('PerfilPaciente');
+  //     navigate('Perfil');
   //   } catch (error) {
   //     guardarMensaje(error.response.data.msg);
   //   }
@@ -102,7 +91,7 @@ const Login = ({ navigation }) => {
           <Text style={{ color: "#A8BF56", fontFamily: "LexendExa_700Bold" }}>
             Termo{" "}
           </Text>
-          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold",}}>
+          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold" }}>
             Oasis
           </Text>
         </Headline>
@@ -112,11 +101,11 @@ const Login = ({ navigation }) => {
           source={require("../../assets/logoTermo.png")}
         />
 
-        <Text style={[styles.textos,{marginBottom:32}]}>
+        <Text style={[styles.textos, { marginBottom: 32 }]}>
           Inicia Sesión con las credenciales enviadas a tu correo
         </Text>
         <TextInput
-          style={[globalStyles.inputInicio,]}
+          style={[globalStyles.inputInicio]}
           underlineStyle={{
             borderWidth: 0.7,
             borderColor: theme.colors.primary,
@@ -139,10 +128,9 @@ const Login = ({ navigation }) => {
           textColor="#fff"
           // se oculta cambiando a true
           secureTextEntry={!mostrarPassword}
-
           right={
             <TextInput.Icon
-              name={'eye'}
+              name={"eye"}
               color="#fff"
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
@@ -151,23 +139,28 @@ const Login = ({ navigation }) => {
           onChangeText={(texto) => setpasswordForm(texto)}
         />
 
-        <Button mode='text' labelStyle={globalStyles.botonTexto}
-        background='transparent'
-        textColor="#fff"
-        onPress={() => navigate("RestablecerPassword")}>
+        <Button
+          mode="text"
+          labelStyle={globalStyles.botonTexto}
+          background="transparent"
+          textColor="#fff"
+          onPress={() => navigate("RestablecerPassword")}
+        >
           ¿Olvidaste tu contraseña?
         </Button>
 
         <Button
           mode="contained"
-          labelStyle={{fontFamily:'Quicksand_600SemiBold'}}
+          labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
           style={{ marginTop: 45 }}
-          onPress={() => iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)}
+          onPress={() =>
+            iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)
+          }
         >
           Iniciar Sesión
         </Button>
         {/* muestra un mensaje solo si no es null */}
-        <Alerta/>
+        <Alerta />
       </ScrollView>
     </SafeAreaView>
   );
@@ -179,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#fff",
     marginTop: 28,
-    marginBottom:10
+    marginBottom: 10,
   },
   logo: {
     height: 215,

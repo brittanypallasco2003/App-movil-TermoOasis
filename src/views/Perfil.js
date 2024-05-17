@@ -3,7 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import globalStyles from "../styles/global";
 
-const PerfilPaciente = () => {
+const Perfil = () => {
   const { cerrarSesion,infoUsuariObtenida } = useContext(AuthContext);
   return (
     <View style={globalStyles.contenedor}>
@@ -16,4 +16,4 @@ const PerfilPaciente = () => {
   );
 };
 
-export default PerfilPaciente;
+export default Perfil;

@@ -8,7 +8,7 @@ import { Image, View } from "react-native";
 import globalStyles from "../styles/global";
 import AuthStack from "./AuthStack";
 import AppStack from "./AppStack";
-import PerfilPaciente from "../views/Perfil_Paciente";
+
 
 
 const AppNav = () => {
