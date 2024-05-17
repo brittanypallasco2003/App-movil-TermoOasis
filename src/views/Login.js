@@ -3,8 +3,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  Pressable,
-  Alert,
   ScrollView,
 } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
@@ -14,9 +12,13 @@ import { AuthContext } from "../context/AuthContext";
 
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Alerta from "../components/Alerta";
+
 
 
 const Login = ({ navigation }) => {
+
+
   const theme = useTheme();
   //STATE SEE PASSWORD
   const [mostrarPassword, setmostrarPassword] = useState(false);
@@ -24,26 +26,14 @@ const Login = ({ navigation }) => {
   //STATE FORM
   const [correoForm, setcorreoForm] = useState("");
   const [passwordForm, setpasswordForm] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-  const cambiarBoton = () => (mostrarPassword ? "eye-off" : "eye");
+  
 
   //REACT NAVIGATION
   const { navigate } = navigation;
 
   //CONTEXT
-  const { iniciarSesion, mensajeError, guardarMensaje, cargando } =
+  const { iniciarSesion } =
     useContext(AuthContext);
-
-  const mostrarMensaje = () => {
-    Alert.alert("Error", mensajeError, [
-      {
-        text: "Entendido",
-        onPress: () => {
-          guardarMensaje(null);
-        },
-      },
-    ]);
-  };
 
   // const verificarCorreoIngresado = textoIngresado => {
   //   let re = /\S+@\S+\.\S+/;
@@ -152,7 +142,7 @@ const Login = ({ navigation }) => {
 
           right={
             <TextInput.Icon
-              icon={mostrarPassword ? "eye-off" : "eye"}
+              name={'eye'}
               color="#fff"
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
@@ -172,12 +162,12 @@ const Login = ({ navigation }) => {
           mode="contained"
           labelStyle={{fontFamily:'Quicksand_600SemiBold'}}
           style={{ marginTop: 45 }}
-          onPress={() => iniciarSesion(correoForm, passwordForm)}
+          onPress={() => iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)}
         >
           Iniciar Sesión
         </Button>
         {/* muestra un mensaje solo si no es null */}
-        {mensajeError && mostrarMensaje()}
+        <Alerta/>
       </ScrollView>
     </SafeAreaView>
   );

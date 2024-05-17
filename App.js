@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   PaperProvider,
@@ -7,7 +7,7 @@ import {
 
 import { AuthProvider } from "./src/context/AuthContext";
 import AppNav from "./src/navigation/AppNav";
-
+//herramienta expo
 import {
   useFonts,
   Quicksand_600SemiBold,
@@ -18,7 +18,7 @@ import {
   LexendExa_600SemiBold,
   LexendExa_700Bold,
 } from "@expo-google-fonts/lexend-exa";
-
+import { useDevToolsPluginClient } from "expo/devtools";
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -30,6 +30,15 @@ const theme = {
 };
 
 const App = () => {
+  const client = useDevToolsPluginClient("my-devtools-plugin");
+  useEffect(() => {
+    // receive messages
+    client?.addMessageListener("ping", (data) => {
+      alert(`Received ping from ${data.from}`);
+    });
+    // send messages
+    client?.sendMessage("ping", { from: "app" });
+  }, []);
   let [fontsLoaded, fontError] = useFonts({
     Quicksand_600SemiBold,
     Quicksand_700Bold,
@@ -40,6 +49,8 @@ const App = () => {
   if (!fontsLoaded && !fontError) {
     return null;
   }
+
+  
   return (
     <>
       <AuthProvider>

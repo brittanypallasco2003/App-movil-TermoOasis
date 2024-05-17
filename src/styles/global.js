@@ -32,7 +32,10 @@ const globalStyles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    padding: 23,
+    paddingRight: 23,
+    paddingLeft:23,
+    paddingTop:23,
+    paddingBottom:45
   },
   inputRestablecer: {
     backgroundColor: "transparent",
@@ -48,7 +51,12 @@ const globalStyles = StyleSheet.create({
     aspectRatio: 1,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 50,
+    marginBottom: 45,
+  },
+  cuadroAlerta:{
+    backgroundColor:'#fff',
+    borderRadius:15,
+    borderColor:"#fff",
   }
 });
 

@@ -1,15 +1,18 @@
-import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState,useContext } from "react";
+import {StyleSheet, Text, View } from "react-native";
 import { Headline, TextInput, Button } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { useTheme } from "react-native-paper";
-
+import { AuthContext } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const RestablecerPassword = ({ navigation }) => {
+  const [nombreForm, setNombreForm] = useState('')
+  const [apellidoForm, setApellidoForm] = useState('')
   const { navigate } = navigation;
   const theme = useTheme();
-
+  const { restablecerPassword } =
+  useContext(AuthContext);
   return (
     <SafeAreaView
       style={[
@@ -28,7 +31,23 @@ const RestablecerPassword = ({ navigation }) => {
             Ingresa tu correo electrónico para que puedas recuperar tu cuenta
           </Text>
           <TextInput
-            label={"Correo Electrónico"}
+            label={"Nombre"}
+            value={nombreForm}
+            onChangeText={(texto) => setNombreForm(texto)}
+            selectionColor={theme.colors.secondary}
+            activeUnderlineColor={theme.colors.secondary}
+            cursorColor={theme.colors.secondary}
+            textColor={theme.colors.secondary}
+            style={[globalStyles.inputRestablecer]}
+            underlineStyle={{
+              borderWidth: 0.8,
+              borderColor: theme.colors.secondary,
+            }}
+          />
+            <TextInput
+            label={"Apellido"}
+            value={apellidoForm}
+            onChangeText={(texto) => setApellidoForm(texto)}
             selectionColor={theme.colors.secondary}
             activeUnderlineColor={theme.colors.secondary}
             cursorColor={theme.colors.secondary}
@@ -43,7 +62,8 @@ const RestablecerPassword = ({ navigation }) => {
         <Button
           mode="contained"
           labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
-          style={{ marginTop: 50 }}
+          style={{ marginTop: 45 }}
+          onPress={() => restablecerPassword(nombreForm,apellidoForm)}
         >
           Enviar correo electrónico
         </Button>
