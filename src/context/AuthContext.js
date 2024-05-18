@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const validarNombre = (name) => {
-    var re = /^[a-zA-ZñÑ\s]{3,}$/;
+    var re = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\u2000-\u200B]{3,}$/    ;
     if (!re.test(name)) {
       guardarMensaje("El dato ingresado no es un nombre");
       mostrarAlerta(true);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const validarApellido = (lastname) => {
-    var re = /^[a-zA-ZñÑ\s]{3,}$/;
+    var re = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\u2000-\u200B]{3,}$/;
     if (!re.test(lastname)) {
       guardarMensaje("El dato ingresado no es un apellido");
       mostrarAlerta(true);

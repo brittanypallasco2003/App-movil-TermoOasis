@@ -130,7 +130,7 @@ const Login = ({ navigation }) => {
           secureTextEntry={!mostrarPassword}
           right={
             <TextInput.Icon
-              name={"eye"}
+              icon={mostrarPassword?'eye-off':'eye'}
               color="#fff"
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
