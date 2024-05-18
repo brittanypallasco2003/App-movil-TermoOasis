@@ -1,22 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Perfil from "../views/Perfil";
-import CalendarioCitas from "../views/CalendarioCitas";
-import { AuthContext } from "../context/AuthContext";
+import PerfilStack from './PerfilStack'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useTheme } from "react-native-paper";
 import { screen } from "../utils";
+import CitasStack from './CitasStack'
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
-  const { infoUsuariObtenida } = useContext(AuthContext);
-  const { isDoctor } = infoUsuariObtenida;
+
   const theme = useTheme();
 
   return (
     <Tab.Navigator
+    initialRouteName={screen.perfil.tab}
       screenOptions={({ route }) => ({
+        headerShown:false,
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: "#fff",
         tabBarStyle: { backgroundColor: theme.colors.secondary },
@@ -25,18 +25,18 @@ const AppStack = () => {
     >
       <Tab.Screen
         name={screen.citas.tab}
-        component={CalendarioCitas}
+        component={CitasStack}
         options={{
-          headerShown: false,
+          // headerShown: isDoctor
           tabBarLabel: "Citas",
           tabBarLabelStyle: { fontFamily: "Quicksand_600SemiBold" },
         }}
       />
       <Tab.Screen
         name={screen.perfil.tab}
-        component={Perfil}
+        component={PerfilStack}
         options={{
-          title:"Termo Oasis",
+          // title:"Termo Oasis",
           tabBarLabel: "Perfil",
           tabBarLabelStyle: { fontFamily: "Quicksand_600SemiBold" },
         }}
