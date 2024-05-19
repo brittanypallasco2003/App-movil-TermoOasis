@@ -46,12 +46,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const iniciarSesion = async (email, contraseña) => {
-    setCargando(true)
     //Validación - formato de correo
     if (email && contraseña) {
       let correoInvalido = verificarCorreoIngresado(email);
       if (correoInvalido) return;
     }
+    setCargando(true)
     user_login(email,contraseña)
     .then((response) => {
       let userInfo = response.data;
@@ -72,12 +72,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const restablecerPassword = async (nombre, apellido) => {
-    setCargando(true);
     if (nombre && apellido) {
       let nombreInvalido = validarNombre(nombre);
       let apellidoInvalido = validarApellido(apellido);
       if (apellidoInvalido || nombreInvalido) return;
     }
+    setCargando(true);
     user_restablecer(nombre,apellido)
     .then((response) => {
       guardarMensaje(response.data.msg)

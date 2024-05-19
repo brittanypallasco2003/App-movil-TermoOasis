@@ -22,7 +22,7 @@ const RestablecerPassword = ({ navigation }) => {
     >
       <View>
         <View style={globalStyles.contentenidoTarjeta}>
-          <Headline style={[styles.title, { color: theme.colors.secondary }]}>
+          <Headline style={[styles.title, { color: theme.colors.secondary,marginTop:20 }]}>
             Restablecer Contraseña
           </Headline>
           <Text
@@ -52,7 +52,7 @@ const RestablecerPassword = ({ navigation }) => {
             activeUnderlineColor={theme.colors.secondary}
             cursorColor={theme.colors.secondary}
             textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer]}
+            style={[globalStyles.inputRestablecer,{marginBottom:10}]}
             underlineStyle={{
               borderWidth: 0.8,
               borderColor: theme.colors.secondary,

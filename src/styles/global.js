@@ -22,9 +22,8 @@ const globalStyles = StyleSheet.create({
   contenedorRestablecer: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 22,
+    justifyContent:'center',
+
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
@@ -32,10 +31,13 @@ const globalStyles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    paddingRight: 23,
-    paddingLeft:23,
-    paddingTop:23,
-    paddingBottom:45
+    borderBottomColor:'#fff',
+    borderTopColor:'#fff',
+    borderLeftColor:'#fff',
+    borderRightColor:'#fff',
+    marginHorizontal:15,
+    paddingHorizontal:20
+
   },
   inputRestablecer: {
     backgroundColor: "transparent",
