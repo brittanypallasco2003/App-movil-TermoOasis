@@ -152,7 +152,7 @@ const Login = ({ navigation }) => {
         <Button
           mode="contained"
           labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
-          style={{ marginTop: 45 }}
+          style={{ marginTop: 45, marginBottom:30}}
           onPress={() =>
             iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)
           }
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 22,
     color: "#fff",
-    marginTop: 28,
     marginBottom: 10,
   },
   logo: {

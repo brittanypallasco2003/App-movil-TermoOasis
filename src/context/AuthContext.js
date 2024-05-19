@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useEffect, useState } from "react";
 import { user_login, user_restablecer } from "../api/api_user";
+import { EventEmitter } from "react-native";
 
 export const AuthContext = createContext();
 
@@ -45,48 +46,63 @@ export const AuthProvider = ({ children }) => {
   };
 
   const iniciarSesion = async (email, contraseña) => {
+    setCargando(true)
     //Validación - formato de correo
     if (email && contraseña) {
       let correoInvalido = verificarCorreoIngresado(email);
       if (correoInvalido) return;
     }
-    try {
-      setCargando(true);
-      const response = await user_login(email, contraseña);
-      const userInfo = response.data;
+    user_login(email,contraseña)
+    .then((response) => {
+      let userInfo = response.data;
       obtenerInfoUsuario(userInfo);
-      const { token } = infoUsuariObtenida;
-      //state del token
-      setUserToken(token);
-      //guardar en storage token e info
-      await AsyncStorage.setItem("userToken", token);
-      await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
-    } catch (error) {
-      guardarMensaje(error.response.data.msg);
-      mostrarAlerta(true);
-    }
-    setCargando(false);
+        const { token } = infoUsuariObtenida;
+        //state del token
+        setUserToken(token);
+        //guardar en storage token e info
+        AsyncStorage.setItem("userToken", token);
+        AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+      })
+      .catch((error) => {
+        guardarMensaje(error.response.data.msg)
+        mostrarAlerta(true)
+      }).finally(() => setCargando(false))
+
+      
   };
 
   const restablecerPassword = async (nombre, apellido) => {
+    setCargando(true);
     if (nombre && apellido) {
       let nombreInvalido = validarNombre(nombre);
       let apellidoInvalido = validarApellido(apellido);
       if (apellidoInvalido || nombreInvalido) return;
     }
-    try {
-      setCargando(true);
-      const response = await user_restablecer(nombre, apellido);
-      guardarMensaje(response.data.msg);
-      (true)
+    user_restablecer(nombre,apellido)
+    .then((response) => {
+      guardarMensaje(response.data.msg)
       mostrarMensajePassword(true)
-      mostrarAlerta(true);
-    } catch (error) {
-      guardarMensaje(error.response.data.msg);
+      mostrarAlerta(true)
+     })
+     .catch((error) => {
+      guardarMensaje(error.response.data.msg)
       mostrarMensajePassword(false)
-      mostrarAlerta(true);
-    }
-    setCargando(false);
+      mostrarAlerta(true)
+     })
+     .finally(() => setCargando(false))
+    // try {
+    //   setCargando(true);
+    //   const response = await user_restablecer(nombre, apellido);
+    //   guardarMensaje(response.data.msg);
+    //   (true)
+    //   mostrarMensajePassword(true)
+    //   mostrarAlerta(true);
+    // } catch (error) {
+    //   guardarMensaje(error.response.data.msg);
+    //   mostrarMensajePassword(false)
+    //   mostrarAlerta(true);
+    // }
+    // setCargando(false);
   };
 
   const cerrarSesion = () => {

@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const user_login = async (email, contraseña) => {
-  console.log(email, contraseña)
-  const res = await axios.post(
+  let res = await axios.post(
     "https://backend-termo-oasis.vercel.app/api/login",
     { email, contraseña }
   );
