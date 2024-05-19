@@ -9,22 +9,31 @@ import React,{useContext} from "react";
 import CalendarioCitas from "../views/CalendarioCitas";
 import { screen } from "../utils";
 import { AuthContext } from "../context/AuthContext";
-
+import SearchBarComp from "../components/SearchBarComp";
+import { useTheme } from "react-native-paper";
 const Stack = createNativeStackNavigator();
 
 const CitasStack = () => {
-
+  const theme = useTheme();
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { isDoctor } = infoUsuariObtenida;
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    initialRouteName={screen.citas.pageName}
+    screenOptions={{
+      headerTitleAlign:'center',
+      headerStyle:{
+        backgroundColor:theme.colors.secondary
+      },
+    }}>
       <Stack.Screen
         name={screen.citas.pageName}
         component={CalendarioCitas}
         options={{
           title: "Citas",
-          headerShown:isDoctor//si es doctor, el app bar se mostrará. Si es paciente se ocultará
+          headerShown:isDoctor,//si es doctor, el app bar se mostrará. Si es paciente se ocultará
+          headerRight:()=><SearchBarComp/>
         }}
       />
     </Stack.Navigator>

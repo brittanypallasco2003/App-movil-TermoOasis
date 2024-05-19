@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { screen } from "../utils";
 import Perfil from "../views/Perfil";
-import ButtonLogOut from "../components/ButtonLogOut";
 import { useTheme } from "react-native-paper";
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +24,7 @@ const PerfilStack = () => {
         component={Perfil}
         options={{
           title: "Termo Oasis",
-          headerRight: () => <ButtonLogOut />,
+          //headerRight: () => <ButtonLogOut />,
         }}
       />
     </Stack.Navigator>

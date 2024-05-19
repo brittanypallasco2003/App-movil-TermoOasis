@@ -5,7 +5,7 @@ import globalStyles from '../styles/global'
 
 const TitleTermo = () => {
   return (
-    <Headline style={{fontSize:20}}>
+    <Headline style={{fontSize:21}}>
     <Text style={{ color: "#A8BF56", fontFamily: "LexendExa_700Bold" }}>
       Termo{" "}
     </Text>

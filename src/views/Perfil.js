@@ -39,7 +39,7 @@ const Perfil = () => {
 const styles = StyleSheet.create({
   titleDatos: {
     fontFamily:'LexendExa_700Bold',
-    fontSize:22,
+    fontSize:20,
   },
   textosLabel: {
     fontFamily: "LexendExa_700Bold",
