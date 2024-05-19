@@ -23,7 +23,7 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent:'center',
-
+    alignItems:'center'
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
@@ -31,14 +31,9 @@ const globalStyles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    borderBottomColor:'#fff',
-    borderTopColor:'#fff',
-    borderLeftColor:'#fff',
-    borderRightColor:'#fff',
-    marginHorizontal:15,
-    paddingHorizontal:20
-
-  },
+    marginHorizontal:20,
+    paddingHorizontal:20,
+},
   inputRestablecer: {
     backgroundColor: "transparent",
     fontSize:14,
