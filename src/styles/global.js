@@ -11,7 +11,7 @@ const globalStyles = StyleSheet.create({
   inputInicio: {
     marginBottom: 30,
     backgroundColor: "transparent",
-    fontSize:14,
+    fontSize:13,
   },
   tituloInicio: {
     textAlign: "center",
@@ -21,9 +21,11 @@ const globalStyles = StyleSheet.create({
   },
   contenedorRestablecer: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent:'center',
-    alignItems:'center'
+  },
+  contentScroll:{
+    flexGrow:1,
+    justifyContent:'center'
+
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
@@ -32,11 +34,12 @@ const globalStyles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     marginHorizontal:20,
-    paddingHorizontal:20,
+    paddingHorizontal:22,
+
 },
   inputRestablecer: {
     backgroundColor: "transparent",
-    fontSize:14,
+    fontSize:13,
     marginTop:20
   },
   botonTexto:{

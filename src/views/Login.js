@@ -78,7 +78,9 @@ const Login = ({ navigation }) => {
         { backgroundColor: theme.colors.background },
       ]}
     >
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+      contentContainerStyle={[globalStyles.contentScroll,{marginHorizontal:15}]}
+       showsVerticalScrollIndicator={false}>
         <Headline
           style={[
             styles.tituloBienvenida,
@@ -152,7 +154,7 @@ const Login = ({ navigation }) => {
         <Button
           mode="contained"
           labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
-          style={{ marginTop: 45, marginBottom:30}}
+          style={{ marginTop: 35, marginBottom:30}}
           onPress={() =>
             iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)
           }
