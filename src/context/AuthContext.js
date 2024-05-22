@@ -81,18 +81,34 @@ const iniciarSesion = async (email, contraseña) => {
       if (apellidoInvalido || nombreInvalido || correoInvalido) return;
     }
     setCargando(true);
-    user_restablecer(nombre,apellido,correoRest)
-    .then((response) => {
+    // user_restablecer(nombre,apellido,correoRest)
+    // .then((response) => {
+    //   guardarMensaje(response.data.msg)
+    //   mostrarMensajePassword(true)
+    //   mostrarAlerta(true)
+    //  })
+    //  .catch((error) => {
+    //   guardarMensaje(error.response.data.msg)
+    //   mostrarMensajePassword(false)
+    //   mostrarAlerta(true)
+    //  })
+    //  .finally(() => setCargando(false))
+    try {
+    const response = await user_restablecer(nombre,apellido,correoRest)
+    if (response && response.data) {
       guardarMensaje(response.data.msg)
       mostrarMensajePassword(true)
       mostrarAlerta(true)
-     })
-     .catch((error) => {
-      guardarMensaje(error.response.data.msg)
+    }else{
+      throw new Error('Respuesta Inválida del servidor')
+    }
+    } catch (error) {
+      guardarMensaje(error.response.data.msg || 'Error desconocido al recuperar cuenta')
       mostrarMensajePassword(false)
       mostrarAlerta(true)
-     })
-     .finally(() => setCargando(false))
+    }finally{
+      setCargando(false)
+    }
     // try {
     //   setCargando(true);
     //   const response = await user_restablecer(nombre, apellido);
