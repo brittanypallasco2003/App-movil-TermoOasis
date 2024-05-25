@@ -23,15 +23,15 @@ axiosInstance.interceptors.request.use(
 
 // Interceptor para reintentar en caso de fallos temporales
 axiosInstance.interceptors.response.use(
-    response => response,
-    error => {
-      const { config, response: { status } } = error;
-      if (status >= 500 && config && !config.__isRetryRequest) {
-        config.__isRetryRequest = true;
-        return axiosInstance(config);
-      }
-      return Promise.reject(error);
+  response => response,
+  error => {
+    const { config, response: { status } } = error;
+    if (status >= 500 && config && !config.__isRetryRequest) {
+      config.__isRetryRequest = true;
+      return axiosInstance(config);
     }
-  );
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;

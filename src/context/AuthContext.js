@@ -57,6 +57,7 @@ const iniciarSesion = async (email, contraseña) => {
     if (response && response.data) {
       const userInfo = response.data;
       obtenerInfoUsuario(userInfo);
+      console.log('info usuario token:',userInfo.token)
       const { token } = userInfo;
       setUserToken(token);
       await AsyncStorage.setItem('userToken', token);
@@ -81,18 +82,6 @@ const iniciarSesion = async (email, contraseña) => {
       if (apellidoInvalido || nombreInvalido || correoInvalido) return;
     }
     setCargando(true);
-    // user_restablecer(nombre,apellido,correoRest)
-    // .then((response) => {
-    //   guardarMensaje(response.data.msg)
-    //   mostrarMensajePassword(true)
-    //   mostrarAlerta(true)
-    //  })
-    //  .catch((error) => {
-    //   guardarMensaje(error.response.data.msg)
-    //   mostrarMensajePassword(false)
-    //   mostrarAlerta(true)
-    //  })
-    //  .finally(() => setCargando(false))
     try {
     const response = await user_restablecer(nombre,apellido,correoRest)
     if (response && response.data) {
@@ -109,19 +98,6 @@ const iniciarSesion = async (email, contraseña) => {
     }finally{
       setCargando(false)
     }
-    // try {
-    //   setCargando(true);
-    //   const response = await user_restablecer(nombre, apellido);
-    //   guardarMensaje(response.data.msg);
-    //   (true)
-    //   mostrarMensajePassword(true)
-    //   mostrarAlerta(true);
-    // } catch (error) {
-    //   guardarMensaje(error.response.data.msg);
-    //   mostrarMensajePassword(false)
-    //   mostrarAlerta(true);
-    // }
-    // setCargando(false);
   };
 
   const cerrarSesion = () => {

@@ -11,15 +11,16 @@ import AppNav from "./src/navigation/AppNav";
 import {
   useFonts,
   Quicksand_600SemiBold,
-  Quicksand_700Bold
+  Quicksand_700Bold,
 } from "@expo-google-fonts/quicksand";
 
 import {
   LexendExa_600SemiBold,
   LexendExa_700Bold,
-  LexendExa_500Medium
+  LexendExa_500Medium,
 } from "@expo-google-fonts/lexend-exa";
 import { useDevToolsPluginClient } from "expo/devtools";
+import { CitasProvider } from "./src/context/CitasContext";
 
 const theme = {
   ...DefaultTheme,
@@ -28,10 +29,11 @@ const theme = {
     primary: "#F27F1B",
     secondary: "#3B8C8C",
     background: "#3B8C8C",
-    primaryContainer:"#3B8C8C",
-    elevation:{
-      level2:"#3B8C8C"
-    }
+    primaryContainer: "#3B8C8C",
+    secondaryContainer:"#3B8C8C",
+    elevation: {
+      level2: "#3B8C8C",
+    },
   },
 };
 
@@ -50,20 +52,21 @@ const App = () => {
     Quicksand_700Bold,
     LexendExa_600SemiBold,
     LexendExa_700Bold,
-    LexendExa_500Medium
+    LexendExa_500Medium,
   });
 
   if (!fontsLoaded && !fontError) {
     return null;
   }
 
-  
   return (
     <>
       <AuthProvider>
+        <CitasProvider>
           <PaperProvider theme={theme}>
             <AppNav />
           </PaperProvider>
+        </CitasProvider>
       </AuthProvider>
     </>
   );
