@@ -4,7 +4,6 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import globalStyles from "../styles/global";
 import { useTheme } from "react-native-paper";
 import { CitasContext } from "../context/CitasContext";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 LocaleConfig.locales["es"] = {
   monthNames: [
@@ -50,11 +49,34 @@ LocaleConfig.locales["es"] = {
 
 LocaleConfig.defaultLocale = "es";
 
-const Calendario = () => {
-  const { loadingCalendar, citasState, markedDates, obtenerCitasFecha } =
-    useContext(CitasContext);
+const Calendario = ({ markedDates }) => {
+  const { loadingCalendar, obtenerCitasFecha } = useContext(CitasContext);
+  const [deshabilitarFlechaD, setdeshabilitarFlechaD] = useState(false);
+  const [deshabilitarFlechaI, setdeshabilitarFlechaI] = useState(false);
 
-  console.log("fechas marcadas", markedDates);
+  const ObtenerfechaInicio = () => {
+    const fechahoy = new Date();
+    return new Date(
+      fechahoy.getFullYear(),
+      fechahoy.getMonth() - 6,
+      fechahoy.getDate()
+    );
+  };
+
+  let fechaInicio = ObtenerfechaInicio();
+
+  const ObtenerfechaFinal = () => {
+    const fechahoy = new Date();
+    return new Date(
+      fechahoy.getFullYear(),
+      fechahoy.getMonth() + 6,
+      fechahoy.getDate()
+    );
+  };
+
+  let fechaFinal = ObtenerfechaFinal();
+
+  console.log("fechas marcadas jjj", markedDates);
 
   const theme = useTheme();
 
@@ -64,10 +86,11 @@ const Calendario = () => {
         globalStyles.calendarStyles,
         { borderColor: theme.colors.secondary },
       ]}
+      minDate={fechaInicio.toISOString()}
+      maxDate={fechaFinal.toISOString()}
       markingType={"multi-dot"}
       displayLoadingIndicator={loadingCalendar}
       markedDates={markedDates}
-      enableSwipeMonths={true}
       theme={{
         monthTextColor: theme.colors.secondary,
         selectedDayBackgroundColor: theme.colors.secondary,
@@ -76,13 +99,23 @@ const Calendario = () => {
         textMonthFontFamily: "Quicksand_600SemiBold",
         textDayHeaderFontFamily: "Quicksand_600SemiBold",
         textDayFontSize: 14,
-        textMonthFontSize: 14,
+        textMonthFontSize: 16,
         textDayHeaderFontSize: 14,
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {
         obtenerCitasFecha(day.dateString);
       }}
+      onMonthChange={(month) => {
+        fechaInicio.toISOString().split("T")[0] === month.dateString
+          ? setdeshabilitarFlechaI(true)
+          : setdeshabilitarFlechaI(false);
+        fechaFinal.toISOString().split("T")[0] === month.dateString
+          ? setdeshabilitarFlechaD(true)
+          : setdeshabilitarFlechaD(false);
+      }}
+      disableArrowLeft={deshabilitarFlechaI}
+      disableArrowRight={deshabilitarFlechaD}
     />
   );
 };

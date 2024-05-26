@@ -75,6 +75,14 @@ const globalStyles = StyleSheet.create({
   buttonSeg:{
     fontFamily:'Quicksand_600SemiBold',
     fontSize:13
+  },
+  msgUser:{
+    fontFamily:'Quicksand_600SemiBold',
+    fontSize:14,
+    textAlign:'center',
+    marginHorizontal:20,
+    lineHeight:23,
+    marginTop:15
   }
 });
 

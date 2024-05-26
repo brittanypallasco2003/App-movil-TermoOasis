@@ -1,23 +1,21 @@
 import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import PerfilStack from './PerfilStack'
+import PerfilStack from "./PerfilStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useTheme } from "react-native-paper";
 import { screen } from "../utils";
-import CitasStack from './CitasStack'
-import { CitasContext } from "../context/CitasContext";
+import CitasStack from "./CitasStack";
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
-
   const theme = useTheme();
 
   return (
     <Tab.Navigator
-    initialRouteName={screen.perfil.tab}
+      initialRouteName={screen.perfil.tab}
       screenOptions={({ route }) => ({
-        headerShown:false,
+        headerShown: false,
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: "#fff",
         tabBarStyle: { backgroundColor: theme.colors.secondary },

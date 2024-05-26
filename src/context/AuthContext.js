@@ -1,13 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useEffect, useState } from "react";
 import { user_login, user_restablecer } from "../api/api_user";
+import { eliminarCitaStorage } from "../model/storage";
+
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [cargando, setCargando] = useState(false);
   const [userToken, setUserToken] = useState("");
-  const [infoUsuariObtenida, obtenerInfoUsuario] = useState(null);
+  const [infoUsuariObtenida, obtenerInfoUsuario] = useState({});
   const [mensajeError, guardarMensaje] = useState("");
   const [alerta, mostrarAlerta] = useState(false);
   const [passwordCambiado, mostrarMensajePassword]=useState(false)
@@ -57,7 +59,7 @@ const iniciarSesion = async (email, contraseña) => {
     if (response && response.data) {
       const userInfo = response.data;
       obtenerInfoUsuario(userInfo);
-      console.log('info usuario token:',userInfo.token)
+      console.log('info usuario token:',userInfo)
       const { token } = userInfo;
       setUserToken(token);
       await AsyncStorage.setItem('userToken', token);
@@ -100,12 +102,19 @@ const iniciarSesion = async (email, contraseña) => {
     }
   };
 
-  const cerrarSesion = () => {
-    setCargando(true);
+  const cerrarSesion = async() => {
+    try {
+      setCargando(true);
     setUserToken("");
+    obtenerInfoUsuario("")
+    await eliminarCitaStorage()
     AsyncStorage.removeItem("userToken");
     AsyncStorage.removeItem("userInfo");
-    setCargando(false);
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setCargando(false);
+    }
   };
 
   //si inició sesión y no la cerró, su token se almacenará en storage y por tanto, no se logueara de nuevo
@@ -146,6 +155,8 @@ const iniciarSesion = async (email, contraseña) => {
         restablecerPassword,
         passwordCambiado,
         mostrarMensajePassword,
+        guardarMensaje,
+        isLoggedIn: !!userToken,
       }}
     >
       {children}
