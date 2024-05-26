@@ -5,14 +5,13 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
+  obtener_cita_id,
   obtener_citas_paciente_especifico,
   obtener_todas_citas,
 } from "../api/api_citas";
 import {
   guardarCitasStorage,
-  obtenerCitasStorage,
   obtenerTokenStorage,
 } from "../model/storage";
 import { AuthContext } from "./AuthContext";
@@ -22,29 +21,15 @@ export const CitasContext = createContext();
 export const CitasProvider = ({ children }) => {
   const [markDates, setMarkdates] = useState({});
   const [loadingCalendar, setLoadingCalendar] = useState(false);
-  // const [citasApiDoctor, realizarConsultaApiDoctor] = useState(false);
-  // const [citasApiPaciente, realizarConsultaApiPaciente] = useState(false);
   const [citasRealizadas, setCitasRealizadas] = useState([]);
   const [citasCanceladas, setCitasCanceladas] = useState([]);
   const [citasPendientes, setCitasPendientes] = useState([]);
   const [tipoCita, settipoCita] = useState("");
 
-  const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida } =
+  const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida, userToken } =
     useContext(AuthContext);
 
   const { _id, isDoctor, isPaciente } = infoUsuariObtenida;
-
-  // useEffect(() => {
-  //   if (citasApiDoctor) {
-  //     obtenerCitas();
-  //   }
-  // }, [citasApiDoctor]);
-
-  // useEffect(() => {
-  //   if (citasApiPaciente) {
-  //     obtenerCitasPaciente(_id);
-  //   }
-  // }, [citasApiPaciente]);
 
   useEffect(() => {
     setCitasCanceladas([]);
@@ -128,22 +113,21 @@ export const CitasProvider = ({ children }) => {
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
-        citas=await obtenerCitas()
+        citas = await obtenerCitas();
       } else {
         console.log("soy paciente");
-        citas=await obtenerCitasPaciente(_id)
+        citas = await obtenerCitasPaciente(_id);
       }
 
-      const fechaHoy=new Date()
-      const citasPendientes=citas.filter(
-        (citasP) => new Date(citasP.start)>fechaHoy && !citasP.citaCancelada
-      )
-      console.log('estas son las citas pendientes',citasPendientes)
-      setCitasPendientes(citasPendientes)
-      const fechasMarcadas=marcarFechas(citasPendientes)
-      setMarkdates(fechasMarcadas)
-      settipoCita("Pendientes")
-
+      const fechaHoy = new Date();
+      const citasPendientes = citas.filter(
+        (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
+      );
+      console.log("estas son las citas pendientes", citasPendientes);
+      setCitasPendientes(citasPendientes);
+      const fechasMarcadas = marcarFechas(citasPendientes);
+      setMarkdates(fechasMarcadas);
+      settipoCita("Pendientes");
       // const citasStorage = await obtenerCitasStorage();
       // const citas = JSON.parse(citasStorage);
       // if (citas) {
@@ -162,7 +146,7 @@ export const CitasProvider = ({ children }) => {
     } finally {
       setLoadingCalendar(false);
     }
-  }, [isDoctor,_id]);
+  }, [isDoctor, _id]);
 
   const obtenerCitasRealizadas = useCallback(async () => {
     try {
@@ -170,57 +154,52 @@ export const CitasProvider = ({ children }) => {
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
-        citas=await obtenerCitas()
+        citas = await obtenerCitas();
       } else {
         console.log("soy paciente");
-        citas=await obtenerCitasPaciente(_id)
+        citas = await obtenerCitasPaciente(_id);
       }
-      
-        const fechaHoy = new Date();
-        const citasRealizadas = citas.filter((citasR) => new Date(citasR.start)< fechaHoy && !citasR.citaCancelada);
 
-        console.log("estas son las citas realizadas", citasRealizadas);
-        setCitasRealizadas(citasRealizadas);
-        const fechasMarcadas = marcarFechas(citasRealizadas);
-        setMarkdates(fechasMarcadas);
-        settipoCita("Realizadas");
-      
+      const fechaHoy = new Date();
+      const citasRealizadas = citas.filter(
+        (citasR) => new Date(citasR.start) < fechaHoy && !citasR.citaCancelada
+      );
+
+      console.log("estas son las citas realizadas", citasRealizadas);
+      setCitasRealizadas(citasRealizadas);
+      const fechasMarcadas = marcarFechas(citasRealizadas);
+      setMarkdates(fechasMarcadas);
+      settipoCita("Realizadas");
     } catch (error) {
       console.log(error);
     } finally {
       setLoadingCalendar(false);
     }
-  },[isDoctor,_id])
+  }, [isDoctor, _id]);
 
-  const obtenerCitasCanceladas = async () => {
+  const obtenerCitasCanceladas = useCallback(async () => {
     try {
       setLoadingCalendar(true);
-      realizarConsultaApiDoctor(true);
-      const citasStorage = await obtenerCitasStorage();
-      const citas = JSON.parse(citasStorage);
-      if (citas) {
-        const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
-        console.log("estas son las citas canceladas: ", citasCanceladas);
-        setCitasCanceladas(citasCanceladas);
-        const fechasMarcadas = marcarFechas(citasCanceladas);
-        // const markdates = citasCanceladas.reduce((acc, cita) => {
-        //   const date = new Date(cita.start).toISOString().split("T")[0];
-        //   if(acc[date]){
-        //     acc[date].dots.push({ key:cita.idCita, color:'blue'})
-        //   }else{
-        //     acc[date]={dots:[{key:cita.idCita,color:'blue'}]}
-        //   }
-        //   return acc;
-        // }, {});
-        setMarkdates(fechasMarcadas);
-        settipoCita("Canceladas");
+      let citas;
+      if (isDoctor) {
+        console.log("soy doctor: ", isDoctor);
+        citas = await obtenerCitas();
+      } else {
+        console.log("soy paciente");
+        citas = await obtenerCitasPaciente(_id);
       }
+      const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
+      console.log("estas son las citas canceladas: ", citasCanceladas);
+      setCitasCanceladas(citasCanceladas);
+      const fechasMarcadas = marcarFechas(citasCanceladas);
+      setMarkdates(fechasMarcadas);
+      settipoCita("Canceladas");
     } catch (error) {
       console.log(error);
     } finally {
       setLoadingCalendar(false);
     }
-  };
+  }, [isDoctor, _id]);
 
   const marcarFechas = (citas) => {
     return citas.reduce((acc, cita) => {
@@ -234,26 +213,43 @@ export const CitasProvider = ({ children }) => {
     }, {});
   };
 
-  const obtenerCitasFecha = (fechaSeleccionada) => {
+  const obtenerCitasFecha = async(fechaSeleccionada) => {
     if (
       fechaSeleccionada &&
       Object.keys(markDates).length === 0 &&
       citasRealizadas.length === 0 &&
       citasPendientes.length === 0 &&
-      citasCanceladas.length === 0
+      citasCanceladas.length === 0 &&
+      tipoCita === ""
     ) {
       guardarMensaje(
         "Lo sentimos, primero debes seleccionar el tipo de cita que quieras visualizar"
       );
       mostrarAlerta(true);
     } else {
-      console.log("si hay citas pendientes en el state: ", citasPendientes);
-      const fechacita = new Date(fechaSeleccionada);
-      console.log("esta es la fecha cita:", fechacita);
+      if (markDates[fechaSeleccionada]) {
+        console.log("esta es la fecha cita:", markDates[fechaSeleccionada]);
+        const citasParaFecha = markDates[fechaSeleccionada];
+        const ids = citasParaFecha.dots.map(dot => dot.key);
+        try {
+          const token=userToken
+          const peticionesCitas=ids.map((id) => obtener_cita_id(id,token))
+
+          const respuestas=await Promise.all(peticionesCitas)
+          console.log('Respuestas de las citas',respuestas)
+          respuestas.forEach(respuesta => {
+            console.log(respuesta.data);
+        });
+          
+        } catch (error) {
+          console.error('Error al hacer peticiones a la API: ',error)
+        }
+      }else{
+        guardarMensaje('No tienes una cita agendada ese día')
+        mostrarAlerta(true)
+      }
     }
   };
-
-  
 
   return (
     <CitasContext.Provider
