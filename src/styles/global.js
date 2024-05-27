@@ -1,4 +1,8 @@
-import { LexendExa_500Medium, LexendExa_600SemiBold, LexendExa_700Bold } from "@expo-google-fonts/lexend-exa";
+import {
+  LexendExa_500Medium,
+  LexendExa_600SemiBold,
+  LexendExa_700Bold,
+} from "@expo-google-fonts/lexend-exa";
 import { StyleSheet } from "react-native";
 const globalStyles = StyleSheet.create({
   contenedor: {
@@ -59,58 +63,71 @@ const globalStyles = StyleSheet.create({
   },
   contenedorCitas: {
     flex: 1,
-    flexDirection:'column',
-    justifyContent:'center',
+    flexDirection: "column",
+    justifyContent: "center",
   },
   calendarStyles: {
     borderRadius: 15,
-    marginHorizontal:20,
-    paddingVertical:13,
-    borderWidth:1,
+    marginHorizontal: 20,
+    paddingVertical: 13,
+    borderWidth: 1,
   },
-  tituloCitas:{
-    fontFamily:'LexendExa_700Bold',
-    fontSize:22,
-    textAlign:'center'
+  tituloCitas: {
+    fontFamily: "LexendExa_700Bold",
+    fontSize: 22,
+    textAlign: "center",
   },
-  buttonSeg:{
-    fontFamily:'Quicksand_600SemiBold',
-    fontSize:13
+  buttonSeg: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: 13,
   },
-  msgUser:{
-    fontFamily:'Quicksand_600SemiBold',
-    fontSize:14,
-    textAlign:'center',
-    marginHorizontal:20,
-    lineHeight:23,
-    marginTop:15
+  msgUser: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: 14,
+    textAlign: "center",
+    marginHorizontal: 20,
+    lineHeight: 23,
+    marginTop: 15,
   },
-  contDetalleCita:{
-    backgroundColor:'#fff',
-    borderWidth:1,
-    borderRadius:15,
-    paddingHorizontal:20,
-    paddingTop:20
+  contDetalleCita: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderRadius: 15,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    width: 370,
+    marginRight: 25,
+    paddingBottom: 20,
   },
-  titleDetalle:{
-    fontFamily:'LexendExa_700Bold',
-    textAlign:'center',
-    fontSize:15
+  titleDetalle: {
+    fontFamily: "LexendExa_700Bold",
+    textAlign: "center",
+    fontSize: 15,
   },
-  coleccionCitas:{
-    marginHorizontal:20,
-    marginTop:20,
-    flexGrow:1
+  coleccionCitas: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    flexGrow: 1,
   },
-  labelDetalle:{
-    fontFamily:'LexendExa_700Bold',
-    fontSize:12,
+  labelDetalle: {
+    fontFamily: "LexendExa_700Bold",
+    fontSize: 12,
   },
-  textoDetalle:{
-    fontFamily:'LexendExa_500Medium',
-    fontSize:12
-  }
-
+  textoDetalle: {
+    fontFamily: "LexendExa_500Medium",
+    fontSize: 12,
+    flexWrap: "wrap",
+  },
+  botonCancelar: {
+    width:'60%',
+    marginTop:10,
+    marginLeft:'auto',
+    marginRight:'auto',
+  
+  },
+  espacioDetalle: {
+    marginBottom: 10,
+  },
 });
 
 export default globalStyles;

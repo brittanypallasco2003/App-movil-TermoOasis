@@ -33,24 +33,24 @@ const DetalleCita = ({ item }) => {
       <Headline style={globalStyles.titleDetalle}>
         Información de la cita
       </Headline>
-      <Text style={globalStyles.labelDetalle}>
+      <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Fecha:{" "}
         <Text style={globalStyles.textoDetalle}>{formatearFecha(start)}</Text>
       </Text>
-      <Text style={globalStyles.labelDetalle}>
+      <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Hora:{" "}
         <Text style={globalStyles.textoDetalle}>
           {formatearFechaHora(start)}
         </Text>
       </Text>
-      <Text style={globalStyles.labelDetalle}>
+      <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Lugar:{" "}
         <Text style={globalStyles.textoDetalle}>
           detrás del Estadio del Aucas, Apuela S28-180 Y, Quito 170606
         </Text>
       </Text>
       {isPaciente && (
-        <Text style={globalStyles.labelDetalle}>
+        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
           Doctor:{" "}
           <Text
             style={globalStyles.textoDetalle}
@@ -58,13 +58,13 @@ const DetalleCita = ({ item }) => {
         </Text>
       )}
           {isDoctor && (
-            <Text style={globalStyles.labelDetalle}>
+            <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
               Correo electrónico
               <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
             </Text>
           )}
       {isDoctor && (
-        <Text style={globalStyles.labelDetalle}>
+        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
           Paciente:{" "}
           <Text
             style={globalStyles.textoDetalle}
@@ -74,7 +74,8 @@ const DetalleCita = ({ item }) => {
       {fechaCita > fechaHoy && isPaciente && (
         <Button
           mode="contained"
-          labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
+          labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize:13 }}
+          style={[globalStyles.botonCancelar]}
         >
           Cancelar Cita
         </Button>

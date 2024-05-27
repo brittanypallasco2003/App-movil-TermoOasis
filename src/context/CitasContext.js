@@ -10,10 +10,7 @@ import {
   obtener_citas_paciente_especifico,
   obtener_todas_citas,
 } from "../api/api_citas";
-import {
-  guardarCitasStorage,
-  obtenerTokenStorage,
-} from "../model/storage";
+import { guardarCitasStorage, obtenerTokenStorage } from "../model/storage";
 import { AuthContext } from "./AuthContext";
 
 export const CitasContext = createContext();
@@ -24,12 +21,17 @@ export const CitasProvider = ({ children }) => {
   const [citasRealizadas, setCitasRealizadas] = useState([]);
   const [citasCanceladas, setCitasCanceladas] = useState([]);
   const [citasPendientes, setCitasPendientes] = useState([]);
-  const [detallesCitas, setdetallesCitas] = useState([])
+  const [detallesCitas, setdetallesCitas] = useState([]);
   const [tipoCita, settipoCita] = useState("");
-  // const [botonCancel, setbotonCancel] = useState(false)
+  const [loadDetalle, setloadDetalle] = useState(false);
 
-  const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida, userToken } =
-    useContext(AuthContext);
+  const {
+    guardarMensaje,
+    mostrarAlerta,
+    isLoggedIn,
+    infoUsuariObtenida,
+    userToken,
+  } = useContext(AuthContext);
 
   const { _id, isDoctor, isPaciente } = infoUsuariObtenida;
 
@@ -39,8 +41,14 @@ export const CitasProvider = ({ children }) => {
     setCitasRealizadas([]);
     setMarkdates({});
     settipoCita("");
-    setdetallesCitas([])
+    setdetallesCitas([]);
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    setdetallesCitas([])
+  }, [tipoCita])
+  
+
 
   const obtenerCitas = async () => {
     try {
@@ -128,9 +136,9 @@ export const CitasProvider = ({ children }) => {
       );
       console.log("estas son las citas pendientes", citasPendientes);
       setCitasPendientes(citasPendientes);
+      settipoCita("Pendientes");
       const fechasMarcadas = marcarFechas(citasPendientes);
       setMarkdates(fechasMarcadas);
-      settipoCita("Pendientes");
     } catch (error) {
       console.log(error);
     } finally {
@@ -141,6 +149,7 @@ export const CitasProvider = ({ children }) => {
   const obtenerCitasRealizadas = useCallback(async () => {
     try {
       setLoadingCalendar(true);
+      settipoCita("Realizadas");
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
@@ -159,7 +168,7 @@ export const CitasProvider = ({ children }) => {
       setCitasRealizadas(citasRealizadas);
       const fechasMarcadas = marcarFechas(citasRealizadas);
       setMarkdates(fechasMarcadas);
-      settipoCita("Realizadas");
+      
     } catch (error) {
       console.log(error);
     } finally {
@@ -170,6 +179,7 @@ export const CitasProvider = ({ children }) => {
   const obtenerCitasCanceladas = useCallback(async () => {
     try {
       setLoadingCalendar(true);
+      settipoCita("Canceladas");
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
@@ -183,7 +193,7 @@ export const CitasProvider = ({ children }) => {
       setCitasCanceladas(citasCanceladas);
       const fechasMarcadas = marcarFechas(citasCanceladas);
       setMarkdates(fechasMarcadas);
-      settipoCita("Canceladas");
+      
     } catch (error) {
       console.log(error);
     } finally {
@@ -203,56 +213,64 @@ export const CitasProvider = ({ children }) => {
     }, {});
   };
 
-  const obtenerCitasFecha = async(fechaSeleccionada) => {
-    if (
-      fechaSeleccionada &&
-      Object.keys(markDates).length === 0 &&
-      citasRealizadas.length === 0 &&
-      citasPendientes.length === 0 &&
-      citasCanceladas.length === 0 &&
-      tipoCita === ""
-    ) {
-      guardarMensaje(
-        "Lo sentimos, primero debes seleccionar el tipo de cita que quieras visualizar"
-      );
-      mostrarAlerta(true);
-    } else {
-      if (markDates[fechaSeleccionada]) {
-        console.log("esta es la fecha cita:", markDates[fechaSeleccionada]);
-        const citasParaFecha = markDates[fechaSeleccionada];
-        const ids = citasParaFecha.dots.map(dot => dot.key);
-        try {
-          const token=userToken
-          console.log(token)
-          const peticionesCitas=ids.map((id) => obtener_cita_id(id,token))
-          const respuestas=await Promise.all(peticionesCitas)
-          // console.log('Respuestas de las citas',respuestas)
-          const datosCitas=respuestas.map(res=>res.data.data)
-        const citasAgendadasFil=datosCitas.map((citaF) => ({
-          idCita:citaF._id,
-          start:citaF.start,
-          end:citaF.end,
-          registroMedico:citaF.registroMedico,
-          nombrePaciente:citaF.idPaciente.nombre,
-          apellidoPaciente: citaF.idPaciente.apellido,
-          emailPaciente:citaF.idPaciente.email,
-          nombreDoctor:citaF.idDoctor.nombre,
-          apellidoDoctor:citaF.idDoctor.apellido
-         }))
-         console.log('estas son las citas agendadas filtradas: ',citasAgendadasFil)
-        setdetallesCitas(citasAgendadasFil)
-        } catch (error) {
-          console.error('Error al hacer peticiones a la API: ',error)
+  const obtenerCitasFecha = async (fechaSeleccionada) => {
+    try {
+      setloadDetalle(true)
+      setdetallesCitas([])
+      if (
+        fechaSeleccionada &&
+        Object.keys(markDates).length === 0 &&
+        citasRealizadas.length === 0 &&
+        citasPendientes.length === 0 &&
+        citasCanceladas.length === 0 &&
+        tipoCita === ""
+      ) {
+        guardarMensaje(
+          "Lo sentimos, primero debes seleccionar el tipo de cita que quieras visualizar"
+        );
+        mostrarAlerta(true);
+      } else {
+        if (markDates[fechaSeleccionada]) {
+          console.log("esta es la fecha cita:", markDates[fechaSeleccionada]);
+          const citasParaFecha = markDates[fechaSeleccionada];
+          const ids = citasParaFecha.dots.map((dot) => dot.key);
+          try {
+            const token = userToken;
+            console.log(token);
+            const peticionesCitas = ids.map((id) => obtener_cita_id(id, token));
+            const respuestas = await Promise.all(peticionesCitas);
+            // console.log('Respuestas de las citas',respuestas)
+            const datosCitas = respuestas.map((res) => res.data.data);
+            const citasAgendadasFil = datosCitas.map((citaF) => ({
+              idCita: citaF._id,
+              start: citaF.start,
+              end: citaF.end,
+              registroMedico: citaF.registroMedico,
+              nombrePaciente: citaF.idPaciente.nombre,
+              apellidoPaciente: citaF.idPaciente.apellido,
+              emailPaciente: citaF.idPaciente.email,
+              nombreDoctor: citaF.idDoctor.nombre,
+              apellidoDoctor: citaF.idDoctor.apellido,
+            }));
+            console.log(
+              "estas son las citas agendadas filtradas: ",
+              citasAgendadasFil
+            );
+            setdetallesCitas(citasAgendadasFil);
+          } catch (error) {
+            console.error("Error al hacer peticiones a la API: ", error);
+          }
+        } else {
+          guardarMensaje("No tienes una cita agendada ese día");
+          mostrarAlerta(true);
         }
-      }else{
-        guardarMensaje('No tienes una cita agendada ese día')
-        mostrarAlerta(true)
       }
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setloadDetalle(false)
     }
   };
-
-
-
 
   return (
     <CitasContext.Provider
@@ -270,6 +288,7 @@ export const CitasProvider = ({ children }) => {
         markDates,
         tipoCita,
         detallesCitas,
+        loadDetalle
       }}
     >
       {children}

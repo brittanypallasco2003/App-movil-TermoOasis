@@ -18,6 +18,7 @@ const CalendarioCitas = () => {
     markDates,
     tipoCita,
     detallesCitas,
+    loadDetalle,
   } = useContext(CitasContext);
 
   return (
@@ -68,12 +69,18 @@ const CalendarioCitas = () => {
 
         <BotonSegmentado />
         <Calendario markedDates={markDates} />
-        {detallesCitas.length == 0 && Object.keys(markDates).length > 0 && (
-          <Headline style={globalStyles.msgUser}>
-            Selecciona alguna de las fechas marcadas para ver tus citas
-            programadas de ese día
-          </Headline>
+        {loadDetalle ? (
+          <LoadingCalendar />
+        ) : (
+          detallesCitas.length == 0 &&
+          Object.keys(markDates).length > 0 && (
+            <Headline style={globalStyles.msgUser}>
+              Selecciona alguna de las fechas marcadas para ver tus citas
+              programadas de ese día
+            </Headline>
+          )
         )}
+
         <FlatList
           style={globalStyles.coleccionCitas}
           horizontal={true}
