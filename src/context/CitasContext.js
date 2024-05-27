@@ -26,6 +26,7 @@ export const CitasProvider = ({ children }) => {
   const [citasPendientes, setCitasPendientes] = useState([]);
   const [detallesCitas, setdetallesCitas] = useState([])
   const [tipoCita, settipoCita] = useState("");
+  // const [botonCancel, setbotonCancel] = useState(false)
 
   const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida, userToken } =
     useContext(AuthContext);
@@ -130,19 +131,6 @@ export const CitasProvider = ({ children }) => {
       const fechasMarcadas = marcarFechas(citasPendientes);
       setMarkdates(fechasMarcadas);
       settipoCita("Pendientes");
-      // const citasStorage = await obtenerCitasStorage();
-      // const citas = JSON.parse(citasStorage);
-      // if (citas) {
-      //   const fechaHoy = new Date();
-      //   const citasPendientes = citas.filter(
-      //     (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
-      //   );
-      //   console.log("estas son las citasPendientes", citasPendientes);
-      //   setCitasPendientes(citasPendientes);
-      //   const fechasMarcadas = marcarFechas(citasPendientes);
-      //   setMarkdates(fechasMarcadas);
-      //   settipoCita("Pendientes");
-      // }
     } catch (error) {
       console.log(error);
     } finally {
@@ -240,21 +228,6 @@ export const CitasProvider = ({ children }) => {
           const respuestas=await Promise.all(peticionesCitas)
           // console.log('Respuestas de las citas',respuestas)
           const datosCitas=respuestas.map(res=>res.data.data)
-
-        //   respuestas.forEach(respuesta => {
-        //     console.log(respuesta.data.data);
-        //      const citasAgendadasD=respuesta.data.data
-        //     // const citasFormtP = citas.map((citaFormateada) => ({
-        //     //   idCita: citaFormateada._id,
-        //     //   start: new Date(citaFormateada.start),
-        //     //   end: new Date(citaFormateada.end),
-        //     //   idPaciente: citaFormateada.idPaciente._id,
-        //     //   nombreDoctor: citaFormateada.idDoctor.nombre,
-        //     //   apellidoDoctor: citaFormateada.idDoctor.apellido,
-        //     //   citaCancelada: citaFormateada.isCancelado,
-        //     // }));
-        // });
-        
         const citasAgendadasFil=datosCitas.map((citaF) => ({
           idCita:citaF._id,
           start:citaF.start,
@@ -278,6 +251,9 @@ export const CitasProvider = ({ children }) => {
     }
   };
 
+
+
+
   return (
     <CitasContext.Provider
       value={{
@@ -293,7 +269,7 @@ export const CitasProvider = ({ children }) => {
         citasCanceladas,
         markDates,
         tipoCita,
-        detallesCitas
+        detallesCitas,
       }}
     >
       {children}

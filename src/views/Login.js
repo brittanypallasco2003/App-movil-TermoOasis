@@ -24,53 +24,6 @@ const Login = ({ navigation }) => {
   //CONTEXT
   const { iniciarSesion } = useContext(AuthContext);
 
-  // const verificarCorreoIngresado = textoIngresado => {
-  //   let re = /\S+@\S+\.\S+/;
-  //   //si el correo no cumple con el formato salta la alerta
-  //   if (!re.test(textoIngresado)) {
-  //     guardarMensaje('Formato de correo Inválido');
-  //     return true;
-  //   }
-  // };
-
-  //INICIAR SESIÓN
-  // const iniciarSesion = async () => {
-  //   //VALIDAR
-  //   //todos los campos
-  //   if (correoForm === '' || passwordForm === '') {
-  //     guardarMensaje('Todos los campos son obligatorios');
-  //     return;
-  //   }
-  //   //formato del correo
-  //   if (correoForm.length > 0 && passwordForm.length > 0) {
-  //     let correoInvalido=verificarCorreoIngresado(correoForm);
-  //     if(correoInvalido) return
-
-  //   }
-  //   //AUTENTICAR USUARIO
-
-  //   const usuarioLogueado = {
-  //     email: correoForm.toLocaleLowerCase(),
-  //     contraseña: passwordForm,
-  //   };
-  //   console.log(usuarioLogueado);
-  //   try {
-  //     const response = await axios.post(
-  //       'https://backend-termo-oasis.vercel.app/api/login',
-  //       usuarioLogueado,
-  //     );
-  //     console.log(response.data);
-  //     //Colocar token en storage
-  //     const {token} = response.data;
-  //     await AsyncStorage.setItem('token', token);
-  //     console.log(token);
-  //     //REDIRECCIONAR
-  //     navigate('Perfil');
-  //   } catch (error) {
-  //     guardarMensaje(error.response.data.msg);
-  //   }
-  // };
-
   return (
     <SafeAreaView
       style={[

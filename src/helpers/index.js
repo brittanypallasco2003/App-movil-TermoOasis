@@ -23,3 +23,4 @@ export const formatearFechaHora = (fechaFormatear) => {
   const horarioCita = `${horaCita}:${minutes} ${amPm}`;
   return horarioCita
 };
+

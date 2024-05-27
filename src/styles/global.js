@@ -1,3 +1,4 @@
+import { LexendExa_500Medium, LexendExa_600SemiBold, LexendExa_700Bold } from "@expo-google-fonts/lexend-exa";
 import { StyleSheet } from "react-native";
 const globalStyles = StyleSheet.create({
   contenedor: {
@@ -83,7 +84,33 @@ const globalStyles = StyleSheet.create({
     marginHorizontal:20,
     lineHeight:23,
     marginTop:15
+  },
+  contDetalleCita:{
+    backgroundColor:'#fff',
+    borderWidth:1,
+    borderRadius:15,
+    paddingHorizontal:20,
+    paddingTop:20
+  },
+  titleDetalle:{
+    fontFamily:'LexendExa_700Bold',
+    textAlign:'center',
+    fontSize:15
+  },
+  coleccionCitas:{
+    marginHorizontal:20,
+    marginTop:20,
+    flexGrow:1
+  },
+  labelDetalle:{
+    fontFamily:'LexendExa_700Bold',
+    fontSize:12,
+  },
+  textoDetalle:{
+    fontFamily:'LexendExa_500Medium',
+    fontSize:12
   }
+
 });
 
 export default globalStyles;
