@@ -24,6 +24,7 @@ export const CitasProvider = ({ children }) => {
   const [citasRealizadas, setCitasRealizadas] = useState([]);
   const [citasCanceladas, setCitasCanceladas] = useState([]);
   const [citasPendientes, setCitasPendientes] = useState([]);
+  const [detallesCitas, setdetallesCitas] = useState([])
   const [tipoCita, settipoCita] = useState("");
 
   const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida, userToken } =
@@ -37,6 +38,7 @@ export const CitasProvider = ({ children }) => {
     setCitasRealizadas([]);
     setMarkdates({});
     settipoCita("");
+    setdetallesCitas([])
   }, [isLoggedIn]);
 
   const obtenerCitas = async () => {
@@ -233,14 +235,39 @@ export const CitasProvider = ({ children }) => {
         const ids = citasParaFecha.dots.map(dot => dot.key);
         try {
           const token=userToken
+          console.log(token)
           const peticionesCitas=ids.map((id) => obtener_cita_id(id,token))
-
           const respuestas=await Promise.all(peticionesCitas)
-          console.log('Respuestas de las citas',respuestas)
-          respuestas.forEach(respuesta => {
-            console.log(respuesta.data);
-        });
-          
+          // console.log('Respuestas de las citas',respuestas)
+          const datosCitas=respuestas.map(res=>res.data.data)
+
+        //   respuestas.forEach(respuesta => {
+        //     console.log(respuesta.data.data);
+        //      const citasAgendadasD=respuesta.data.data
+        //     // const citasFormtP = citas.map((citaFormateada) => ({
+        //     //   idCita: citaFormateada._id,
+        //     //   start: new Date(citaFormateada.start),
+        //     //   end: new Date(citaFormateada.end),
+        //     //   idPaciente: citaFormateada.idPaciente._id,
+        //     //   nombreDoctor: citaFormateada.idDoctor.nombre,
+        //     //   apellidoDoctor: citaFormateada.idDoctor.apellido,
+        //     //   citaCancelada: citaFormateada.isCancelado,
+        //     // }));
+        // });
+        
+        const citasAgendadasFil=datosCitas.map((citaF) => ({
+          idCita:citaF._id,
+          start:citaF.start,
+          end:citaF.end,
+          registroMedico:citaF.registroMedico,
+          nombrePaciente:citaF.idPaciente.nombre,
+          apellidoPaciente: citaF.idPaciente.apellido,
+          emailPaciente:citaF.idPaciente.email,
+          nombreDoctor:citaF.idDoctor.nombre,
+          apellidoDoctor:citaF.idDoctor.apellido
+         }))
+         console.log('estas son las citas agendadas filtradas: ',citasAgendadasFil)
+        setdetallesCitas(citasAgendadasFil)
         } catch (error) {
           console.error('Error al hacer peticiones a la API: ',error)
         }
@@ -266,6 +293,7 @@ export const CitasProvider = ({ children }) => {
         citasCanceladas,
         markDates,
         tipoCita,
+        detallesCitas
       }}
     >
       {children}
