@@ -30,7 +30,9 @@ const DetalleCita = ({ item }) => {
         { borderColor: theme.colors.primaryContainer },
       ]}
     >
-      <Headline style={globalStyles.titleDetalle}>
+      <Headline
+        style={[globalStyles.titleDetalle, globalStyles.espacioDetalle]}
+      >
         Información de la cita
       </Headline>
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
@@ -57,12 +59,6 @@ const DetalleCita = ({ item }) => {
           >{`${nombreDoctor} ${apellidoDoctor}`}</Text>
         </Text>
       )}
-          {isDoctor && (
-            <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
-              Correo electrónico
-              <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
-            </Text>
-          )}
       {isDoctor && (
         <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
           Paciente:{" "}
@@ -71,10 +67,16 @@ const DetalleCita = ({ item }) => {
           >{`${nombrePaciente} ${apellidoPaciente}`}</Text>
         </Text>
       )}
+      {isDoctor && (
+        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
+          Correo electrónico:{" "}
+          <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
+        </Text>
+      )}
       {fechaCita > fechaHoy && isPaciente && (
         <Button
           mode="contained"
-          labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize:13 }}
+          labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize: 13 }}
           style={[globalStyles.botonCancelar]}
         >
           Cancelar Cita

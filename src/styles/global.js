@@ -71,6 +71,7 @@ const globalStyles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 13,
     borderWidth: 1,
+    marginBottom:20
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
@@ -94,21 +95,24 @@ const globalStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 15,
     width: 370,
-    marginRight: 25,
+    justifyContent:'center',
+    marginLeft:20,
     paddingBottom: 20,
-  },
+    marginBottom:25,
+    height:255
+    },
   titleDetalle: {
     fontFamily: "LexendExa_700Bold",
     textAlign: "center",
     fontSize: 15,
   },
-  coleccionCitas: {
-    marginHorizontal: 20,
-    marginTop: 20,
-    flexGrow: 1,
-  },
+  // coleccionCitas: {
+  //   marginLeft:20,
+  //   marginBottom:20,
+
+  // },
   labelDetalle: {
     fontFamily: "LexendExa_700Bold",
     fontSize: 12,
@@ -123,10 +127,43 @@ const globalStyles = StyleSheet.create({
     marginTop:10,
     marginLeft:'auto',
     marginRight:'auto',
-  
   },
   espacioDetalle: {
     marginBottom: 10,
+  },
+  // swiperContainer: {
+  //   width: '100%',
+  //   flex:1, // Ajusta según sea necesario
+  //   marginTop: 20,
+  //   height:200,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // swiperSlide: {
+  //   width: 350, // Ajusta según sea necesario
+  //   paddingHorizontal: 10,
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  paginationStyle: {
+    position: 'absolute',
+    bottom: -4,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 2,
+    backgroundColor: '#888',
+  },
+  paginationDotActive: {
+    backgroundColor: '#F27F1B', // Color activo para la paginación
   },
 });
 
