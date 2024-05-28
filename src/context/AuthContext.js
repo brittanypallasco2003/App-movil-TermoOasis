@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useEffect, useState } from "react";
 import { user_login, user_restablecer } from "../api/api_user";
-import { eliminarCitaStorage } from "../model/storage";
+import { eliminarCitaStorage } from "../storage/storage";
 
 
 export const AuthContext = createContext();

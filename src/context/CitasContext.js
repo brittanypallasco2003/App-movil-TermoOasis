@@ -10,7 +10,7 @@ import {
   obtener_citas_paciente_especifico,
   obtener_todas_citas,
 } from "../api/api_citas";
-import { guardarCitasStorage, obtenerTokenStorage } from "../model/storage";
+import { guardarCitasStorage, obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
 
 export const CitasContext = createContext();
