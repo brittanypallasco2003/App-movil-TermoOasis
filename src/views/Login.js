@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
-import { TextInput, Button, Headline } from "react-native-paper";
+import { Text, Image, ScrollView, Dimensions, View } from "react-native";
+import { TextInput, Button } from "react-native-paper";
 
 import globalStyles from "../styles/global";
 import { AuthContext } from "../context/AuthContext";
@@ -8,8 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Alerta from "../components/Alerta";
-import { scale } from 'react-native-size-matters';
-import CustomTextInput from "../components/input";
+import { moderateScale, scale } from "react-native-size-matters";
 
 const Login = ({ navigation }) => {
   const theme = useTheme();
@@ -25,8 +24,8 @@ const Login = ({ navigation }) => {
 
   //CONTEXT
   const { iniciarSesion } = useContext(AuthContext);
-  const { width } = Dimensions.get('window');
-  const isTablet = width >= 768
+  const { width } = Dimensions.get("window");
+  const isTablet = width >= 768;
   return (
     <SafeAreaView
       style={[
@@ -35,9 +34,7 @@ const Login = ({ navigation }) => {
       ]}
     >
       <ScrollView
-        contentContainerStyle={[
-          globalStyles.contentScroll,
-        ]}
+        contentContainerStyle={[globalStyles.contentScroll]}
         showsVerticalScrollIndicator={false}
       >
         <Text
@@ -66,11 +63,12 @@ const Login = ({ navigation }) => {
             Oasis
           </Text>
         </Text>
-
-        <Image
-          style={globalStyles.logo}
-          source={require("../../assets/logoTermo.png")}
-        />
+        <View style={globalStyles.logoContainer}>
+          <Image
+            style={globalStyles.logo}
+            source={require("../../assets/logoTermo.png")}
+          />
+        </View>
 
         <Text style={[globalStyles.textos]}>
           Inicia Sesión con las credenciales enviadas a tu correo
@@ -78,7 +76,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={[globalStyles.inputInicio]}
           underlineStyle={{
-            borderWidth: 0.7,
+            borderWidth: moderateScale(0.8),
             borderColor: theme.colors.primary,
           }}
           textColor="#fff"
@@ -89,15 +87,15 @@ const Login = ({ navigation }) => {
         />
         {}
         <TextInput
-        //mode="outlined"
-        theme={{fonts:{labelSmall:{fontSize:13}}}}
+          //mode="outlined"
+          theme={{ fonts: { labelSmall: { fontSize: 13 } } }}
           style={[globalStyles.inputInicio]}
           underlineStyle={{
             borderColor: theme.colors.primary,
-            borderWidth: 0.8,
+            borderWidth: moderateScale(0.8),
           }}
           contentStyle={globalStyles.contentInput}
-          label="Password"
+          label="Contraseña"
           value={passwordForm}
           textColor="#fff"
           // se oculta cambiando a true
@@ -106,7 +104,7 @@ const Login = ({ navigation }) => {
             <TextInput.Icon
               icon={mostrarPassword ? "eye" : "eye-off"}
               color="#fff"
-              size={isTablet? scale(15): scale(18)}
+              size={isTablet ? scale(15) : scale(18)}
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
             />
@@ -125,7 +123,9 @@ const Login = ({ navigation }) => {
         </Button>
 
         <Button
-          mode="contained"
+          mode="elevated"
+          buttonColor={theme.colors.primary}
+          textColor="#fff"
           labelStyle={globalStyles.LabelbotonContain}
           style={globalStyles.botonLogin}
           contentStyle={globalStyles.contentStyleLogin}
@@ -141,6 +141,5 @@ const Login = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
 
 export default Login;

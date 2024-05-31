@@ -1,10 +1,17 @@
 import React, { useState, useContext } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Headline, TextInput, Button } from "react-native-paper";
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { TextInput, Button } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { useTheme } from "react-native-paper";
 import { AuthContext } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const RestablecerPassword = ({ navigation }) => {
   const [nombreForm, setNombreForm] = useState("");
@@ -22,72 +29,88 @@ const RestablecerPassword = ({ navigation }) => {
       ]}
     >
       <ScrollView
-      contentContainerStyle={globalStyles.contentScroll}
-      showsVerticalScrollIndicator={false}>
+        contentContainerStyle={globalStyles.contentScroll}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={[globalStyles.contentenidoTarjeta]}>
-          <Headline
-            style={[
-              globalStyles.titleRestablecer,
-              { color: theme.colors.secondary, marginTop: 20 },
-            ]}
-          >
-            Restablecer Contraseña
-          </Headline>
-          <Text
-            style={[globalStyles.textoDescripcion, { color: theme.colors.secondary }]}
-          >
-            Ingresa tu nombre, apellido y correo electrónico para que puedas recuperar de tu cuenta
-          </Text>
-          <TextInput
-            label={"Nombre"}
-            value={nombreForm}
-            onChangeText={(texto) => setNombreForm(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer]}
-            underlineStyle={{
-              borderWidth: 0.8,
-              borderColor: theme.colors.secondary,
-            }}
-          />
-          <TextInput
-            label={"Apellido"}
-            value={apellidoForm}
-            onChangeText={(texto) => setApellidoForm(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer,]}
-            underlineStyle={{
-              borderWidth: 0.8,
-              borderColor: theme.colors.secondary,
-            }}
-          />
-          <TextInput
-            label={"Correo electrónico"}
-            value={correoRestablecer}
-            keyboardType={"email-address"}
-            onChangeText={(texto) => setCorreoRestablecer(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer, { marginBottom: 45 }]}
-            underlineStyle={{
-              borderWidth: 0.8,
-              borderColor: theme.colors.secondary,
-            }}
-          />
+            <Text
+              style={[
+                globalStyles.titleRestablecer,
+                { color: theme.colors.secondary },
+              ]}
+            >
+              Restablecer Contraseña
+            </Text>
+            <Text
+              style={[
+                globalStyles.textoDescripcion,
+                { color: theme.colors.secondary },
+              ]}
+            >
+              Ingresa tu nombre, apellido y correo electrónico para que puedas
+              recuperar de tu cuenta
+            </Text>
+            <TextInput
+              label={"Nombre"}
+              value={nombreForm}
+              onChangeText={(texto) => setNombreForm(texto)}
+              selectionColor={theme.colors.secondary}
+              activeUnderlineColor={theme.colors.secondary}
+              cursorColor={theme.colors.secondary}
+              textColor={theme.colors.secondary}
+              style={[globalStyles.inputRestablecer]}
+              underlineStyle={{
+                borderWidth: moderateScale(0.8),
+                borderColor: theme.colors.secondary,
+              }}
+            />
+            <TextInput
+              label={"Apellido"}
+              value={apellidoForm}
+              onChangeText={(texto) => setApellidoForm(texto)}
+              selectionColor={theme.colors.secondary}
+              activeUnderlineColor={theme.colors.secondary}
+              cursorColor={theme.colors.secondary}
+              textColor={theme.colors.secondary}
+              style={[globalStyles.inputRestablecer]}
+              underlineStyle={{
+                borderWidth: moderateScale(0.8),
+                borderColor: theme.colors.secondary,
+              }}
+            />
+            <TextInput
+              label={"Correo electrónico"}
+              value={correoRestablecer}
+              keyboardType={"email-address"}
+              onChangeText={(texto) => setCorreoRestablecer(texto)}
+              selectionColor={theme.colors.secondary}
+              activeUnderlineColor={theme.colors.secondary}
+              cursorColor={theme.colors.secondary}
+              textColor={theme.colors.secondary}
+              style={[
+                globalStyles.inputRestablecer,
+                { marginBottom: verticalScale(25) },
+              ]}
+              underlineStyle={{
+                borderWidth: moderateScale(0.8),
+                borderColor: theme.colors.secondary,
+              }}
+            />
         </View>
-        <View style={{marginHorizontal:20}}>
+        <View style={{ marginHorizontal: moderateScale(25) }}>
           <Button
-            mode="contained"
-            labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
-            style={{ marginTop: 35 }}
-            onPress={() => restablecerPassword(nombreForm, apellidoForm,correoRestablecer.toLowerCase())}
+            mode="elevated"
+            buttonColor={theme.colors.primary}
+            textColor="#fff"
+            labelStyle={globalStyles.LabelbotonContain}
+            style={globalStyles.botonRecuperar}
+            onPress={() =>
+              restablecerPassword(
+                nombreForm,
+                apellidoForm,
+                correoRestablecer.toLowerCase()
+              )
+            }
           >
             Recuperar mi cuenta
           </Button>
@@ -110,7 +133,5 @@ const RestablecerPassword = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-
 
 export default RestablecerPassword;

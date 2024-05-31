@@ -1,67 +1,81 @@
-import { scale, verticalScale, moderateScale, moderateVerticalScale, } from 'react-native-size-matters';
-import { StyleSheet, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
-const isTablet = width >= 768
+import {
+  scale,
+  verticalScale,
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
+import { StyleSheet, Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 const globalStyles = StyleSheet.create({
   contenedor: {
     //toma todo el espacio disponible en la pantalla
     flex: 1,
-
   },
   tituloBienvenida: {
     textAlign: "center",
     fontSize: scale(22),
     color: "#fff",
-    marginTop:verticalScale(10),
+    marginTop: verticalScale(10),
     //padding:moderateScale(13),
-    marginBottom:moderateVerticalScale(15)
+    marginBottom: moderateVerticalScale(15),
   },
+  //inputs login
   inputInicio: {
     marginBottom: verticalScale(26),
     backgroundColor: "transparent",
     fontSize: scale(11),
-    marginHorizontal:moderateScale(25)
+    marginHorizontal: moderateScale(25),
   },
   tituloInicio: {
     fontSize: scale(32),
   },
-  contTI:{
-    marginLeft:'auto',
-    marginRight:'auto',
-    marginBottom:verticalScale(20)
-  },
-  logo: {
-    height: verticalScale(180),
-    aspectRatio: 1,
+  //contenedor Termo
+  contTI: {
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: verticalScale(30),
+    textAlign: "center",
+    marginBottom: verticalScale(20),
+  },
+  logo: {
+    height: verticalScale(170),
+    aspectRatio: 1,
+    flex:1,
+  },
+  logoContainer:{
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: verticalScale(25),
+    // Propiedad para la sombra en Android
+    elevation: moderateScale(10),
+    borderRadius: moderateScale(90), // Ajusta según sea necesario
+    overflow: 'hidden'
   },
   textos: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: scale(11.5),
     color: "#fff",
-    marginHorizontal:moderateScale(20),
+    marginHorizontal: moderateScale(20),
     textAlign: "center",
-    marginBottom: verticalScale(27)
+    marginBottom: verticalScale(27),
   },
   botonTextoLogin: {
     fontFamily: "Quicksand_600SemiBold",
-    padding:moderateScale(5),
+    padding: moderateScale(5),
     fontSize: scale(11.5),
-    marginBottom:verticalScale(27)
+    marginBottom: verticalScale(27),
   },
-  LabelbotonContain:{
-    fontFamily:"Quicksand_600SemiBold",
-    fontSize:scale(11.5),
-    padding: isTablet ? moderateScale(7) : moderateScale(0.5),
+  LabelbotonContain: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: scale(11.5),
+    paddingVertical: isTablet ? verticalScale(7) : moderateScale(0.5),
   },
-  botonLogin:{
-    width:'85%',
-   marginLeft:'auto',
-   marginRight:'auto',
-    borderRadius:moderateScale(15),
-    marginBottom:verticalScale(30)
+  botonLogin: {
+    width: "85%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: moderateScale(15),
+    marginBottom: verticalScale(30),
   },
 
   //PANTALLA RESTABLECER
@@ -72,48 +86,58 @@ const globalStyles = StyleSheet.create({
     fontFamily: "Quicksand_600SemiBold",
     fontSize: scale(11.5),
     color: "#fff",
-    textAlign: "center",
   },
   contentScroll: {
-    flexGrow:1,
-    justifyContent:'center',
-    //alignItems:'center'
+    flexGrow: 1,
+    justifyContent: "center",
   },
   titleRestablecer: {
     fontFamily: "LexendExa_600SemiBold",
-    fontSize: scale(19),
+    fontSize: scale(17),
     marginBottom: verticalScale(15),
-    paddingVertical:verticalScale(10),
+    //paddingVertical:verticalScale(10),
     textAlign: "center",
+    marginTop: verticalScale(12),
   },
   textoDescripcion: {
     fontFamily: "Quicksand_600SemiBold",
     textAlign: "center",
-    marginTop: 7,
+    marginTop: verticalScale(5),
     fontSize: scale(11.5),
-    lineHeight:21
+    lineHeight: scale(18),
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
-    borderRadius:moderateScale(15),
-    marginHorizontal: moderateScale(20),
-    paddingHorizontal: moderateScale(22),
+    borderRadius: moderateScale(15),
+    marginHorizontal: moderateScale(25),
+    paddingHorizontal: moderateScale(25),
+    paddingVertical: moderateScale(15),
   },
   inputRestablecer: {
     backgroundColor: "transparent",
-    fontSize: scale(12),
-    marginTop: verticalScale(20),
+    fontSize: scale(11),
+    marginTop: isTablet ? verticalScale(27) : verticalScale(13),
   },
-  botonTexto:{
+  //Boton para ir al inicio de sesión
+  botonTexto: {
     fontFamily: "Quicksand_600SemiBold",
-    padding:moderateScale(5),
+    paddingTop: isTablet ? verticalScale(8) : verticalScale(0),
     fontSize: scale(11.5),
   },
+  //boton recuperar
+  botonRecuperar: {
+    width: "85%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: verticalScale(40),
+    borderRadius: moderateScale(15),
+  },
   ContenedorBotonInicio: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 17,
+    marginTop: verticalScale(25),
   },
   imageLoader: {
     height: verticalScale(90),
@@ -137,7 +161,7 @@ const globalStyles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 13,
     borderWidth: 1,
-    marginBottom:20
+    marginBottom: 20,
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
@@ -163,13 +187,13 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 15,
     width: 370,
-    justifyContent:'center',
-    marginLeft:20,
+    justifyContent: "center",
+    marginLeft: 20,
     paddingBottom: 20,
-    marginBottom:25,
-    height:255,
-    marginRight:15
-    },
+    marginBottom: 25,
+    height: 255,
+    marginRight: 15,
+  },
   titleDetalle: {
     fontFamily: "LexendExa_700Bold",
     textAlign: "center",
@@ -190,10 +214,10 @@ const globalStyles = StyleSheet.create({
     flexWrap: "wrap",
   },
   botonCancelar: {
-    width:'60%',
-    marginTop:10,
-    marginLeft:'auto',
-    marginRight:'auto',
+    width: "60%",
+    marginTop: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   espacioDetalle: {
     marginBottom: 10,
@@ -214,23 +238,23 @@ const globalStyles = StyleSheet.create({
   //   alignItems: 'center',
   // },
   paginationStyle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: -4,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   paginationDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
     marginHorizontal: 2,
-    backgroundColor: '#888',
+    backgroundColor: "#888",
   },
   paginationDotActive: {
-    backgroundColor: '#F27F1B', // Color activo para la paginación
+    backgroundColor: "#F27F1B", // Color activo para la paginación
   },
 });
 

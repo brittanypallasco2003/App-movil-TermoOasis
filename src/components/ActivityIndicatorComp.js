@@ -2,7 +2,9 @@ import React from "react";
 import { ActivityIndicator, useTheme } from "react-native-paper";
 import { Image, View } from "react-native";
 import globalStyles from "../styles/global";
-
+import {
+  scale,
+} from "react-native-size-matters";
 const ActivityIndicatorComp = () => {
   const theme = useTheme();
   return (
@@ -18,7 +20,7 @@ const ActivityIndicatorComp = () => {
         style={globalStyles.imageLoader}
         source={require("../../assets/logoTermo.png")}
       />
-      <ActivityIndicator animating={true} size={65} />
+      <ActivityIndicator animating={true} size={scale(60)} />
     </View>
   );
 };
