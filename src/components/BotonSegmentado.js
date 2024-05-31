@@ -23,6 +23,7 @@ const BotonSegmentado = () => {
           label: "Pendientes",
           checkedColor: "#fff",
           labelStyle: globalStyles.buttonSeg,
+          showSelectedCheck:true,
           style: {
             borderColor: theme.colors.secondaryContainer,
             borderWidth: 1,
@@ -34,6 +35,7 @@ const BotonSegmentado = () => {
           label: "Realizadas",
           checkedColor: "#fff",
           labelStyle: globalStyles.buttonSeg,
+          showSelectedCheck:true,
           style: {
             borderColor: theme.colors.secondaryContainer,
             borderWidth: 1,
@@ -44,6 +46,7 @@ const BotonSegmentado = () => {
           value: "Canceladas",
           label: "Canceladas",
           checkedColor: "#fff",
+          showSelectedCheck:true,
           labelStyle: globalStyles.buttonSeg,
           style: {
             borderColor: theme.colors.secondaryContainer,

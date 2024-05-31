@@ -9,6 +9,7 @@ import {
   obtener_cita_id,
   obtener_citas_paciente_especifico,
   obtener_todas_citas,
+  eliminarCita,
 } from "../api/api_citas";
 import { guardarCitasStorage, obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
@@ -24,6 +25,7 @@ export const CitasProvider = ({ children }) => {
   const [detallesCitas, setdetallesCitas] = useState([]);
   const [tipoCita, settipoCita] = useState("");
   const [loadDetalle, setloadDetalle] = useState(false);
+  const [loadBotonCancel, setloadBotonCancel] = useState(false);
 
   const {
     guardarMensaje,
@@ -45,10 +47,8 @@ export const CitasProvider = ({ children }) => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    setdetallesCitas([])
-  }, [tipoCita])
-  
-
+    setdetallesCitas([]);
+  }, [tipoCita]);
 
   const obtenerCitas = async () => {
     try {
@@ -97,15 +97,17 @@ export const CitasProvider = ({ children }) => {
 
         const citasFormtP = citas.map((citaFormateada) => ({
           idCita: citaFormateada._id,
-          start: new Date(citaFormateada.start),
-          end: new Date(citaFormateada.end),
+          start: citaFormateada.start,
+          end: citaFormateada.end,
           idPaciente: citaFormateada.idPaciente._id,
           nombreDoctor: citaFormateada.idDoctor.nombre,
           apellidoDoctor: citaFormateada.idDoctor.apellido,
           citaCancelada: citaFormateada.isCancelado,
         }));
-        console.log("esta es la respuesta de las citas p: ", citasFormtP);
-        await guardarCitasStorage(citasFormtP);
+        console.log(
+          "esta es la respuesta de las citas todas, antes de su tipo: ",
+          citasFormtP
+        );
         return citasFormtP;
       } else {
         throw new Error("Respuesta inválida del servidor");
@@ -138,6 +140,7 @@ export const CitasProvider = ({ children }) => {
       setCitasPendientes(citasPendientes);
       settipoCita("Pendientes");
       const fechasMarcadas = marcarFechas(citasPendientes);
+      console.log("fecha pendiente marcada: ", fechasMarcadas);
       setMarkdates(fechasMarcadas);
     } catch (error) {
       console.log(error);
@@ -168,7 +171,6 @@ export const CitasProvider = ({ children }) => {
       setCitasRealizadas(citasRealizadas);
       const fechasMarcadas = marcarFechas(citasRealizadas);
       setMarkdates(fechasMarcadas);
-      
     } catch (error) {
       console.log(error);
     } finally {
@@ -193,7 +195,6 @@ export const CitasProvider = ({ children }) => {
       setCitasCanceladas(citasCanceladas);
       const fechasMarcadas = marcarFechas(citasCanceladas);
       setMarkdates(fechasMarcadas);
-      
     } catch (error) {
       console.log(error);
     } finally {
@@ -203,20 +204,25 @@ export const CitasProvider = ({ children }) => {
 
   const marcarFechas = (citas) => {
     return citas.reduce((acc, cita) => {
-      const date = new Date(cita.start).toISOString().split("T")[0];
-      if (acc[date]) {
-        acc[date].dots.push({ key: cita.idCita, color: "#F27F1B" });
+      const date = new Date(cita.start);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son de 0-11
+      const day = String(date.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+  
+      if (acc[formattedDate]) {
+        acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B" });
       } else {
-        acc[date] = { dots: [{ key: cita.idCita, color: "#F27F1B" }] };
+        acc[formattedDate] = { dots: [{ key: cita.idCita, color: "#F27F1B" }] };
       }
       return acc;
     }, {});
-  };
+  }
 
   const obtenerCitasFecha = async (fechaSeleccionada) => {
     try {
-      setloadDetalle(true)
-      setdetallesCitas([])
+      setloadDetalle(true);
+      setdetallesCitas([]);
       if (
         fechaSeleccionada &&
         Object.keys(markDates).length === 0 &&
@@ -245,6 +251,7 @@ export const CitasProvider = ({ children }) => {
               idCita: citaF._id,
               start: citaF.start,
               end: citaF.end,
+              isCancel: citaF.isCancelado,
               registroMedico: citaF.registroMedico,
               nombrePaciente: citaF.idPaciente.nombre,
               apellidoPaciente: citaF.idPaciente.apellido,
@@ -266,9 +273,46 @@ export const CitasProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.log(error)
-    }finally{
-      setloadDetalle(false)
+      console.log(error);
+    } finally {
+      setloadDetalle(false);
+    }
+  };
+
+  const cancelarCita = async (id) => {
+    try {
+      setloadBotonCancel(true);
+      const tokenStorage = await obtenerTokenStorage();
+      console.log(tokenStorage);
+      const response = await eliminarCita(id, tokenStorage);
+      if (response && response.data) {
+        console.log(
+          "esta es la respuesta de las cita cancelada: ",
+          response.data
+        );
+
+        const nuevasDetallesCitas = detallesCitas.filter(
+          (cita) => cita.idCita !== id
+        );
+        setdetallesCitas(nuevasDetallesCitas);
+
+        const nuevasFechasMarcadas = { ...markDates };
+        Object.keys(nuevasFechasMarcadas).forEach((fecha) => {
+          nuevasFechasMarcadas[fecha].dots = nuevasFechasMarcadas[
+            fecha
+          ].dots.filter((dot) => dot.key !== id);
+          if (nuevasFechasMarcadas[fecha].dots.length === 0) {
+            delete nuevasFechasMarcadas[fecha];
+          }
+        });
+        setMarkdates(nuevasFechasMarcadas);
+      } else {
+        throw new Error("Respuesta inválida del servidor");
+      }
+    } catch (error) {
+      console.error("Error al cancelar la cita ", error);
+    } finally {
+      setloadBotonCancel(false);
     }
   };
 
@@ -288,7 +332,9 @@ export const CitasProvider = ({ children }) => {
         markDates,
         tipoCita,
         detallesCitas,
-        loadDetalle
+        loadDetalle,
+        cancelarCita,
+        loadBotonCancel,
       }}
     >
       {children}

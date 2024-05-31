@@ -37,7 +37,7 @@ const CitasStack = () => {
           headerShown: isDoctor, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
           headerRight: () => <SearchBarComp />,
         }}
-      />
+      /> 
     </Stack.Navigator>
   );
 };

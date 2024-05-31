@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Text, Image, StyleSheet, ScrollView } from "react-native";
+import { Text, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
 
 import globalStyles from "../styles/global";
@@ -8,6 +8,8 @@ import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Alerta from "../components/Alerta";
+import { scale } from 'react-native-size-matters';
+import CustomTextInput from "../components/input";
 
 const Login = ({ navigation }) => {
   const theme = useTheme();
@@ -23,7 +25,8 @@ const Login = ({ navigation }) => {
 
   //CONTEXT
   const { iniciarSesion } = useContext(AuthContext);
-
+  const { width } = Dimensions.get('window');
+  const isTablet = width >= 768
   return (
     <SafeAreaView
       style={[
@@ -32,31 +35,44 @@ const Login = ({ navigation }) => {
       ]}
     >
       <ScrollView
-      contentContainerStyle={[globalStyles.contentScroll,{marginHorizontal:15}]}
-       showsVerticalScrollIndicator={false}>
-        <Headline
+        contentContainerStyle={[
+          globalStyles.contentScroll,
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text
           style={[
-            styles.tituloBienvenida,
+            globalStyles.tituloBienvenida,
             { fontFamily: "Quicksand_600SemiBold" },
           ]}
         >
           Bienvenido a
-        </Headline>
-        <Headline style={globalStyles.tituloInicio}>
-          <Text style={{ color: "#A8BF56", fontFamily: "LexendExa_700Bold" }}>
+        </Text>
+        <Text style={globalStyles.contTI}>
+          <Text
+            style={[
+              globalStyles.tituloInicio,
+              { color: "#A8BF56", fontFamily: "LexendExa_700Bold" },
+            ]}
+          >
             Termo{" "}
           </Text>
-          <Text style={{ color: "#F27F1B", fontFamily: "LexendExa_700Bold" }}>
+          <Text
+            style={[
+              globalStyles.tituloInicio,
+              { color: "#F27F1B", fontFamily: "LexendExa_700Bold" },
+            ]}
+          >
             Oasis
           </Text>
-        </Headline>
+        </Text>
 
         <Image
-          style={styles.logo}
+          style={globalStyles.logo}
           source={require("../../assets/logoTermo.png")}
         />
 
-        <Text style={[styles.textos, { marginBottom: 32 }]}>
+        <Text style={[globalStyles.textos]}>
           Inicia Sesión con las credenciales enviadas a tu correo
         </Text>
         <TextInput
@@ -73,11 +89,14 @@ const Login = ({ navigation }) => {
         />
         {}
         <TextInput
+        //mode="outlined"
+        theme={{fonts:{labelSmall:{fontSize:13}}}}
           style={[globalStyles.inputInicio]}
           underlineStyle={{
             borderColor: theme.colors.primary,
             borderWidth: 0.8,
           }}
+          contentStyle={globalStyles.contentInput}
           label="Password"
           value={passwordForm}
           textColor="#fff"
@@ -85,8 +104,9 @@ const Login = ({ navigation }) => {
           secureTextEntry={!mostrarPassword}
           right={
             <TextInput.Icon
-              icon={mostrarPassword?'eye-off':'eye'}
+              icon={mostrarPassword ? "eye" : "eye-off"}
               color="#fff"
+              size={isTablet? scale(15): scale(18)}
               //si aplasta el boton cambia a false, mostrando el password
               onPress={() => setmostrarPassword(!mostrarPassword)}
             />
@@ -96,7 +116,7 @@ const Login = ({ navigation }) => {
 
         <Button
           mode="text"
-          labelStyle={globalStyles.botonTexto}
+          labelStyle={globalStyles.botonTextoLogin}
           background="transparent"
           textColor="#fff"
           onPress={() => navigate("RestablecerPassword")}
@@ -106,8 +126,9 @@ const Login = ({ navigation }) => {
 
         <Button
           mode="contained"
-          labelStyle={{ fontFamily: "Quicksand_600SemiBold" }}
-          style={{ marginTop: 35, marginBottom:30}}
+          labelStyle={globalStyles.LabelbotonContain}
+          style={globalStyles.botonLogin}
+          contentStyle={globalStyles.contentStyleLogin}
           onPress={() =>
             iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)
           }
@@ -121,25 +142,5 @@ const Login = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  tituloBienvenida: {
-    textAlign: "center",
-    fontSize: 22,
-    color: "#fff",
-    marginBottom: 10,
-  },
-  logo: {
-    height: 215,
-    aspectRatio: 1,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 23,
-  },
-  textos: {
-    fontFamily: "Quicksand_600SemiBold",
-    fontSize: 13.8,
-    color: "#fff",
-    textAlign: "center",
-  },
-});
+
 export default Login;

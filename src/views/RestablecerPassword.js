@@ -27,14 +27,14 @@ const RestablecerPassword = ({ navigation }) => {
         <View style={[globalStyles.contentenidoTarjeta]}>
           <Headline
             style={[
-              styles.title,
+              globalStyles.titleRestablecer,
               { color: theme.colors.secondary, marginTop: 20 },
             ]}
           >
             Restablecer Contraseña
           </Headline>
           <Text
-            style={[styles.textoDescripcion, { color: theme.colors.secondary }]}
+            style={[globalStyles.textoDescripcion, { color: theme.colors.secondary }]}
           >
             Ingresa tu nombre, apellido y correo electrónico para que puedas recuperar de tu cuenta
           </Text>
@@ -91,8 +91,8 @@ const RestablecerPassword = ({ navigation }) => {
           >
             Recuperar mi cuenta
           </Button>
-          <View style={styles.ContenedorBotonInicio}>
-            <Text style={styles.textos}>¿Ya recordaste?</Text>
+          <View style={globalStyles.ContenedorBotonInicio}>
+            <Text style={globalStyles.textosRestablecer}>¿Ya recordaste?</Text>
             <Button
               mode="text"
               onPress={() => navigate("Login")}
@@ -111,37 +111,6 @@ const RestablecerPassword = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  textos: {
-    fontFamily: "Quicksand_600SemiBold",
-    fontSize: 13,
-    color: "#fff",
-    textAlign: "center",
-  },
-  title: {
-    fontFamily: "LexendExa_600SemiBold",
-    fontSize: 19,
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  textoNavInicio: {
-    fontFamily: "Quicksand_600SemiBold",
-    fontSize: 14,
-    textAlign: "center",
-  },
-  textoDescripcion: {
-    fontFamily: "Quicksand_600SemiBold",
-    textAlign: "center",
-    marginTop: 7,
-    fontSize: 13.8,
-    lineHeight:21
-  },
-  ContenedorBotonInicio: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 17,
-  },
-});
+
 
 export default RestablecerPassword;

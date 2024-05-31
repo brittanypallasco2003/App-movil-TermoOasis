@@ -13,11 +13,15 @@ const DetalleCita = ({ item }) => {
     emailPaciente,
     nombreDoctor,
     end,
+    isCancel,
     nombrePaciente,
     start,
+    idCita,
   } = item;
   const { infoUsuariObtenida } = useContext(AuthContext);
+  const {cancelarCita,loadBotonCancel} = useContext(CitasContext)
 
+  
   const { isDoctor, isPaciente } = infoUsuariObtenida;
   const fechaHoy = new Date();
   const fechaCita = new Date(start);
@@ -42,7 +46,7 @@ const DetalleCita = ({ item }) => {
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Hora:{" "}
         <Text style={globalStyles.textoDetalle}>
-          {formatearFechaHora(start)}
+          {`${formatearFechaHora(start)} - ${formatearFechaHora(end)}`}
         </Text>
       </Text>
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
@@ -73,11 +77,13 @@ const DetalleCita = ({ item }) => {
           <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
         </Text>
       )}
-      {fechaCita > fechaHoy && isPaciente && (
+      {fechaCita > fechaHoy && isPaciente && isCancel===false && (
         <Button
           mode="contained"
           labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize: 13 }}
           style={[globalStyles.botonCancelar]}
+          onPress={() => cancelarCita(idCita)}
+          loading={loadBotonCancel}
         >
           Cancelar Cita
         </Button>

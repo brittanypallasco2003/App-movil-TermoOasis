@@ -3,7 +3,6 @@ import React, { createContext, useEffect, useState } from "react";
 import { user_login, user_restablecer } from "../api/api_user";
 import { eliminarCitaStorage } from "../storage/storage";
 
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -12,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [infoUsuariObtenida, obtenerInfoUsuario] = useState({});
   const [mensajeError, guardarMensaje] = useState("");
   const [alerta, mostrarAlerta] = useState(false);
-  const [passwordCambiado, mostrarMensajePassword]=useState(false)
+  const [passwordCambiado, mostrarMensajePassword] = useState(false);
 
   useEffect(() => {
     sesionIniciada();
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const validarNombre = (name) => {
-    var re = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\u2000-\u200B]{3,}$/    ;
+    var re = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\u2000-\u200B]{3,}$/;
     if (!re.test(name)) {
       guardarMensaje("El dato ingresado no es un nombre");
       mostrarAlerta(true);
@@ -46,73 +45,75 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-const iniciarSesion = async (email, contraseña) => {
-  // Validación - formato de correo
-  if (email && contraseña) {
-    let correoInvalido = verificarCorreoIngresado(email);
-    if (correoInvalido) return;
-  }
-  setCargando(true);
-
-  try {
-    const response = await user_login(email, contraseña);
-    if (response && response.data) {
-      const userInfo = response.data;
-      obtenerInfoUsuario(userInfo);
-      console.log('info usuario token:',userInfo)
-      const { token } = userInfo;
-      setUserToken(token);
-      await AsyncStorage.setItem('userToken', token);
-      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-    } else {
-      throw new Error('Respuesta inválida del servidor');
+  const iniciarSesion = async (email, contraseña) => {
+    // Validación - formato de correo
+    if (email && contraseña) {
+      let correoInvalido = verificarCorreoIngresado(email);
+      if (correoInvalido) return;
     }
-  } catch (error) {
-    guardarMensaje(error.response?.data?.msg || 'Error desconocido al iniciar sesión');
-    mostrarAlerta(true);
-  } finally {
-    setCargando(false);
-  }
-};
+    setCargando(true);
 
+    try {
+      const response = await user_login(email, contraseña);
+      if (response && response.data) {
+        const userInfo = response.data;
+        obtenerInfoUsuario(userInfo);
+        console.log("info usuario token:", userInfo);
+        const { token } = userInfo;
+        setUserToken(token);
+        await AsyncStorage.setItem("userToken", token);
+        await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+      } else {
+        throw new Error("Respuesta inválida del servidor");
+      }
+    } catch (error) {
+      guardarMensaje(
+        error.response?.data?.msg || "Error desconocido al iniciar sesión"
+      );
+      mostrarAlerta(true);
+    } finally {
+      setCargando(false);
+    }
+  };
 
   const restablecerPassword = async (nombre, apellido, correoRest) => {
     if (nombre && apellido && correoRest) {
       let nombreInvalido = validarNombre(nombre);
       let apellidoInvalido = validarApellido(apellido);
-      let correoInvalido=verificarCorreoIngresado(correoRest);
+      let correoInvalido = verificarCorreoIngresado(correoRest);
       if (apellidoInvalido || nombreInvalido || correoInvalido) return;
     }
     setCargando(true);
     try {
-    const response = await user_restablecer(nombre,apellido,correoRest)
-    if (response && response.data) {
-      guardarMensaje(response.data.msg)
-      mostrarMensajePassword(true)
-      mostrarAlerta(true)
-    }else{
-      throw new Error('Respuesta Inválida del servidor')
-    }
+      const response = await user_restablecer(nombre, apellido, correoRest);
+      if (response && response.data) {
+        guardarMensaje(response.data.msg);
+        mostrarMensajePassword(true);
+        mostrarAlerta(true);
+      } else {
+        throw new Error("Respuesta Inválida del servidor");
+      }
     } catch (error) {
-      guardarMensaje(error.response.data.msg || 'Error desconocido al recuperar cuenta')
-      mostrarMensajePassword(false)
-      mostrarAlerta(true)
-    }finally{
-      setCargando(false)
+      guardarMensaje(
+        error.response.data.msg || "Error desconocido al recuperar cuenta"
+      );
+      mostrarMensajePassword(false);
+      mostrarAlerta(true);
+    } finally {
+      setCargando(false);
     }
   };
 
-  const cerrarSesion = async() => {
+  const cerrarSesion = async () => {
     try {
       setCargando(true);
-    setUserToken("");
-    obtenerInfoUsuario("")
-    await eliminarCitaStorage()
-    AsyncStorage.removeItem("userToken");
-    AsyncStorage.removeItem("userInfo");
+      setUserToken("");
+      obtenerInfoUsuario("");
+      AsyncStorage.removeItem("userToken");
+      AsyncStorage.removeItem("userInfo");
     } catch (error) {
-      console.log(error)
-    }finally{
+      console.log(error);
+    } finally {
       setCargando(false);
     }
   };
@@ -122,20 +123,19 @@ const iniciarSesion = async (email, contraseña) => {
     try {
       setCargando(true);
 
-        let token = await AsyncStorage.getItem("userToken");
-        let userdata = await AsyncStorage.getItem("userInfo");
-        //convierte el storage en objeto
-        userdata = JSON.parse(userdata);
-        console.log("user: ", userdata);
-  
-        //si existe un usuario en storage, entonces también su token, permitimos que el token del storage se almacene en el estado para permitirle entrar directo al perfil
-        if (userdata) {
-          setUserToken(token);
-          obtenerInfoUsuario(userdata);
-        }
-  
-        setCargando(false);
+      let token = await AsyncStorage.getItem("userToken");
+      let userdata = await AsyncStorage.getItem("userInfo");
+      //convierte el storage en objeto
+      userdata = JSON.parse(userdata);
+      console.log("user: ", userdata);
 
+      //si existe un usuario en storage, entonces también su token, permitimos que el token del storage se almacene en el estado para permitirle entrar directo al perfil
+      if (userdata) {
+        setUserToken(token);
+        obtenerInfoUsuario(userdata);
+      }
+
+      setCargando(false);
     } catch (error) {
       console.log(error);
     }

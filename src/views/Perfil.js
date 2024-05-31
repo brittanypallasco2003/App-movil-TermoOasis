@@ -10,7 +10,7 @@ import { Headline, useTheme } from "react-native-paper";
 const Perfil = () => {
   const theme = useTheme();
   const {infoUsuariObtenida } = useContext(AuthContext);
-  const {apellido,email,nombre}=infoUsuariObtenida
+  const { apellido, email, nombre, telefono, direccion } = infoUsuariObtenida;
   return (
     <>
       <AppBarComp />
@@ -32,6 +32,10 @@ const Perfil = () => {
         <Text style={styles.textosInfo}>{apellido}</Text>
         <Text style={[styles.textosLabel,{color:theme.colors.secondary}]}>Correo Electrónico:</Text>
         <Text style={styles.textosInfo}>{email}</Text>
+        <Text style={[styles.textosLabel,{color:theme.colors.secondary}]}>Teléfono:</Text>
+        <Text style={styles.textosInfo}>{`0${telefono}`}</Text>
+        <Text style={[styles.textosLabel,{color:theme.colors.secondary}]}>Dirección:</Text>
+        <Text style={styles.textosInfo}>{direccion}</Text>
       </SafeAreaView>
     </>
   );

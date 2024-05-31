@@ -1,64 +1,130 @@
-import {
-  LexendExa_500Medium,
-  LexendExa_600SemiBold,
-  LexendExa_700Bold,
-} from "@expo-google-fonts/lexend-exa";
-import { StyleSheet } from "react-native";
+import { scale, verticalScale, moderateScale, moderateVerticalScale, } from 'react-native-size-matters';
+import { StyleSheet, Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
+const isTablet = width >= 768
 const globalStyles = StyleSheet.create({
   contenedor: {
     //toma todo el espacio disponible en la pantalla
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    paddingHorizontal: 10,
-    alignItems: "center",
+
+  },
+  tituloBienvenida: {
+    textAlign: "center",
+    fontSize: scale(22),
+    color: "#fff",
+    marginTop:verticalScale(10),
+    //padding:moderateScale(13),
+    marginBottom:moderateVerticalScale(15)
   },
   inputInicio: {
-    marginBottom: 30,
+    marginBottom: verticalScale(26),
     backgroundColor: "transparent",
-    fontSize: 13,
+    fontSize: scale(11),
+    marginHorizontal:moderateScale(25)
   },
   tituloInicio: {
-    textAlign: "center",
-    marginVertical: 13,
-    fontSize: 35,
-    padding: 5,
+    fontSize: scale(32),
   },
-  contenedorRestablecer: {
-    flex: 1,
+  contTI:{
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginBottom:verticalScale(20)
   },
-  contentScroll: {
-    flexGrow: 1,
-    justifyContent: "center",
-  },
-  contentenidoTarjeta: {
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    marginHorizontal: 20,
-    paddingHorizontal: 22,
-  },
-  inputRestablecer: {
-    backgroundColor: "transparent",
-    fontSize: 13,
-    marginTop: 20,
-  },
-  botonTexto: {
-    fontFamily: "Quicksand_600SemiBold",
-    fontSize: 13,
-  },
-  imageLoader: {
-    height: 90,
+  logo: {
+    height: verticalScale(180),
     aspectRatio: 1,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 45,
+    marginBottom: verticalScale(30),
+  },
+  textos: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: scale(11.5),
+    color: "#fff",
+    marginHorizontal:moderateScale(20),
+    textAlign: "center",
+    marginBottom: verticalScale(27)
+  },
+  botonTextoLogin: {
+    fontFamily: "Quicksand_600SemiBold",
+    padding:moderateScale(5),
+    fontSize: scale(11.5),
+    marginBottom:verticalScale(27)
+  },
+  LabelbotonContain:{
+    fontFamily:"Quicksand_600SemiBold",
+    fontSize:scale(11.5),
+    padding: isTablet ? moderateScale(7) : moderateScale(0.5),
+  },
+  botonLogin:{
+    width:'85%',
+   marginLeft:'auto',
+   marginRight:'auto',
+    borderRadius:moderateScale(15),
+    marginBottom:verticalScale(30)
+  },
+
+  //PANTALLA RESTABLECER
+  contenedorRestablecer: {
+    flex: 1,
+  },
+  textosRestablecer: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: scale(11.5),
+    color: "#fff",
+    textAlign: "center",
+  },
+  contentScroll: {
+    flexGrow:1,
+    justifyContent:'center',
+    //alignItems:'center'
+  },
+  titleRestablecer: {
+    fontFamily: "LexendExa_600SemiBold",
+    fontSize: scale(19),
+    marginBottom: verticalScale(15),
+    paddingVertical:verticalScale(10),
+    textAlign: "center",
+  },
+  textoDescripcion: {
+    fontFamily: "Quicksand_600SemiBold",
+    textAlign: "center",
+    marginTop: 7,
+    fontSize: scale(11.5),
+    lineHeight:21
+  },
+  contentenidoTarjeta: {
+    backgroundColor: "#fff",
+    borderRadius:moderateScale(15),
+    marginHorizontal: moderateScale(20),
+    paddingHorizontal: moderateScale(22),
+  },
+  inputRestablecer: {
+    backgroundColor: "transparent",
+    fontSize: scale(12),
+    marginTop: verticalScale(20),
+  },
+  botonTexto:{
+    fontFamily: "Quicksand_600SemiBold",
+    padding:moderateScale(5),
+    fontSize: scale(11.5),
+  },
+  ContenedorBotonInicio: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 17,
+  },
+  imageLoader: {
+    height: verticalScale(90),
+    aspectRatio: 1,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: verticalScale(45),
   },
   cuadroAlerta: {
     backgroundColor: "#fff",
-    borderRadius: 15,
+    borderRadius: moderateScale(15),
     borderColor: "#fff",
   },
   contenedorCitas: {
@@ -101,7 +167,8 @@ const globalStyles = StyleSheet.create({
     marginLeft:20,
     paddingBottom: 20,
     marginBottom:25,
-    height:255
+    height:255,
+    marginRight:15
     },
   titleDetalle: {
     fontFamily: "LexendExa_700Bold",

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import {
   PaperProvider,
   MD3LightTheme as DefaultTheme,
+  configureFonts,
 } from "react-native-paper";
 
 import { AuthProvider } from "./src/context/AuthContext";
@@ -21,16 +22,24 @@ import {
 } from "@expo-google-fonts/lexend-exa";
 import { useDevToolsPluginClient } from "expo/devtools";
 import { CitasProvider } from "./src/context/CitasContext";
+import { scale } from "react-native-size-matters";
+
+const fontConfig = {
+  labelSmall: {
+    fontSize: scale(13),
+  }
+};
 
 const theme = {
   ...DefaultTheme,
+  fonts:configureFonts({config:fontConfig}),
   colors: {
     ...DefaultTheme.colors,
     primary: "#F27F1B",
-    secondary: "#3B8C8C",
-    background: "#3B8C8C",
-    primaryContainer: "#3B8C8C",
-    secondaryContainer: "#3B8C8C",
+    secondary: "#3F8483",
+    background: "#3F8483",
+    primaryContainer: "#3F8483",
+    secondaryContainer: "#3F8483",
     elevation: {
       level2: "#3B8C8C",
     },

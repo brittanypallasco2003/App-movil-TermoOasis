@@ -16,7 +16,7 @@ const AppStack = () => {
       initialRouteName={screen.perfil.tab}
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: '#A8BF56',
         tabBarInactiveTintColor: "#fff",
         tabBarStyle: { backgroundColor: theme.colors.secondary },
         tabBarIcon: ({ color, size }) => tabOptions(route, color, size),
