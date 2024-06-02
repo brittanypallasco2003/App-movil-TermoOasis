@@ -34,7 +34,7 @@ const CitasStack = () => {
         component={CalendarioCitas}
         options={{
           title: "Citas",
-          headerShown: isDoctor, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
+          headerShown: false, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
           headerRight: () => <SearchBarComp />,
         }}
       /> 

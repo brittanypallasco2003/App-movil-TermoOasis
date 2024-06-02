@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
 import React, { useContext } from "react";
-import { Button, Card, Headline, useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import { formatearFecha, formatearFechaHora } from "../helpers";
 import { AuthContext } from "../context/AuthContext";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
+import AlertaCancelar from "./AlertaCancelar";
 
 const DetalleCita = ({ item }) => {
   const {
@@ -19,9 +20,14 @@ const DetalleCita = ({ item }) => {
     idCita,
   } = item;
   const { infoUsuariObtenida } = useContext(AuthContext);
-  const {cancelarCita,loadBotonCancel} = useContext(CitasContext)
+  const {setmostrarAlertaCancelar, setIdCitaCancelar} = useContext(CitasContext)
 
+  const handleCancel = () => {
+    setIdCitaCancelar(idCita)
+    setmostrarAlertaCancelar(true)
+  }
   
+
   const { isDoctor, isPaciente } = infoUsuariObtenida;
   const fechaHoy = new Date();
   const fechaCita = new Date(start);
@@ -34,11 +40,11 @@ const DetalleCita = ({ item }) => {
         { borderColor: theme.colors.primaryContainer },
       ]}
     >
-      <Headline
+      <Text
         style={[globalStyles.titleDetalle, globalStyles.espacioDetalle]}
       >
         Información de la cita
-      </Headline>
+      </Text>
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Fecha:{" "}
         <Text style={globalStyles.textoDetalle}>{formatearFecha(start)}</Text>
@@ -82,12 +88,12 @@ const DetalleCita = ({ item }) => {
           mode="contained"
           labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize: 13 }}
           style={[globalStyles.botonCancelar]}
-          onPress={() => cancelarCita(idCita)}
-          loading={loadBotonCancel}
+          onPress={() => handleCancel()}
         >
           Cancelar Cita
         </Button>
       )}
+      <AlertaCancelar/>
     </View>
   );
 };

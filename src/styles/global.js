@@ -40,16 +40,16 @@ const globalStyles = StyleSheet.create({
   logo: {
     height: verticalScale(170),
     aspectRatio: 1,
-    flex:1,
+    flex: 1,
   },
-  logoContainer:{
+  logoContainer: {
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: verticalScale(25),
     // Propiedad para la sombra en Android
     elevation: moderateScale(10),
     borderRadius: moderateScale(90), // Ajusta según sea necesario
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   textos: {
     fontFamily: "Quicksand_600SemiBold",
@@ -146,58 +146,79 @@ const globalStyles = StyleSheet.create({
     marginRight: "auto",
     marginBottom: verticalScale(45),
   },
+  //PANTALLA PERFIL
+  contenedorPerfil: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  // ALERTAS
   cuadroAlerta: {
     backgroundColor: "#fff",
     borderRadius: moderateScale(15),
     borderColor: "#fff",
   },
+  titleAlert:{
+    textAlign:'center',
+    fontSize:scale(17),
+    fontFamily:'Quicksand_700Bold'
+  },
+  contentAlert:{
+    fontSize:scale(11.5),
+    fontFamily:'Quicksand_500Medium',
+    lineHeight:scale(18)
+  },
+  botonAlert:{
+    fontFamily:'Quicksand_600SemiBold'
+  },
+  //Pantalla citas calendario
   contenedorCitas: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
   },
   calendarStyles: {
-    borderRadius: 15,
-    marginHorizontal: 20,
-    paddingVertical: 13,
-    borderWidth: 1,
+    borderRadius: moderateScale(15),
+    marginHorizontal: moderateScale(25),
+    paddingVertical: isTablet ? moderateScale(30) : moderateScale(10),
+    borderWidth: moderateScale(1),
     marginBottom: 20,
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
-    fontSize: 22,
+    fontSize: scale(18),
     textAlign: "center",
   },
   buttonSeg: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: 13,
+    fontSize: isTablet ? scale(10) : scale(11),
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: 14,
+    fontSize: scale(11.5),
     textAlign: "center",
-    marginHorizontal: 20,
-    lineHeight: 23,
-    marginTop: 15,
+    marginHorizontal: moderateScale(25),
+    lineHeight: scale(19),
+    marginTop: verticalScale(15),
   },
   contDetalleCita: {
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderRadius: 15,
-    paddingHorizontal: 20,
-    paddingTop: 15,
-    width: 370,
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(15),
+    paddingHorizontal: moderateScale(20),
+    paddingTop: verticalScale(25),
+    width:moderateScale(339),
     justifyContent: "center",
     marginLeft: 20,
-    paddingBottom: 20,
-    marginBottom: 25,
-    height: 255,
+    paddingBottom: verticalScale(25),
+    marginBottom: verticalScale(25),
+    height: verticalScale(200),
     marginRight: 15,
   },
   titleDetalle: {
     fontFamily: "LexendExa_700Bold",
     textAlign: "center",
-    fontSize: 15,
+    fontSize: isTablet? scale(11.5):scale(13),
   },
   // coleccionCitas: {
   //   marginLeft:20,
@@ -206,21 +227,22 @@ const globalStyles = StyleSheet.create({
   // },
   labelDetalle: {
     fontFamily: "LexendExa_700Bold",
-    fontSize: 12,
+    fontSize: isTablet? scale(10):scale(11),
   },
   textoDetalle: {
     fontFamily: "LexendExa_500Medium",
-    fontSize: 12,
+    fontSize:isTablet? scale(9): scale(11),
     flexWrap: "wrap",
   },
   botonCancelar: {
     width: "60%",
+    borderRadius:moderateScale(15),
     marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
   },
   espacioDetalle: {
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
   },
   // swiperContainer: {
   //   width: '100%',
@@ -239,7 +261,7 @@ const globalStyles = StyleSheet.create({
   // },
   paginationStyle: {
     position: "absolute",
-    bottom: -4,
+    bottom: verticalScale(-10),
     left: 0,
     right: 0,
     flexDirection: "row",
@@ -247,10 +269,10 @@ const globalStyles = StyleSheet.create({
     alignItems: "center",
   },
   paginationDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 2,
+    width: moderateScale(8),
+    height: moderateScale(8),
+    borderRadius: moderateScale(4),
+    marginHorizontal: moderateScale(2),
     backgroundColor: "#888",
   },
   paginationDotActive: {

@@ -26,7 +26,9 @@ export const CitasProvider = ({ children }) => {
   const [tipoCita, settipoCita] = useState("");
   const [loadDetalle, setloadDetalle] = useState(false);
   const [loadBotonCancel, setloadBotonCancel] = useState(false);
-
+  const [mostrarAlertaCancelar, setmostrarAlertaCancelar] = useState(false)
+  const [idCitaCancelar, setIdCitaCancelar] = useState('');
+  const [citaCancelada, setcitaCancelada] = useState(false)
   const {
     guardarMensaje,
     mostrarAlerta,
@@ -290,7 +292,8 @@ export const CitasProvider = ({ children }) => {
           "esta es la respuesta de las cita cancelada: ",
           response.data
         );
-
+        guardarMensaje(response.data.msg)
+        setcitaCancelada(true)
         const nuevasDetallesCitas = detallesCitas.filter(
           (cita) => cita.idCita !== id
         );
@@ -306,6 +309,7 @@ export const CitasProvider = ({ children }) => {
           }
         });
         setMarkdates(nuevasFechasMarcadas);
+        
       } else {
         throw new Error("Respuesta inválida del servidor");
       }
@@ -313,6 +317,8 @@ export const CitasProvider = ({ children }) => {
       console.error("Error al cancelar la cita ", error);
     } finally {
       setloadBotonCancel(false);
+      setmostrarAlertaCancelar(false)
+      mostrarAlerta(true);
     }
   };
 
@@ -335,6 +341,11 @@ export const CitasProvider = ({ children }) => {
         loadDetalle,
         cancelarCita,
         loadBotonCancel,
+        setmostrarAlertaCancelar,
+        mostrarAlertaCancelar,
+        idCitaCancelar,
+        setIdCitaCancelar,
+        citaCancelada
       }}
     >
       {children}

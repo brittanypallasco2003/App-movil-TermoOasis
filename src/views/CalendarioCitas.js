@@ -1,7 +1,7 @@
-import { View, Text, FlatList, ScrollView } from "react-native";
+import { ScrollView,Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Headline, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import BotonSegmentado from "../components/BotonSegmentado";
 import globalStyles from "../styles/global";
 import Calendario from "../components/Calendario";
@@ -27,47 +27,45 @@ const CalendarioCitas = () => {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
       >
-        <Headline style={globalStyles.tituloCitas}>
-          Calendario de Citas
-        </Headline>
+        <Text style={globalStyles.tituloCitas}>Calendario de Citas</Text>
         {Object.keys(markDates).length === 0 &&
           citasRealizadas.length === 0 &&
           citasPendientes.length === 0 &&
           citasCanceladas.length === 0 &&
           tipoCita === "" && (
-            <Headline
+            <Text
               style={[globalStyles.msgUser, { color: theme.colors.primary }]}
             >
               Debes primero seleccionar el tipo de citas que quieras visualizar
-            </Headline>
+            </Text>
           )}
 
         {citasCanceladas.length === 0 &&
           Object.keys(markDates).length === 0 &&
           tipoCita === "Canceladas" && (
-            <Headline
+            <Text
               style={[globalStyles.msgUser, { color: theme.colors.primary }]}
             >
               No existen citas Canceladas que mostrar
-            </Headline>
+            </Text>
           )}
         {citasRealizadas.length === 0 &&
           Object.keys(markDates).length === 0 &&
           tipoCita === "Realizadas" && (
-            <Headline
+            <Text
               style={[globalStyles.msgUser, { color: theme.colors.primary }]}
             >
               No existen citas Realizadas que mostrar
-            </Headline>
+            </Text>
           )}
         {citasPendientes.length === 0 &&
           Object.keys(markDates).length === 0 &&
           tipoCita === "Pendientes" && (
-            <Headline
+            <Text
               style={[globalStyles.msgUser, { color: theme.colors.primary }]}
             >
               No existen citas Pendientes que mostrar
-            </Headline>
+            </Text>
           )}
 
         <BotonSegmentado />
@@ -77,10 +75,10 @@ const CalendarioCitas = () => {
         ) : (
           detallesCitas.length == 0 &&
           Object.keys(markDates).length > 0 && (
-            <Headline style={[globalStyles.msgUser,{marginTop:40}]}>
+            <Text style={[globalStyles.msgUser, { marginTop: 40 }]}>
               Selecciona alguna de las fechas marcadas para ver tus citas
               programadas de ese día
-            </Headline>
+            </Text>
           )
         )}
         {/* 
@@ -107,21 +105,20 @@ const CalendarioCitas = () => {
             </View>
           )}
         /> */}
-        
+        <View style={{ alignItems:'center'}}>
           <SwiperFlatList
             showPagination
             paginationStyle={globalStyles.paginationStyle}
             paginationStyleItem={globalStyles.paginationDot}
-            paginationActiveColor={globalStyles.paginationDotActive.backgroundColor}
+            paginationActiveColor={
+              globalStyles.paginationDotActive.backgroundColor
+            }
             data={detallesCitas}
             keyExtractor={(item) => item.idCita.toString()}
-            renderItem={({ item }) => (
-
-                <DetalleCita item={item} />
-          
-            )}
+            renderItem={({ item }) => <DetalleCita item={item} />}
           />
-    
+        </View>
+
         <Alerta />
       </ScrollView>
     </SafeAreaView>

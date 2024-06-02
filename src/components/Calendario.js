@@ -1,9 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import {
+  scale
+} from "react-native-size-matters";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import globalStyles from "../styles/global";
 import { useTheme } from "react-native-paper";
 import { CitasContext } from "../context/CitasContext";
+import { StyleSheet, Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 
 LocaleConfig.locales["es"] = {
   monthNames: [
@@ -98,9 +103,9 @@ const Calendario = ({ markedDates }) => {
         textDayFontFamily: "Quicksand_600SemiBold",
         textMonthFontFamily: "Quicksand_600SemiBold",
         textDayHeaderFontFamily: "Quicksand_600SemiBold",
-        textDayFontSize: 14,
-        textMonthFontSize: 16,
-        textDayHeaderFontSize: 14,
+        textDayFontSize: isTablet? scale(10.5):scale(12),
+        textMonthFontSize:isTablet? scale(10.5):scale(12),
+        textDayHeaderFontSize: isTablet? scale(10.5):scale(12),
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {

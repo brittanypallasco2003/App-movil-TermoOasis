@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
 import { SegmentedButtons, useTheme } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
+import { moderateScale, verticalScale } from "react-native-size-matters";
+import { Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 
 const BotonSegmentado = () => {
   const [value, setValue] = React.useState("");
@@ -15,7 +18,10 @@ const BotonSegmentado = () => {
   return (
     <SegmentedButtons
       value={value}
-      style={{ marginHorizontal: 20, marginVertical: 20 }}
+      style={{
+        marginHorizontal: moderateScale(25),
+        marginVertical: verticalScale(20),
+      }}
       onValueChange={setValue}
       buttons={[
         {
@@ -23,10 +29,12 @@ const BotonSegmentado = () => {
           label: "Pendientes",
           checkedColor: "#fff",
           labelStyle: globalStyles.buttonSeg,
-          showSelectedCheck:true,
+          //showSelectedCheck: true,
           style: {
             borderColor: theme.colors.secondaryContainer,
-            borderWidth: 1,
+            borderWidth: moderateScale(1),
+            paddingVertical: isTablet? moderateScale(5):moderateScale(2),
+
           },
           onPress: () => obtenerCitasPendientes(),
         },
@@ -35,10 +43,11 @@ const BotonSegmentado = () => {
           label: "Realizadas",
           checkedColor: "#fff",
           labelStyle: globalStyles.buttonSeg,
-          showSelectedCheck:true,
+          //showSelectedCheck: true,
           style: {
             borderColor: theme.colors.secondaryContainer,
-            borderWidth: 1,
+            borderWidth: moderateScale(1),
+            paddingVertical: isTablet? moderateScale(5):moderateScale(2),
           },
           onPress: () => obtenerCitasRealizadas(),
         },
@@ -46,13 +55,14 @@ const BotonSegmentado = () => {
           value: "Canceladas",
           label: "Canceladas",
           checkedColor: "#fff",
-          showSelectedCheck:true,
+          //showSelectedCheck: true,
           labelStyle: globalStyles.buttonSeg,
           style: {
             borderColor: theme.colors.secondaryContainer,
-            borderWidth: 1,
+            borderWidth: moderateScale(1),
+            paddingVertical: isTablet? moderateScale(5):moderateScale(2),
           },
-          onPress:() => obtenerCitasCanceladas(),
+          onPress: () => obtenerCitasCanceladas(),
         },
       ]}
     />

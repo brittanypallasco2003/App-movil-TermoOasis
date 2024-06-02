@@ -11,6 +11,7 @@ import AppNav from "./src/navigation/AppNav";
 //herramienta expo
 import {
   useFonts,
+  Quicksand_500Medium,
   Quicksand_600SemiBold,
   Quicksand_700Bold,
 } from "@expo-google-fonts/quicksand";
@@ -25,14 +26,24 @@ import { CitasProvider } from "./src/context/CitasContext";
 import { scale } from "react-native-size-matters";
 
 const fontConfig = {
-  labelSmall: {
-    fontSize: scale(13),
-  }
+  ...DefaultTheme.fonts,
+  regular: {
+    fontFamily: 'Quicksand_600SemiBold',
+    fontWeight: 'normal',
+  },
+  medium: {
+    fontFamily: 'Quicksand_700Bold',
+    fontWeight: 'normal',
+  },
+  // Agrega más configuraciones según sea necesario
 };
+
 
 const theme = {
   ...DefaultTheme,
-  fonts:configureFonts({config:fontConfig}),
+  fonts:configureFonts({
+    default:fontConfig
+  }),
   colors: {
     ...DefaultTheme.colors,
     primary: "#F27F1B",
@@ -57,6 +68,7 @@ const App = () => {
     client?.sendMessage("ping", { from: "app" });
   }, []);
   let [fontsLoaded, fontError] = useFonts({
+    Quicksand_500Medium,
     Quicksand_600SemiBold,
     Quicksand_700Bold,
     LexendExa_600SemiBold,
