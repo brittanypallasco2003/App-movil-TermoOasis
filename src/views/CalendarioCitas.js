@@ -13,6 +13,7 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 import { useNavigation } from "@react-navigation/native";
 import AppBarPBuscador from "../components/AppBarPBuscador";
 import ListaPacientes from "../components/ListaPacientes";
+import { verticalScale } from "react-native-size-matters";
 const CalendarioCitas = () => {
   const theme = useTheme();
   const {
@@ -51,14 +52,15 @@ const CalendarioCitas = () => {
           keyExtractor={(item) => item.idPaciente}
         />
       </View> */}
-      <FlatList
+      <SafeAreaView style={globalStyles.contenedorCitas}>
+      {searchResults.length>0 &&(<FlatList
+      style={globalStyles.flatlistPacientes}
           data={searchResults}
           renderItem={({ item }) => {
             return <ListaPacientes item={item} />;
           }}
           keyExtractor={(item) => item.idPaciente}
-        />
-      <SafeAreaView style={globalStyles.contenedorCitas}>
+        />)}
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         >

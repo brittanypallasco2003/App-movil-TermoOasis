@@ -191,7 +191,7 @@ const globalStyles = StyleSheet.create({
   },
   buttonSeg: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: isTablet ? scale(10) : scale(11),
+    fontSize: isTablet ? scale(9) : scale(11),
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
@@ -278,6 +278,10 @@ const globalStyles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: "#F27F1B", // Color activo para la paginación
   },
+  flatlistPacientes:{
+    height:isTablet?verticalScale(40):verticalScale(100)
+  }
+
 });
 
 export default globalStyles;

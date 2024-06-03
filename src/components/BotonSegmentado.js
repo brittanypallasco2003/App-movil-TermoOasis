@@ -47,6 +47,7 @@ const BotonSegmentado = () => {
           style: {
             borderColor: theme.colors.secondaryContainer,
             borderWidth: moderateScale(1),
+            //height:verticalScale(20),
             paddingVertical: isTablet? moderateScale(5):moderateScale(2),
           },
           onPress: () => obtenerCitasRealizadas(),

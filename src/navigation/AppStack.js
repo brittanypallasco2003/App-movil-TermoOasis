@@ -7,9 +7,11 @@ import { screen } from "../utils";
 import CitasStack from "./CitasStack";
 import { CommonActions } from "@react-navigation/native";
 import { scale } from "react-native-size-matters";
+import { Dimensions } from "react-native";
 
+const { width } = Dimensions.get("window");
 const Tab = createBottomTabNavigator();
-
+const isTablet = width >= 768;
 const AppStack = () => {
   const theme = useTheme();
 
@@ -50,7 +52,7 @@ const AppStack = () => {
               <MaterialCommunityIcons
                 name={iconName}
                 color={color}
-                size={scale(20)}
+                size={isTablet? scale(13):scale(20)}
               />
             );
           }}

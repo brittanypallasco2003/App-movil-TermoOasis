@@ -27,7 +27,7 @@ const ListaPacientes = ({ item }) => {
 
     //      </View>
     // </View>
-    <List.Section style={{flexGrow:1}}>
+    <List.Section>
         <List.Item title={`${nombrePaciente} ${apellidoPaciente}`}
         description={idPaciente}
         onLongPress={() => { console.log('hola paciente j') }}
