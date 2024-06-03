@@ -11,7 +11,7 @@ import {
   obtener_todas_citas,
   eliminarCita,
 } from "../api/api_citas";
-import { guardarCitasStorage, obtenerTokenStorage } from "../storage/storage";
+import { obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
 
 export const CitasContext = createContext();
@@ -26,9 +26,11 @@ export const CitasProvider = ({ children }) => {
   const [tipoCita, settipoCita] = useState("");
   const [loadDetalle, setloadDetalle] = useState(false);
   const [loadBotonCancel, setloadBotonCancel] = useState(false);
-  const [mostrarAlertaCancelar, setmostrarAlertaCancelar] = useState(false)
-  const [idCitaCancelar, setIdCitaCancelar] = useState('');
-  const [citaCancelada, setcitaCancelada] = useState(false)
+  const [mostrarAlertaCancelar, setmostrarAlertaCancelar] = useState(false);
+  const [idCitaCancelar, setIdCitaCancelar] = useState("");
+  const [citaCancelada, setcitaCancelada] = useState(false);
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const {
     guardarMensaje,
     mostrarAlerta,
@@ -52,6 +54,12 @@ export const CitasProvider = ({ children }) => {
     setdetallesCitas([]);
   }, [tipoCita]);
 
+  useEffect(() => {
+    setSearchResults([])
+    
+  }, [searchVisible])
+  
+
   const obtenerCitas = async () => {
     try {
       setLoadingCalendar(true);
@@ -73,7 +81,7 @@ export const CitasProvider = ({ children }) => {
         }));
         console.log("esta es la respuesta de las citas: ", citasFormateadas);
 
-        await guardarCitasStorage(citasFormateadas);
+        //await guardarCitasStorage(citasFormateadas);
         return citasFormateadas;
       } else {
         throw new Error("Respuesta inválida del servidor");
@@ -208,10 +216,10 @@ export const CitasProvider = ({ children }) => {
     return citas.reduce((acc, cita) => {
       const date = new Date(cita.start);
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son de 0-11
-      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses son de 0-11
+      const day = String(date.getDate()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
-  
+
       if (acc[formattedDate]) {
         acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B" });
       } else {
@@ -219,7 +227,7 @@ export const CitasProvider = ({ children }) => {
       }
       return acc;
     }, {});
-  }
+  };
 
   const obtenerCitasFecha = async (fechaSeleccionada) => {
     try {
@@ -292,8 +300,8 @@ export const CitasProvider = ({ children }) => {
           "esta es la respuesta de las cita cancelada: ",
           response.data
         );
-        guardarMensaje(response.data.msg)
-        setcitaCancelada(true)
+        guardarMensaje(response.data.msg);
+        setcitaCancelada(true);
         const nuevasDetallesCitas = detallesCitas.filter(
           (cita) => cita.idCita !== id
         );
@@ -309,7 +317,6 @@ export const CitasProvider = ({ children }) => {
           }
         });
         setMarkdates(nuevasFechasMarcadas);
-        
       } else {
         throw new Error("Respuesta inválida del servidor");
       }
@@ -317,11 +324,61 @@ export const CitasProvider = ({ children }) => {
       console.error("Error al cancelar la cita ", error);
     } finally {
       setloadBotonCancel(false);
-      setmostrarAlertaCancelar(false)
+      setmostrarAlertaCancelar(false);
       mostrarAlerta(true);
     }
   };
 
+  const buscarPacientes = (consulta) => {
+    if (tipoCita === '') {
+      guardarMensaje('Debes seleccionar un tipo de cita primero');
+      mostrarAlerta(true)
+      return;
+    } else if (tipoCita === 'Pendientes') {
+      const resPendientes = citasPendientes.filter((cita) =>
+        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
+      );
+      const uniquePaciente = resPendientes.reduce((unique, cita) => {
+        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
+          ? unique
+          : [...unique, cita];
+      }, []);
+      setSearchResults(uniquePaciente);
+      console.log('Estos son los resultados de las citas pendientes: ', uniquePaciente);
+      return;
+    } else if (tipoCita === 'Realizadas') {
+      const resRealizadas = citasRealizadas.filter((cita) =>
+        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
+      );
+      const uniquePaciente = resRealizadas.reduce((unique, cita) => {
+        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
+          ? unique
+          : [...unique, cita];
+      }, []);
+      setSearchResults(uniquePaciente);
+      console.log('Estos son los resultados de las citas realizadas: ', uniquePaciente);
+      return;
+    } else if (tipoCita === 'Canceladas') {
+      const resCanceladas = citasCanceladas.filter((cita) =>
+        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
+      );
+      const uniquePaciente = resCanceladas.reduce((unique, cita) => {
+        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
+          ? unique
+          : [...unique, cita];
+      }, []);
+      setSearchResults(uniquePaciente);
+      console.log('Estos son los resultados de las citas canceladas: ', uniquePaciente);
+      return;
+    }
+  };
+  
+  // const resultados = citasRealizadas.concat(citasPendientes, citasCanceladas).filter((cita) =>
+  //   cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
+  // );
+  // console.log('estos son los resultados ',resultados)
+  // setSearchResults(resultados);
+  
   return (
     <CitasContext.Provider
       value={{
@@ -345,7 +402,12 @@ export const CitasProvider = ({ children }) => {
         mostrarAlertaCancelar,
         idCitaCancelar,
         setIdCitaCancelar,
-        citaCancelada
+        citaCancelada,
+        searchVisible,
+        setSearchVisible,
+        buscarPacientes,
+        searchResults,
+        setSearchResults,
       }}
     >
       {children}

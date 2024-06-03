@@ -9,7 +9,7 @@ import {
 } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
-import { scale, verticalScale } from "react-native-size-matters";
+import { scale } from "react-native-size-matters";
 
 const AlertaCancelar = () => {
   const {
@@ -30,7 +30,7 @@ const AlertaCancelar = () => {
       >
         <Dialog.Icon
           icon="alert-circle"
-          size={scale(40)}
+          size={scale(30)}
           color={theme.colors.primary}
         />
         <Dialog.Title style={globalStyles.titleAlert}>

@@ -8,7 +8,8 @@ const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 const AppBarComp = () => {
   const theme = useTheme();
-  const { cerrarSesion } = useContext(AuthContext);
+  const { cerrarSesion, infoUsuariObtenida } = useContext(AuthContext);
+  const {isDoctor}=infoUsuariObtenida
   return (
     <Appbar.Header
       style={{ backgroundColor: theme.colors.secondary }}

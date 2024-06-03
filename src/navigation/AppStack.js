@@ -21,7 +21,7 @@ const AppStack = () => {
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
-          //shifting={true}
+          shifting={true}
           navigationState={state}
           safeAreaInsets={insets}
           onTabPress={({ route, preventDefault }) => {
@@ -44,13 +44,13 @@ const AppStack = () => {
             const focused =
               state.index ===
               state.routes.findIndex((r) => r.key === route.key);
-            const color = focused ? "#A8BF56" : "#fff";
+            const color = focused ? "#fff" : "#B7D5CF";
             const iconName = getIconName(route.name);
             return (
               <MaterialCommunityIcons
                 name={iconName}
                 color={color}
-                size={scale(22)}
+                size={scale(20)}
               />
             );
           }}
@@ -66,7 +66,7 @@ const AppStack = () => {
             const focused =
               state.index ===
               state.routes.findIndex((r) => r.key === route.key);
-            const color = focused ? "#A8BF56" : "#fff";
+            const color = focused ? "#fff" : "#B7D5CF";
 
             return (
               <Text style={{ fontFamily: "Quicksand_600SemiBold", color }}>
@@ -75,7 +75,7 @@ const AppStack = () => {
             );
           }}
           activeColor="#A8BF56"
-          inactiveColor="#fff"
+          inactiveColor="#B7D5CF"
           barStyle={{ backgroundColor: theme.colors.secondary }}
         />
       )}
