@@ -46,9 +46,8 @@ const globalStyles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: verticalScale(25),
-    // Propiedad para la sombra en Android
     elevation: moderateScale(10),
-    borderRadius: moderateScale(90), // Ajusta según sea necesario
+    borderRadius: moderateScale(90),
     overflow: "hidden",
   },
   textos: {
@@ -157,37 +156,42 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: moderateScale(15),
     borderColor: "#fff",
+    width:isTablet? '40%':'auto'
   },
   titleAlert:{
     textAlign:'center',
-    fontSize:scale(17),
+    fontSize:isTablet?scale(12):scale(17),
     fontFamily:'Quicksand_700Bold'
   },
   contentAlert:{
-    fontSize:scale(11.5),
+    fontSize: isTablet? scale(9):scale(11.5),
     fontFamily:'Quicksand_500Medium',
     lineHeight:scale(18)
   },
+
   botonAlert:{
-    fontFamily:'Quicksand_600SemiBold'
+    fontFamily:'Quicksand_600SemiBold',
+    fontSize:isTablet? scale(9):scale(12)
   },
   //Pantalla citas calendario
   contenedorCitas: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent:'flex-start'
   },
   calendarStyles: {
     borderRadius: moderateScale(15),
     marginHorizontal: moderateScale(25),
-    paddingVertical: isTablet ? moderateScale(30) : moderateScale(10),
+    paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
-    marginBottom: 20,
+    paddingTop: isTablet? verticalScale(10):verticalScale(8),
+    //marginBottom: 20,
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
     fontSize: scale(18),
     textAlign: "center",
+    //marginBottom:verticalScale(20)
   },
   buttonSeg: {
     fontFamily: "Quicksand_600SemiBold",
@@ -246,14 +250,14 @@ const globalStyles = StyleSheet.create({
   },
   // swiperContainer: {
   //   width: '100%',
-  //   flex:1, // Ajusta según sea necesario
+  //   flex:1, 
   //   marginTop: 20,
   //   height:200,
   //   justifyContent: 'center',
   //   alignItems: 'center',
   // },
   // swiperSlide: {
-  //   width: 350, // Ajusta según sea necesario
+  //   width: 350,
   //   paddingHorizontal: 10,
   //   flex: 1,
   //   justifyContent: 'center',
@@ -280,6 +284,26 @@ const globalStyles = StyleSheet.create({
   },
   flatlistPacientes:{
     height:isTablet?verticalScale(40):verticalScale(100)
+  },
+  logoAppbar:{
+      height: isTablet? verticalScale(27):verticalScale(40),
+      aspectRatio: 1,
+      flex: 1,
+  },
+  logoContainerAppBar:{
+    marginLeft: "auto",
+    marginRight: "auto",
+    elevation: moderateScale(10),
+    borderRadius: moderateScale(90),
+    overflow: "hidden",
+    marginVertical:verticalScale(8)
+  },
+  botonWhatsapp:{
+    fontFamily:'Quicksand_600SemiBold',
+    fontSize: isTablet?scale(9):scale(11),
+    // paddingVertical: isTablet ? moderateScale(2) : moderateScale(0.5),
+    // paddingHorizontal: isTablet?moderateScale(5):moderateScale(3),
+    //marginHorizontal:moderateScale(10)
   }
 
 });

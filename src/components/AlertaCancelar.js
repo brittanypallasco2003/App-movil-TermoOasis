@@ -9,7 +9,7 @@ import {
 } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
-import { scale } from "react-native-size-matters";
+import { moderateScale, scale } from "react-native-size-matters";
 
 const AlertaCancelar = () => {
   const {
@@ -37,16 +37,16 @@ const AlertaCancelar = () => {
           ¿Cancelar Cita?
         </Dialog.Title>
         <Dialog.Content>
-          <Text style={globalStyles.contentAlert}>
+          <Text style={[globalStyles.contentAlert,{textAlign:'center'}]}>
             ¿Deseas cancelar esta cita? Esta acción es irreversible
           </Text>
         </Dialog.Content>
-        <Dialog.Actions>
+        <Dialog.Actions style={{flexGrow:1, flexDirection:'row', justifyContent:'space-evenly',
+        }}>
           {/* al cambiar la visibilidad de la alerta a false, se oculta o se cierra */}
           <Button
             labelStyle={globalStyles.botonAlert}
             onPress={() => setmostrarAlertaCancelar(false)}
-            mode='outlined'
           >
             Cancelar 
           </Button>
@@ -54,9 +54,8 @@ const AlertaCancelar = () => {
             labelStyle={globalStyles.botonAlert}
             onPress={() => cancelarCita(idCitaCancelar)}
             loading={loadBotonCancel}
-            mode='outlined'
           >
-            Sí, cancelar cita
+            Sí, cancelar
           </Button>
         </Dialog.Actions>
       </Dialog>

@@ -5,7 +5,7 @@ import { List } from "react-native-paper";
 
 
 const ListaPacientes = ({ item }) => {
-  //   const { searchResults } = useContext(CitasContext);
+  const { buscarCitasPaciente } = useContext(CitasContext);
 
   // Renderiza cada elemento de la lista
   //   const renderItem = ({ item }) => (
@@ -30,7 +30,7 @@ const ListaPacientes = ({ item }) => {
     <List.Section>
         <List.Item title={`${nombrePaciente} ${apellidoPaciente}`}
         description={idPaciente}
-        onLongPress={() => { console.log('hola paciente j') }}
+        onLongPress={() => buscarCitasPaciente(idPaciente)}
         />
     </List.Section>
   );

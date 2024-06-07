@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import AppBarPBuscador from "../components/AppBarPBuscador";
 import ListaPacientes from "../components/ListaPacientes";
 import { verticalScale } from "react-native-size-matters";
+import { AuthContext } from "../context/AuthContext";
 const CalendarioCitas = () => {
   const theme = useTheme();
   const {
@@ -26,6 +27,8 @@ const CalendarioCitas = () => {
     loadDetalle,
     searchResults,
   } = useContext(CitasContext);
+  const { infoUsuariObtenida } = useContext(AuthContext);
+  const { isDoctor } = infoUsuariObtenida;
 
   // const navigation =useNavigation()
   // useEffect(() => {
@@ -42,27 +45,20 @@ const CalendarioCitas = () => {
 
   return (
     <>
-      <AppBarPBuscador />
-      {/* <View>
-        <FlatList
-          data={searchResults}
-          renderItem={({ item }) => {
-            return <ListaPacientes item={item} />;
-          }}
-          keyExtractor={(item) => item.idPaciente}
-        />
-      </View> */}
+      {isDoctor && <AppBarPBuscador />}
+        {searchResults.length > 0 && (
+          <FlatList
+            style={globalStyles.flatlistPacientes}
+            data={searchResults}
+            renderItem={({ item }) => {
+              return <ListaPacientes item={item} />;
+            }}
+            keyExtractor={(item) => item.idPaciente}
+          />
+        )}
       <SafeAreaView style={globalStyles.contenedorCitas}>
-      {searchResults.length>0 &&(<FlatList
-      style={globalStyles.flatlistPacientes}
-          data={searchResults}
-          renderItem={({ item }) => {
-            return <ListaPacientes item={item} />;
-          }}
-          keyExtractor={(item) => item.idPaciente}
-        />)}
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "flex-start" }}
         >
           <Text style={globalStyles.tituloCitas}>Calendario de Citas</Text>
           {Object.keys(markDates).length === 0 &&
@@ -113,26 +109,15 @@ const CalendarioCitas = () => {
           ) : (
             detallesCitas.length == 0 &&
             Object.keys(markDates).length > 0 && (
-              <Text style={[globalStyles.msgUser, { marginTop: 40 }]}>
+              <Text
+                style={[globalStyles.msgUser, { marginTop: verticalScale(10) }]}
+              >
                 Selecciona alguna de las fechas marcadas para ver tus citas
                 programadas de ese día
               </Text>
             )
           )}
           {/* 
-        <FlatList
-          style={globalStyles.coleccionCitas}
-          contentContainerStyle={{ alignItems: 'flex-start',justifyContent:'center' }}
-          horizontal={true}
-          data={detallesCitas}
-          keyExtractor={(item) => {
-            item.idCita.toString();
-          }}
-          renderItem={({ item }) => {
-            return <DetalleCita item={item} />;
-          }}
-        /> */}
-
           {/* <SwiperFlatList
           showPagination
           data={detallesCitas}

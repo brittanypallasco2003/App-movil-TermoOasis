@@ -11,7 +11,9 @@ import globalStyles from "../styles/global";
 import { Text } from "react-native";
 import { CitasContext } from "../context/CitasContext";
 import { scale } from "react-native-size-matters";
-
+import { StyleSheet, Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 const Alerta = () => {
   const {
     mensajeError,
@@ -36,8 +38,8 @@ const Alerta = () => {
             : citaCancelada
             ? "check-circle"
             : "alert-circle"}
-          size={scale(40)}
-          color={theme.colors.primary}
+          size={isTablet? scale(30):scale(40)}
+          color={citaCancelada?theme.colors.secondary:theme.colors.primary}
         />
         <Dialog.Title style={globalStyles.titleAlert}>
           {passwordCambiado
@@ -57,6 +59,7 @@ const Alerta = () => {
               mostrarAlerta(false);
               mostrarMensajePassword(false);
             }}
+            textColor={citaCancelada?theme.colors.secondary:theme.colors.primary}
           >
             Entendido
           </Button>

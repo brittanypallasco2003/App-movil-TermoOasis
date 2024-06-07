@@ -6,7 +6,7 @@ import { useTheme, BottomNavigation, Text } from "react-native-paper";
 import { screen } from "../utils";
 import CitasStack from "./CitasStack";
 import { CommonActions } from "@react-navigation/native";
-import { scale } from "react-native-size-matters";
+import { moderateScale, scale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
@@ -23,7 +23,12 @@ const AppStack = () => {
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
-          shifting={true}
+        //style={{padding:moderateScale(20)}}
+          labeled={false}
+          activeIndicatorStyle={{
+            backgroundColor: "#267373",
+            padding: moderateScale(16),
+          }}
           navigationState={state}
           safeAreaInsets={insets}
           onTabPress={({ route, preventDefault }) => {
@@ -52,7 +57,7 @@ const AppStack = () => {
               <MaterialCommunityIcons
                 name={iconName}
                 color={color}
-                size={isTablet? scale(13):scale(20)}
+                size={isTablet ? scale(14) : scale(20)}
               />
             );
           }}

@@ -14,6 +14,7 @@ import {
 import { obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
 
+
 export const CitasContext = createContext();
 
 export const CitasProvider = ({ children }) => {
@@ -80,8 +81,6 @@ export const CitasProvider = ({ children }) => {
           citaCancelada: citaFormateada.isCancelado,
         }));
         console.log("esta es la respuesta de las citas: ", citasFormateadas);
-
-        //await guardarCitasStorage(citasFormateadas);
         return citasFormateadas;
       } else {
         throw new Error("Respuesta inválida del servidor");
@@ -93,7 +92,7 @@ export const CitasProvider = ({ children }) => {
       setLoadingCalendar(false);
     }
   };
-
+  
   const obtenerCitasPaciente = async (id) => {
     try {
       setLoadingCalendar(true);
@@ -130,13 +129,13 @@ export const CitasProvider = ({ children }) => {
     }
   };
 
-  const obtenerCitasPendientes = useCallback(async () => {
+  const obtenerCitasPendientes = useCallback(async (idP = null) => {
     try {
       setLoadingCalendar(true);
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
-        citas = await obtenerCitas();
+        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
       } else {
         console.log("soy paciente");
         citas = await obtenerCitasPaciente(_id);
@@ -159,14 +158,14 @@ export const CitasProvider = ({ children }) => {
     }
   }, [isDoctor, _id]);
 
-  const obtenerCitasRealizadas = useCallback(async () => {
+  const obtenerCitasRealizadas = useCallback(async (idP = null) => {
     try {
       setLoadingCalendar(true);
       settipoCita("Realizadas");
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
-        citas = await obtenerCitas();
+        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
       } else {
         console.log("soy paciente");
         citas = await obtenerCitasPaciente(_id);
@@ -188,14 +187,17 @@ export const CitasProvider = ({ children }) => {
     }
   }, [isDoctor, _id]);
 
-  const obtenerCitasCanceladas = useCallback(async () => {
+
+
+
+  const obtenerCitasCanceladas = useCallback(async (idP = null) => {
     try {
       setLoadingCalendar(true);
       settipoCita("Canceladas");
       let citas;
       if (isDoctor) {
         console.log("soy doctor: ", isDoctor);
-        citas = await obtenerCitas();
+        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
       } else {
         console.log("soy paciente");
         citas = await obtenerCitasPaciente(_id);
@@ -210,6 +212,7 @@ export const CitasProvider = ({ children }) => {
     } finally {
       setLoadingCalendar(false);
     }
+
   }, [isDoctor, _id]);
 
   const marcarFechas = (citas) => {
@@ -221,7 +224,7 @@ export const CitasProvider = ({ children }) => {
       const formattedDate = `${year}-${month}-${day}`;
 
       if (acc[formattedDate]) {
-        acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B" });
+        acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B", });
       } else {
         acc[formattedDate] = { dots: [{ key: cita.idCita, color: "#F27F1B" }] };
       }
@@ -291,6 +294,7 @@ export const CitasProvider = ({ children }) => {
 
   const cancelarCita = async (id) => {
     try {
+      console.log('este es el id de cancel ',id)
       setloadBotonCancel(true);
       const tokenStorage = await obtenerTokenStorage();
       console.log(tokenStorage);
@@ -321,7 +325,7 @@ export const CitasProvider = ({ children }) => {
         throw new Error("Respuesta inválida del servidor");
       }
     } catch (error) {
-      console.error("Error al cancelar la cita ", error);
+      guardarMensaje(error.response.data.msg);
     } finally {
       setloadBotonCancel(false);
       setmostrarAlertaCancelar(false);
@@ -373,6 +377,24 @@ export const CitasProvider = ({ children }) => {
     }
   };
   
+const buscarCitasPaciente = async(idP) => {
+  if (tipoCita==='Pendientes') {
+    await obtenerCitasPendientes(idP)
+  }
+  else if(tipoCita==='Realizadas'){
+    await obtenerCitasPendientes(idP)
+  }
+  else if(tipoCita==='Canceladas'){
+    await obtenerCitasCanceladas(idP)
+  }
+
+  // } else if(tipoCita='Realizadas') {
+  //   obtenerCitasRealizadas(idP)
+  // }
+  
+}
+
+
   // const resultados = citasRealizadas.concat(citasPendientes, citasCanceladas).filter((cita) =>
   //   cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
   // );
@@ -408,6 +430,7 @@ export const CitasProvider = ({ children }) => {
         buscarPacientes,
         searchResults,
         setSearchResults,
+        buscarCitasPaciente
       }}
     >
       {children}

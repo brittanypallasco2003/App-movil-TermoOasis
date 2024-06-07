@@ -11,31 +11,49 @@ import { screen } from "../utils";
 import { AuthContext } from "../context/AuthContext";
 import SearchBarComp from "../components/SearchBarComp";
 import { useTheme } from "react-native-paper";
+import { scale, verticalScale } from "react-native-size-matters";
+import { StyleSheet, Dimensions } from "react-native";
+import Logo from "../components/Logo";
+import BotonWhatsapp from "../components/BotonWhatsapp";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 
 const Stack = createNativeStackNavigator();
+
 
 const CitasStack = () => {
   const theme = useTheme();
   const { infoUsuariObtenida } = useContext(AuthContext);
-  const { isDoctor } = infoUsuariObtenida;
+  const { isPaciente } = infoUsuariObtenida;
+
 
   return (
     <Stack.Navigator
       initialRouteName={screen.citas.pageName}
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: 'left',
         headerStyle: {
           backgroundColor: theme.colors.secondary,
         },
+        headerTitleStyle:{
+          fontFamily:'Quicksand_700Bold',
+          color:'#FFF',
+          fontSize:isTablet? scale(14):scale(16)
+        },
+        
       }}
     >
       <Stack.Screen
         name={screen.citas.pageName}
         component={CalendarioCitas}
         options={{
-          title: "Citas",
-          headerShown: false, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
-          headerRight: () => <SearchBarComp />,
+          title: "",
+          headerShown: isPaciente, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
+          headerLeft:() => <Logo/>,
+          headerRight:()=><BotonWhatsapp/>,
+          headerStyle:{
+            backgroundColor: theme.colors.secondary,
+          }
         }}
       /> 
     </Stack.Navigator>

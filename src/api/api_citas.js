@@ -71,7 +71,7 @@ export const obtener_cita_id = async (id, token) => {
 
 export const eliminarCita = async (id, token) => {
   try {
-    const res = await axiosInstance.post(`/citas/cancelar/${id}`, {},{
+    const res = await axiosInstance.post(`/citas/cancelar/${id}`,{},{
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -88,6 +88,6 @@ export const eliminarCita = async (id, token) => {
         error.message
       );
     }
-    throw error; // Re-lanzar el error para que sea manejado en la llamada
+    throw error;
   }
 };

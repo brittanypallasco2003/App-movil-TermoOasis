@@ -1,15 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import {
-  scale
+  scale,
+  verticalScale
 } from "react-native-size-matters";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import globalStyles from "../styles/global";
-import { useTheme } from "react-native-paper";
+import { Icon, IconButton, useTheme } from "react-native-paper";
 import { CitasContext } from "../context/CitasContext";
 import { StyleSheet, Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Quicksand_700Bold } from "@expo-google-fonts/quicksand";
 LocaleConfig.locales["es"] = {
   monthNames: [
     "Enero",
@@ -96,16 +98,24 @@ const Calendario = ({ markedDates }) => {
       markingType={"multi-dot"}
       displayLoadingIndicator={loadingCalendar}
       markedDates={markedDates}
+      renderArrow={(direction) => (
+        <MaterialCommunityIcons
+          name={direction === 'left' ? 'arrow-left-drop-circle' : 'arrow-right-drop-circle'}
+          size={isTablet?scale(13):scale(18)} 
+          color={theme.colors.secondary} 
+        />
+      )}
       theme={{
+        backgroundColor: 'blue',
         monthTextColor: theme.colors.secondary,
         selectedDayBackgroundColor: theme.colors.secondary,
         arrowColor: theme.colors.secondary,
         textDayFontFamily: "Quicksand_600SemiBold",
         textMonthFontFamily: "Quicksand_600SemiBold",
-        textDayHeaderFontFamily: "Quicksand_600SemiBold",
-        textDayFontSize: isTablet? scale(10.5):scale(12),
-        textMonthFontSize:isTablet? scale(10.5):scale(12),
-        textDayHeaderFontSize: isTablet? scale(10.5):scale(12),
+        textDayHeaderFontFamily: "Quicksand_700Bold",
+        textDayFontSize: isTablet? scale(9):scale(12),
+        textMonthFontSize:isTablet? scale(10):scale(12),
+        textDayHeaderFontSize: isTablet? scale(9):scale(12),
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {

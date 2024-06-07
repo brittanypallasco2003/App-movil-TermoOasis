@@ -6,8 +6,6 @@ import { CitasContext } from '../context/CitasContext';
 // import { AuthContext } from './path-to-auth-context'; // Asegúrate de importar tu AuthContext correctamente
 
 const AppBarPBuscador = () => {
-    // const { infoUsuariObtenida } = useContext(AuthContext);
-    // const { isDoctor } = infoUsuariObtenida;
     const {searchVisible,setSearchVisible,buscarPacientes} = useContext(CitasContext)
     const [searchQuery, setSearchQuery] = useState('');
     const theme = useTheme();
