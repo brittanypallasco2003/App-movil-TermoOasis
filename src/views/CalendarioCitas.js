@@ -58,7 +58,7 @@ const CalendarioCitas = () => {
         )}
       <SafeAreaView style={globalStyles.contenedorCitas}>
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "flex-start" }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent:'flex-start' }}
         >
           <Text style={globalStyles.tituloCitas}>Calendario de Citas</Text>
           {Object.keys(markDates).length === 0 &&
@@ -104,19 +104,7 @@ const CalendarioCitas = () => {
 
           <BotonSegmentado />
           <Calendario markedDates={markDates} />
-          {loadDetalle ? (
-            <LoadingCalendar />
-          ) : (
-            detallesCitas.length == 0 &&
-            Object.keys(markDates).length > 0 && (
-              <Text
-                style={[globalStyles.msgUser, { marginTop: verticalScale(10) }]}
-              >
-                Selecciona alguna de las fechas marcadas para ver tus citas
-                programadas de ese día
-              </Text>
-            )
-          )}
+
           {/* 
           {/* <SwiperFlatList
           showPagination
@@ -128,7 +116,20 @@ const CalendarioCitas = () => {
             </View>
           )}
         /> */}
-          <View style={{ alignItems: "center" }}>
+          <View style={globalStyles.contPrincipalDetalle}>
+          {loadDetalle ? (
+            <LoadingCalendar />
+          ) : (
+            detallesCitas.length == 0 &&
+            Object.keys(markDates).length > 0 && (
+              <Text
+                style={[globalStyles.msgUser,]}
+              >
+                Selecciona alguna de las fechas marcadas para ver tus citas
+                programadas de ese día
+              </Text>
+            )
+          )}
             <SwiperFlatList
               showPagination
               paginationStyle={globalStyles.paginationStyle}
@@ -141,7 +142,6 @@ const CalendarioCitas = () => {
               renderItem={({ item }) => <DetalleCita item={item} />}
             />
           </View>
-
           <Alerta />
         </ScrollView>
       </SafeAreaView>

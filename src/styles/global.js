@@ -156,44 +156,44 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: moderateScale(15),
     borderColor: "#fff",
-    width: isTablet?'70%':'87%',
-    marginLeft:'auto',
-    marginRight:'auto'
+    width: isTablet ? "70%" : "87%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  titleAlert:{
-    textAlign:'center',
-    fontSize:isTablet?scale(12):scale(17),
-    fontFamily:'Quicksand_700Bold'
+  titleAlert: {
+    textAlign: "center",
+    fontSize: isTablet ? scale(12) : scale(17),
+    fontFamily: "Quicksand_700Bold",
   },
-  contentAlert:{
-    fontSize: isTablet? scale(9):scale(11.5),
-    fontFamily:'Quicksand_500Medium',
-    lineHeight:isTablet?scale(17):scale(18),
-    textAlign:'left'
+  contentAlert: {
+    fontSize: isTablet ? scale(9) : scale(11.5),
+    fontFamily: "Quicksand_500Medium",
+    lineHeight: isTablet ? scale(17) : scale(18),
+    textAlign: "left",
   },
 
-  botonAlert:{
-    fontFamily:'Quicksand_600SemiBold',
-    fontSize:isTablet? scale(9):scale(12),
-    paddingVertical:isTablet?moderateScale(5):moderateScale(0)
+  botonAlert: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: isTablet ? scale(9) : scale(12),
+    paddingVertical: isTablet ? moderateScale(5) : moderateScale(0),
   },
   //Pantalla citas calendario
   contenedorCitas: {
     flex: 1,
     flexDirection: "column",
-    justifyContent:'flex-start'
+    justifyContent: "flex-start",
   },
   calendarStyles: {
     borderRadius: moderateScale(15),
     marginHorizontal: moderateScale(25),
     paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
-    paddingTop: isTablet? verticalScale(10):verticalScale(8),
-    //marginBottom: 20,
+    paddingTop: isTablet ? verticalScale(10) : verticalScale(8),
+    marginBottom: verticalScale(20)
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
-    fontSize: scale(18),
+    fontSize: isTablet ? scale(17) : scale(18),
     textAlign: "center",
     //marginBottom:verticalScale(20)
   },
@@ -203,53 +203,73 @@ const globalStyles = StyleSheet.create({
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: isTablet?scale(10):scale(11.5),
+    fontSize: isTablet ? scale(10) : scale(11.5),
     textAlign: "center",
-    marginHorizontal: moderateScale(25),
+    marginHorizontal: moderateScale(23),
     lineHeight: scale(19),
     marginTop: verticalScale(15),
   },
+  //DETALLE DE CITA
+  contPrincipalDetalle: {
+    flex:1,
+    width: isTablet ? moderateScale(440) : moderateScale(360),
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginBottom:verticalScale(20),
+    justifyContent:'center',
+    alignItems:'center'
+    
+  },
   contDetalleCita: {
+    flex:1,
     backgroundColor: "#fff",
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(15),
     paddingHorizontal: moderateScale(20),
-    paddingTop: verticalScale(25),
-    width:moderateScale(339),
+    paddingTop: verticalScale(15),
+    // width,
+    width: isTablet ? moderateScale(410) : moderateScale(320),
+    // width: isTablet ? moderateScale(340) : moderateScale(330),
+    marginHorizontal: isTablet ? moderateScale(15) : moderateScale(20),
     justifyContent: "center",
-    marginLeft: 20,
-    paddingBottom: verticalScale(25),
+    paddingBottom: verticalScale(15),
     marginBottom: verticalScale(25),
-    height: verticalScale(200),
-    marginRight: 15,
+    // height: isTablet? verticalScale(210):verticalScale(260), NO DESCOMENTAR ESTO, la altura se ajusta sola
   },
   titleDetalle: {
     fontFamily: "LexendExa_700Bold",
     textAlign: "center",
-    fontSize: isTablet? scale(11.5):scale(13),
+    fontSize: isTablet ? scale(10) : scale(13),
   },
   labelDetalle: {
     fontFamily: "LexendExa_700Bold",
-    fontSize: isTablet? scale(10):scale(11),
+    fontSize: isTablet ? scale(9.5) : scale(11),
   },
   textoDetalle: {
     fontFamily: "LexendExa_500Medium",
-    fontSize:isTablet? scale(9): scale(11),
+    fontSize: isTablet ? scale(9) : scale(11),
     flexWrap: "wrap",
   },
+  //BOTON CANCELAR
   botonCancelar: {
-    width: "60%",
-    borderRadius:moderateScale(15),
+    width: isTablet? "45%":"60%",
+    borderRadius: moderateScale(15),
     marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  LabelbotonCancelar:{
+    fontFamily: "Quicksand_600SemiBold", fontSize: isTablet? scale(9):scale(11)
+  },
+  contentBotonCancelar:{
+    paddingVertical: isTablet ? moderateScale(4) : moderateScale(0),
   },
   espacioDetalle: {
     marginBottom: verticalScale(10),
   },
   // swiperContainer: {
   //   width: '100%',
-  //   flex:1, 
+  //   flex:1,
   //   marginTop: 20,
   //   height:200,
   //   justifyContent: 'center',
@@ -275,40 +295,39 @@ const globalStyles = StyleSheet.create({
     width: moderateScale(8),
     height: moderateScale(8),
     borderRadius: moderateScale(4),
-    marginHorizontal: moderateScale(2),
+    marginHorizontal: moderateScale(3),
     backgroundColor: "#888",
   },
   paginationDotActive: {
     backgroundColor: "#F27F1B", // Color activo para la paginación
   },
-  flatlistPacientes:{
-    height:isTablet?verticalScale(40):verticalScale(100)
+  flatlistPacientes: {
+    height: isTablet ? verticalScale(40) : verticalScale(100),
   },
-  logoAppbar:{
-      height: isTablet? verticalScale(30):verticalScale(40),
-      aspectRatio: 1,
-      flex: 1,
+  logoAppbar: {
+    height: isTablet ? verticalScale(30) : verticalScale(40),
+    aspectRatio: 1,
+    flex: 1,
   },
-  logoContainerAppBar:{
+  logoContainerAppBar: {
     marginLeft: "auto",
     marginRight: "auto",
     elevation: moderateScale(10),
     borderRadius: moderateScale(90),
     overflow: "hidden",
-    marginVertical:verticalScale(8)
+    marginVertical: verticalScale(8),
   },
-  botonWhatsapp:{
-    fontFamily: isTablet?'Quicksand_600SemiBold':'Quicksand_700Bold',
-    fontSize: isTablet?scale(8.5):scale(11),
+  botonWhatsapp: {
+    fontFamily: isTablet ? "Quicksand_600SemiBold" : "Quicksand_700Bold",
+    fontSize: isTablet ? scale(8.5) : scale(11),
     // paddingVertical: isTablet ? moderateScale(2) : moderateScale(0.5),
     // paddingHorizontal: isTablet?moderateScale(5):moderateScale(3),
     //marginHorizontal:moderateScale(10)
   },
-  contentBotonWhatsapp:{
-    paddingHorizontal:moderateScale(5), 
-    paddingVertical:isTablet?moderateScale(3):moderateScale(0)
-  }
-
+  contentBotonWhatsapp: {
+    paddingHorizontal: moderateScale(5),
+    paddingVertical: isTablet ? moderateScale(3) : moderateScale(0),
+  },
 });
 
 export default globalStyles;

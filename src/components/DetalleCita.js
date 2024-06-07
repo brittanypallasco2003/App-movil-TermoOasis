@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text,Dimensions } from "react-native";
 import React, { useContext } from "react";
 import { Button, useTheme } from "react-native-paper";
 import { formatearFecha, formatearFechaHora } from "../helpers";
@@ -6,6 +6,9 @@ import { AuthContext } from "../context/AuthContext";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
 import AlertaCancelar from "./AlertaCancelar";
+import { moderateScale } from "react-native-size-matters";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 
 const DetalleCita = ({ item }) => {
   const {
@@ -20,13 +23,13 @@ const DetalleCita = ({ item }) => {
     idCita,
   } = item;
   const { infoUsuariObtenida } = useContext(AuthContext);
-  const {setmostrarAlertaCancelar, setIdCitaCancelar} = useContext(CitasContext)
+  const { setmostrarAlertaCancelar, setIdCitaCancelar } =
+    useContext(CitasContext);
 
   const handleCancel = () => {
-    setIdCitaCancelar(idCita)
-    setmostrarAlertaCancelar(true)
-  }
-  
+    setIdCitaCancelar(idCita);
+    setmostrarAlertaCancelar(true);
+  };
 
   const { isDoctor, isPaciente } = infoUsuariObtenida;
   const fechaHoy = new Date();
@@ -40,9 +43,7 @@ const DetalleCita = ({ item }) => {
         { borderColor: theme.colors.primaryContainer },
       ]}
     >
-      <Text
-        style={[globalStyles.titleDetalle, globalStyles.espacioDetalle]}
-      >
+      <Text style={[globalStyles.titleDetalle, globalStyles.espacioDetalle]}>
         Información de la cita
       </Text>
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
@@ -55,12 +56,14 @@ const DetalleCita = ({ item }) => {
           {`${formatearFechaHora(start)} - ${formatearFechaHora(end)}`}
         </Text>
       </Text>
-      <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
-        Lugar:{" "}
-        <Text style={globalStyles.textoDetalle}>
-          detrás del Estadio del Aucas, Apuela S28-180 Y, Quito 170606
+      <View style={{width:isTablet?moderateScale(360):moderateScale(290)}}>
+        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
+          Lugar:{" "}
+          <Text style={globalStyles.textoDetalle}>
+            detrás del Estadio del Aucas, Apuela S28-180 Y, Quito 170606
+          </Text>
         </Text>
-      </Text>
+      </View>
       {isPaciente && (
         <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
           Doctor:{" "}
@@ -83,17 +86,20 @@ const DetalleCita = ({ item }) => {
           <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
         </Text>
       )}
-      {fechaCita > fechaHoy && isPaciente && isCancel===false && (
+      {fechaCita > fechaHoy && isPaciente && isCancel === false && (
         <Button
-          mode="contained"
-          labelStyle={{ fontFamily: "Quicksand_600SemiBold", fontSize: 13 }}
+          mode="elevated"
+          contentStyle={globalStyles.contentBotonCancelar}
+          labelStyle={globalStyles.LabelbotonCancelar}
           style={[globalStyles.botonCancelar]}
+          buttonColor={theme.colors.primary}
+          textColor="#fff"
           onPress={() => handleCancel()}
         >
           Cancelar Cita
         </Button>
       )}
-      <AlertaCancelar/>
+      <AlertaCancelar />
     </View>
   );
 };
