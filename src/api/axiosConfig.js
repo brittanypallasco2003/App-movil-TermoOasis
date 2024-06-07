@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://backend-termo-oasis.vercel.app/api', // URL base de la API
-  timeout: 10000, // Tiempo de espera (10 segundos)
+  baseURL: 'https://backend-termo-oasis.vercel.app/api',
+  timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',
   },

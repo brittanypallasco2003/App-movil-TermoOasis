@@ -111,7 +111,7 @@ const Calendario = ({ markedDates }) => {
         selectedDayBackgroundColor: theme.colors.secondary,
         arrowColor: theme.colors.secondary,
         textDayFontFamily: "Quicksand_600SemiBold",
-        textMonthFontFamily: "Quicksand_600SemiBold",
+        textMonthFontFamily: "Quicksand_700Bold",
         textDayHeaderFontFamily: "Quicksand_700Bold",
         textDayFontSize: isTablet? scale(9):scale(12),
         textMonthFontSize:isTablet? scale(10):scale(12),

@@ -156,7 +156,9 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: moderateScale(15),
     borderColor: "#fff",
-    width:isTablet? '40%':'auto'
+    width: isTablet?'70%':'87%',
+    marginLeft:'auto',
+    marginRight:'auto'
   },
   titleAlert:{
     textAlign:'center',
@@ -166,12 +168,14 @@ const globalStyles = StyleSheet.create({
   contentAlert:{
     fontSize: isTablet? scale(9):scale(11.5),
     fontFamily:'Quicksand_500Medium',
-    lineHeight:scale(18)
+    lineHeight:isTablet?scale(17):scale(18),
+    textAlign:'left'
   },
 
   botonAlert:{
     fontFamily:'Quicksand_600SemiBold',
-    fontSize:isTablet? scale(9):scale(12)
+    fontSize:isTablet? scale(9):scale(12),
+    paddingVertical:isTablet?moderateScale(5):moderateScale(0)
   },
   //Pantalla citas calendario
   contenedorCitas: {
@@ -199,7 +203,7 @@ const globalStyles = StyleSheet.create({
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
-    fontSize: scale(11.5),
+    fontSize: isTablet?scale(10):scale(11.5),
     textAlign: "center",
     marginHorizontal: moderateScale(25),
     lineHeight: scale(19),
@@ -224,11 +228,6 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     fontSize: isTablet? scale(11.5):scale(13),
   },
-  // coleccionCitas: {
-  //   marginLeft:20,
-  //   marginBottom:20,
-
-  // },
   labelDetalle: {
     fontFamily: "LexendExa_700Bold",
     fontSize: isTablet? scale(10):scale(11),
@@ -286,7 +285,7 @@ const globalStyles = StyleSheet.create({
     height:isTablet?verticalScale(40):verticalScale(100)
   },
   logoAppbar:{
-      height: isTablet? verticalScale(27):verticalScale(40),
+      height: isTablet? verticalScale(30):verticalScale(40),
       aspectRatio: 1,
       flex: 1,
   },
@@ -299,11 +298,15 @@ const globalStyles = StyleSheet.create({
     marginVertical:verticalScale(8)
   },
   botonWhatsapp:{
-    fontFamily:'Quicksand_600SemiBold',
-    fontSize: isTablet?scale(9):scale(11),
+    fontFamily: isTablet?'Quicksand_600SemiBold':'Quicksand_700Bold',
+    fontSize: isTablet?scale(8.5):scale(11),
     // paddingVertical: isTablet ? moderateScale(2) : moderateScale(0.5),
     // paddingHorizontal: isTablet?moderateScale(5):moderateScale(3),
     //marginHorizontal:moderateScale(10)
+  },
+  contentBotonWhatsapp:{
+    paddingHorizontal:moderateScale(5), 
+    paddingVertical:isTablet?moderateScale(3):moderateScale(0)
   }
 
 });

@@ -5,7 +5,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { moderateScale, scale } from "react-native-size-matters";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import globalStyles from "../styles/global";
 const { width } = Dimensions.get("window");
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -30,13 +30,13 @@ const BotonWhatsapp = () => {
    mode="elevated"
    onPress={openWhatsApp}
    labelStyle={globalStyles.botonWhatsapp}
-   style={{borderRadius:moderateScale(15)}}
+   style={{borderRadius:moderateScale(15), marginVertical:verticalScale(8)}}
    icon={()=>( <MaterialCommunityIcons
    name='whatsapp'
    color='#000'
-   size={isTablet?scale(12):scale(16)}
+   size={isTablet?scale(10):scale(16)}
    />)}
-   contentStyle={{padding:moderateScale(3)}}
+   contentStyle={globalStyles.contentBotonWhatsapp}
    buttonColor='#B7D5CF'
    textColor="#000"
    >Agendar Cita</Button>
