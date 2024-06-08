@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
-import { View } from "react-native";
+import { Dimensions } from "react-native";
 import { Appbar, useTheme } from "react-native-paper";
 import SearchBarComp from "./SearchBarComp";
 import { CitasContext } from "../context/CitasContext";
-// import { AuthContext } from './path-to-auth-context'; // Asegúrate de importar tu AuthContext correctamente
+import globalStyles from "../styles/global";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+const { width } = Dimensions.get("window");
+const isTablet = width >= 768;
 
 const AppBarPBuscador = () => {
   const { searchVisible, setSearchVisible, buscarPacientes } =
@@ -18,7 +21,11 @@ const AppBarPBuscador = () => {
 
   return (
     <Appbar.Header
-      style={{ backgroundColor: theme.colors.secondary }}
+      mode="small"
+      style={{
+        backgroundColor: theme.colors.secondary,
+        marginVertical: isTablet ? verticalScale(15) : verticalScale(8),
+      }}
       elevated={true}
     >
       {searchVisible ? (
@@ -28,9 +35,21 @@ const AppBarPBuscador = () => {
         />
       ) : (
         <>
-          <Appbar.Content title="Citas" />
+          <Appbar.Content
+            title="Citas"
+            titleStyle={[
+              globalStyles.appBarTitleDoctor,
+            ]}
+            style={{ paddingLeft: moderateScale(25) }}
+          />
           <Appbar.Action
-            icon="magnify"
+            icon="account-search"
+            style={{
+              backgroundColor: "#B7D5CF",
+              borderRadius: isTablet?moderateScale(7):moderateScale(15),
+              marginRight:moderateScale(25)
+            }}
+            size={isTablet ? scale(14) : scale(20)}
             onPress={() => setSearchVisible(true)}
           />
         </>

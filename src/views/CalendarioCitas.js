@@ -10,7 +10,6 @@ import LoadingCalendar from "../components/LoadingCalendar";
 import Alerta from "../components/Alerta";
 import DetalleCita from "../components/DetalleCita";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import { useNavigation } from "@react-navigation/native";
 import AppBarPBuscador from "../components/AppBarPBuscador";
 import ListaPacientes from "../components/ListaPacientes";
 import { verticalScale } from "react-native-size-matters";
@@ -46,6 +45,7 @@ const CalendarioCitas = () => {
   return (
     <>
       {isDoctor && <AppBarPBuscador />}
+      <SafeAreaView style={globalStyles.contenedorCitas}>
         {searchResults.length > 0 && (
           <FlatList
             style={globalStyles.flatlistPacientes}
@@ -56,7 +56,6 @@ const CalendarioCitas = () => {
             keyExtractor={(item) => item.idPaciente}
           />
         )}
-      <SafeAreaView style={globalStyles.contenedorCitas}>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent:'flex-start' }}
         >

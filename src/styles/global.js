@@ -9,7 +9,6 @@ const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 const globalStyles = StyleSheet.create({
   contenedor: {
-    //toma todo el espacio disponible en la pantalla
     flex: 1,
   },
   tituloBienvenida: {
@@ -284,7 +283,7 @@ const globalStyles = StyleSheet.create({
   // },
   paginationStyle: {
     position: "absolute",
-    bottom: verticalScale(-10),
+    bottom: verticalScale(-8),
     left: 0,
     right: 0,
     flexDirection: "row",
@@ -299,7 +298,7 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#888",
   },
   paginationDotActive: {
-    backgroundColor: "#F27F1B", // Color activo para la paginación
+    backgroundColor: "#F27F1B",
   },
   flatlistPacientes: {
     height: isTablet ? verticalScale(40) : verticalScale(100),
@@ -328,6 +327,18 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: moderateScale(5),
     paddingVertical: isTablet ? moderateScale(3) : moderateScale(0),
   },
+  //APPBAR DOCTOR
+  appBarTitleDoctor:{
+    fontFamily:'Quicksand_700Bold',
+    color:'#B7D5CF',
+    fontSize:isTablet?scale(14):scale(17),
+    paddingVertical: isTablet?verticalScale(6):verticalScale(1)
+  },
+  searchbarInputSt:{
+    fontFamily:'Quicksand_700Bold',color:'#fff',
+    fontSize:isTablet?scale(11):scale(15),
+  }
+  
 });
 
 export default globalStyles;
