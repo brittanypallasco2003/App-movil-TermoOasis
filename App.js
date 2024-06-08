@@ -11,6 +11,7 @@ import AppNav from "./src/navigation/AppNav";
 //herramienta expo
 import {
   useFonts,
+  Quicksand_400Regular,
   Quicksand_500Medium,
   Quicksand_600SemiBold,
   Quicksand_700Bold,
@@ -68,6 +69,7 @@ const App = () => {
     client?.sendMessage("ping", { from: "app" });
   }, []);
   let [fontsLoaded, fontError] = useFonts({
+    Quicksand_400Regular,
     Quicksand_500Medium,
     Quicksand_600SemiBold,
     Quicksand_700Bold,

@@ -45,8 +45,8 @@ const CalendarioCitas = () => {
   return (
     <>
       {isDoctor && <AppBarPBuscador />}
-      <SafeAreaView style={globalStyles.contenedorCitas}>
-        {searchResults.length > 0 && (
+      {searchResults.length > 0 && (
+        <View>
           <FlatList
             style={globalStyles.flatlistPacientes}
             data={searchResults}
@@ -54,10 +54,13 @@ const CalendarioCitas = () => {
               return <ListaPacientes item={item} />;
             }}
             keyExtractor={(item) => item.idPaciente}
+            showsVerticalScrollIndicator={false}
           />
-        )}
+        </View>
+      )}
+      <SafeAreaView style={globalStyles.contenedorCitas}>
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, justifyContent:'flex-start' }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "flex-start" }}
         >
           <Text style={globalStyles.tituloCitas}>Calendario de Citas</Text>
           {Object.keys(markDates).length === 0 &&
@@ -116,19 +119,17 @@ const CalendarioCitas = () => {
           )}
         /> */}
           <View style={globalStyles.contPrincipalDetalle}>
-          {loadDetalle ? (
-            <LoadingCalendar />
-          ) : (
-            detallesCitas.length == 0 &&
-            Object.keys(markDates).length > 0 && (
-              <Text
-                style={[globalStyles.msgUser,]}
-              >
-                Selecciona alguna de las fechas marcadas para ver tus citas
-                programadas de ese día
-              </Text>
-            )
-          )}
+            {loadDetalle ? (
+              <LoadingCalendar />
+            ) : (
+              detallesCitas.length == 0 &&
+              Object.keys(markDates).length > 0 && (
+                <Text style={[globalStyles.msgUser]}>
+                  Selecciona alguna de las fechas marcadas para ver tus citas
+                  programadas de ese día
+                </Text>
+              )
+            )}
             <SwiperFlatList
               showPagination
               paginationStyle={globalStyles.paginationStyle}

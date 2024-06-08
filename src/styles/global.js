@@ -301,7 +301,9 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#F27F1B",
   },
   flatlistPacientes: {
-    height: isTablet ? verticalScale(40) : verticalScale(100),
+    height: isTablet ? verticalScale(55) : verticalScale(70),
+    marginHorizontal:moderateScale(25),
+    // marginVertical:isTablet?verticalScale(5):verticalScale(8)
   },
   logoAppbar: {
     height: isTablet ? verticalScale(30) : verticalScale(40),
@@ -337,7 +339,22 @@ const globalStyles = StyleSheet.create({
   searchbarInputSt:{
     fontFamily:'Quicksand_700Bold',color:'#fff',
     fontSize:isTablet?scale(11):scale(15),
-  }
+  },
+//RESULTADO DEL BUSCADOR
+titleStyleListResult:{
+  fontFamily:'Quicksand_600SemiBold',
+  fontSize:isTablet?scale(10):scale(13)
+},
+
+titleStListItem:{
+  fontFamily: isTablet?'Quicksand_500Medium':'Quicksand_600SemiBold',
+  fontSize:isTablet?scale(9.5):scale(12.5)
+},
+descripListItem:{
+  fontFamily: isTablet?'Quicksand_400Regular':'Quicksand_500Medium',
+  fontSize:isTablet?scale(8):scale(11)
+}
+
   
 });
 

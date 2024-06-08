@@ -151,9 +151,9 @@ export const CitasProvider = ({ children }) => {
         console.log("estas son las citas pendientes", citasPendientes);
 
         idP
-        ? setcitasPendPacienteEsp(citasPendientes)
-        : setCitasPendientes(citasPendientes);
-        
+          ? setcitasPendPacienteEsp(citasPendientes)
+          : setCitasPendientes(citasPendientes);
+
         settipoCita("Pendientes");
         const fechasMarcadas = marcarFechas(citasPendientes);
         console.log("fecha pendiente marcada: ", fechasMarcadas);
@@ -217,7 +217,10 @@ export const CitasProvider = ({ children }) => {
         }
         const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
         console.log("estas son las citas canceladas: ", citasCanceladas);
-        setCitasCanceladas(citasCanceladas);
+
+        idP
+          ? setcitasCanPacienteEsp(citasCanceladas)
+          : setCitasCanceladas(citasCanceladas);
         const fechasMarcadas = marcarFechas(citasCanceladas);
         setMarkdates(fechasMarcadas);
       } catch (error) {
