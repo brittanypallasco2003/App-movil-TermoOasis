@@ -17,7 +17,7 @@ const AppStack = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={screen.perfil.tab}
+      initialRouteName={screen.citas.tab}
       screenOptions={{
         headerShown: false,
       }}
