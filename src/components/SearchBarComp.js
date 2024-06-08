@@ -8,9 +8,16 @@ import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
-const SearchBarComp = ({ searchQuery, onChangeSearch }) => {
-  const { searchVisible, setSearchVisible } = useContext(CitasContext);
+const SearchBarComp = () => {
+  const { searchVisible, setSearchVisible,buscarPacientes } = useContext(CitasContext);
+  const [nombrePaciente, setNombrePaciente] = useState("");
   const theme = useTheme();
+
+  const buscandoPacienteInput = (busqueda) => {
+    setNombrePaciente(busqueda)
+    buscarPacientes(busqueda || "")
+  }
+  
   return (
     <Searchbar
       icon={() => (
@@ -20,20 +27,20 @@ const SearchBarComp = ({ searchQuery, onChangeSearch }) => {
           size={isTablet ? scale(13.5) : scale(18)}
         />
       )}
-      clearIcon={() => (
+      clearIcon={nombrePaciente.length>0?() => (
         <MaterialCommunityIcons
           name="close"
           color="#fff"
           size={isTablet ? scale(13.5) : scale(18)}
         />
-      )}
-      traileringIcon={() => (
+      ):null}
+      traileringIcon={nombrePaciente.length===0?() => (
         <MaterialCommunityIcons
           name="close"
           color="#fff"
           size={isTablet ? scale(13.5) : scale(18)}
         />
-      )}
+      ):null}
       inputStyle={globalStyles.searchbarInputSt}
       style={{
         flex:1,
@@ -47,11 +54,12 @@ const SearchBarComp = ({ searchQuery, onChangeSearch }) => {
       }}
       placeholder="Paciente..."
       onTraileringIconPress={() => setSearchVisible(false)}
-      onChangeText={onChangeSearch}
-      value={searchQuery}
+      onChangeText={(texto) => {buscandoPacienteInput(texto)
+       }}
+      value={nombrePaciente}
       onClearIconPress={() => {
         setSearchVisible(false);
-        onChangeSearch("");
+        buscandoPacienteInput('')
       }}
     />
   );

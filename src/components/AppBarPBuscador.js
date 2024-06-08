@@ -11,43 +11,47 @@ const isTablet = width >= 768;
 const AppBarPBuscador = () => {
   const { searchVisible, setSearchVisible, buscarPacientes } =
     useContext(CitasContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
-  const onChangeSearch = (query) => {
-    setSearchQuery(query);
-    buscarPacientes(query);
-  };
+  // const onChangeSearch = (query) => {
+  //   setSearchQuery(query);
+  //   buscarPacientes(query);
+  // };
 
   return (
     <Appbar.Header
       mode="small"
       style={{
         backgroundColor: theme.colors.secondary,
-        marginVertical: isTablet ? verticalScale(15) : verticalScale(8),
+        marginVertical: searchVisible
+          ? isTablet
+            ? verticalScale(15)
+            : verticalScale(8)
+          : isTablet
+          ? verticalScale(8)
+          : verticalScale(5),
       }}
       elevated={true}
     >
       {searchVisible ? (
         <SearchBarComp
-          searchQuery={searchQuery}
-          onChangeSearch={onChangeSearch}
+        // searchQuery={searchQuery}
+        // onChangeSearch={onChangeSearch}
         />
       ) : (
         <>
           <Appbar.Content
             title="Citas"
-            titleStyle={[
-              globalStyles.appBarTitleDoctor,
-            ]}
+            titleStyle={[globalStyles.appBarTitleDoctor]}
             style={{ paddingLeft: moderateScale(25) }}
           />
           <Appbar.Action
             icon="account-search"
             style={{
               backgroundColor: "#B7D5CF",
-              borderRadius: isTablet?moderateScale(7):moderateScale(15),
-              marginRight:moderateScale(25)
+              borderRadius: isTablet ? moderateScale(7) : moderateScale(15),
+              marginRight: moderateScale(25),
             }}
             size={isTablet ? scale(14) : scale(20)}
             onPress={() => setSearchVisible(true)}

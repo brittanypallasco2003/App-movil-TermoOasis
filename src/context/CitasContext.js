@@ -14,7 +14,6 @@ import {
 import { obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
 
-
 export const CitasContext = createContext();
 
 export const CitasProvider = ({ children }) => {
@@ -32,6 +31,10 @@ export const CitasProvider = ({ children }) => {
   const [citaCancelada, setcitaCancelada] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [citasPendPacienteEsp, setcitasPendPacienteEsp] = useState([]);
+  const [citasReaPacienteEsp, setcitasReaPacienteEsp] = useState([]);
+  const [citasCanPacienteEsp, setcitasCanPacienteEsp] = useState([]);
+
   const {
     guardarMensaje,
     mostrarAlerta,
@@ -49,6 +52,7 @@ export const CitasProvider = ({ children }) => {
     setMarkdates({});
     settipoCita("");
     setdetallesCitas([]);
+    setSearchVisible(false);
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -56,10 +60,8 @@ export const CitasProvider = ({ children }) => {
   }, [tipoCita]);
 
   useEffect(() => {
-    setSearchResults([])
-    
-  }, [searchVisible])
-  
+    setSearchResults([]);
+  }, [searchVisible]);
 
   const obtenerCitas = async () => {
     try {
@@ -92,7 +94,7 @@ export const CitasProvider = ({ children }) => {
       setLoadingCalendar(false);
     }
   };
-  
+
   const obtenerCitasPaciente = async (id) => {
     try {
       setLoadingCalendar(true);
@@ -129,91 +131,103 @@ export const CitasProvider = ({ children }) => {
     }
   };
 
-  const obtenerCitasPendientes = useCallback(async (idP = null) => {
-    try {
-      setLoadingCalendar(true);
-      let citas;
-      if (isDoctor) {
-        console.log("soy doctor: ", isDoctor);
-        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
-      } else {
-        console.log("soy paciente");
-        citas = await obtenerCitasPaciente(_id);
+  const obtenerCitasPendientes = useCallback(
+    async (idP = null) => {
+      try {
+        setLoadingCalendar(true);
+        let citas;
+        if (isDoctor) {
+          console.log("soy doctor: ", isDoctor);
+          citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
+        } else {
+          console.log("soy paciente");
+          citas = await obtenerCitasPaciente(_id);
+        }
+
+        const fechaHoy = new Date();
+        const citasPendientes = citas.filter(
+          (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
+        );
+        console.log("estas son las citas pendientes", citasPendientes);
+
+        idP
+        ? setcitasPendPacienteEsp(citasPendientes)
+        : setCitasPendientes(citasPendientes);
+        
+        settipoCita("Pendientes");
+        const fechasMarcadas = marcarFechas(citasPendientes);
+        console.log("fecha pendiente marcada: ", fechasMarcadas);
+        setMarkdates(fechasMarcadas);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingCalendar(false);
       }
+    },
+    [isDoctor, _id]
+  );
 
-      const fechaHoy = new Date();
-      const citasPendientes = citas.filter(
-        (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
-      );
-      console.log("estas son las citas pendientes", citasPendientes);
-      setCitasPendientes(citasPendientes);
-      settipoCita("Pendientes");
-      const fechasMarcadas = marcarFechas(citasPendientes);
-      console.log("fecha pendiente marcada: ", fechasMarcadas);
-      setMarkdates(fechasMarcadas);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingCalendar(false);
-    }
-  }, [isDoctor, _id]);
+  const obtenerCitasRealizadas = useCallback(
+    async (idP = null) => {
+      try {
+        setLoadingCalendar(true);
+        settipoCita("Realizadas");
+        let citas;
+        if (isDoctor) {
+          console.log("soy doctor: ", isDoctor);
+          citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
+        } else {
+          console.log("soy paciente");
+          citas = await obtenerCitasPaciente(_id);
+        }
 
-  const obtenerCitasRealizadas = useCallback(async (idP = null) => {
-    try {
-      setLoadingCalendar(true);
-      settipoCita("Realizadas");
-      let citas;
-      if (isDoctor) {
-        console.log("soy doctor: ", isDoctor);
-        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
-      } else {
-        console.log("soy paciente");
-        citas = await obtenerCitasPaciente(_id);
+        const fechaHoy = new Date();
+        const citasRealizadas = citas.filter(
+          (citasR) => new Date(citasR.start) < fechaHoy && !citasR.citaCancelada
+        );
+
+        console.log("estas son las citas realizadas", citasRealizadas);
+        idP
+          ? setcitasReaPacienteEsp(citasRealizadas)
+          : setCitasRealizadas(citasRealizadas);
+
+        const fechasMarcadas = marcarFechas(citasRealizadas);
+        setMarkdates(fechasMarcadas);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingCalendar(false);
       }
+    },
+    [isDoctor, _id]
+  );
 
-      const fechaHoy = new Date();
-      const citasRealizadas = citas.filter(
-        (citasR) => new Date(citasR.start) < fechaHoy && !citasR.citaCancelada
-      );
-
-      console.log("estas son las citas realizadas", citasRealizadas);
-      setCitasRealizadas(citasRealizadas);
-      const fechasMarcadas = marcarFechas(citasRealizadas);
-      setMarkdates(fechasMarcadas);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingCalendar(false);
-    }
-  }, [isDoctor, _id]);
-
-
-
-
-  const obtenerCitasCanceladas = useCallback(async (idP = null) => {
-    try {
-      setLoadingCalendar(true);
-      settipoCita("Canceladas");
-      let citas;
-      if (isDoctor) {
-        console.log("soy doctor: ", isDoctor);
-        citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
-      } else {
-        console.log("soy paciente");
-        citas = await obtenerCitasPaciente(_id);
+  const obtenerCitasCanceladas = useCallback(
+    async (idP = null) => {
+      try {
+        setLoadingCalendar(true);
+        settipoCita("Canceladas");
+        let citas;
+        if (isDoctor) {
+          console.log("soy doctor: ", isDoctor);
+          citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
+        } else {
+          console.log("soy paciente");
+          citas = await obtenerCitasPaciente(_id);
+        }
+        const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
+        console.log("estas son las citas canceladas: ", citasCanceladas);
+        setCitasCanceladas(citasCanceladas);
+        const fechasMarcadas = marcarFechas(citasCanceladas);
+        setMarkdates(fechasMarcadas);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoadingCalendar(false);
       }
-      const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
-      console.log("estas son las citas canceladas: ", citasCanceladas);
-      setCitasCanceladas(citasCanceladas);
-      const fechasMarcadas = marcarFechas(citasCanceladas);
-      setMarkdates(fechasMarcadas);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingCalendar(false);
-    }
-
-  }, [isDoctor, _id]);
+    },
+    [isDoctor, _id]
+  );
 
   const marcarFechas = (citas) => {
     return citas.reduce((acc, cita) => {
@@ -224,7 +238,7 @@ export const CitasProvider = ({ children }) => {
       const formattedDate = `${year}-${month}-${day}`;
 
       if (acc[formattedDate]) {
-        acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B", });
+        acc[formattedDate].dots.push({ key: cita.idCita, color: "#F27F1B" });
       } else {
         acc[formattedDate] = { dots: [{ key: cita.idCita, color: "#F27F1B" }] };
       }
@@ -294,7 +308,7 @@ export const CitasProvider = ({ children }) => {
 
   const cancelarCita = async (id) => {
     try {
-      console.log('este es el id de cancel ',id)
+      console.log("este es el id de cancel ", id);
       setloadBotonCancel(true);
       const tokenStorage = await obtenerTokenStorage();
       console.log(tokenStorage);
@@ -334,73 +348,89 @@ export const CitasProvider = ({ children }) => {
   };
 
   const buscarPacientes = (consulta) => {
-    if (tipoCita === '') {
-      guardarMensaje('Debes seleccionar un tipo de cita primero');
-      mostrarAlerta(true)
-      return;
-    } else if (tipoCita === 'Pendientes') {
-      const resPendientes = citasPendientes.filter((cita) =>
-        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
-      );
-      const uniquePaciente = resPendientes.reduce((unique, cita) => {
-        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
-          ? unique
-          : [...unique, cita];
-      }, []);
-      setSearchResults(uniquePaciente);
-      console.log('Estos son los resultados de las citas pendientes: ', uniquePaciente);
-      return;
-    } else if (tipoCita === 'Realizadas') {
-      const resRealizadas = citasRealizadas.filter((cita) =>
-        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
-      );
-      const uniquePaciente = resRealizadas.reduce((unique, cita) => {
-        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
-          ? unique
-          : [...unique, cita];
-      }, []);
-      setSearchResults(uniquePaciente);
-      console.log('Estos son los resultados de las citas realizadas: ', uniquePaciente);
-      return;
-    } else if (tipoCita === 'Canceladas') {
-      const resCanceladas = citasCanceladas.filter((cita) =>
-        cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
-      );
-      const uniquePaciente = resCanceladas.reduce((unique, cita) => {
-        return unique.some((uniqueCita) => uniqueCita.idPaciente === cita.idPaciente)
-          ? unique
-          : [...unique, cita];
-      }, []);
-      setSearchResults(uniquePaciente);
-      console.log('Estos son los resultados de las citas canceladas: ', uniquePaciente);
-      return;
+    if (consulta && consulta.length > 0) {
+      console.log("esta es la consulta del buscador: ", consulta);
+      if (tipoCita === "") {
+        guardarMensaje("Debes seleccionar un tipo de cita primero");
+        mostrarAlerta(true);
+        return;
+      } else if (tipoCita === "Pendientes") {
+        const resPendientes = citasPendientes.filter((cita) =>
+          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        );
+        const uniquePaciente = resPendientes.reduce((unique, cita) => {
+          return unique.some(
+            (uniqueCita) => uniqueCita.idPaciente === cita.idPaciente
+          )
+            ? unique
+            : [...unique, cita];
+        }, []);
+        setSearchResults(uniquePaciente);
+        console.log(
+          "Estos son los resultados de las citas pendientes: ",
+          uniquePaciente
+        );
+        return;
+      } else if (tipoCita === "Realizadas") {
+        const resRealizadas = citasRealizadas.filter((cita) =>
+          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        );
+        const uniquePaciente = resRealizadas.reduce((unique, cita) => {
+          return unique.some(
+            (uniqueCita) => uniqueCita.idPaciente === cita.idPaciente
+          )
+            ? unique
+            : [...unique, cita];
+        }, []);
+        setSearchResults(uniquePaciente);
+        console.log(
+          "Estos son los resultados de las citas realizadas: ",
+          uniquePaciente
+        );
+        return;
+      } else if (tipoCita === "Canceladas") {
+        const resCanceladas = citasCanceladas.filter((cita) =>
+          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        );
+        const uniquePaciente = resCanceladas.reduce((unique, cita) => {
+          return unique.some(
+            (uniqueCita) => uniqueCita.idPaciente === cita.idPaciente
+          )
+            ? unique
+            : [...unique, cita];
+        }, []);
+        setSearchResults(uniquePaciente);
+        console.log(
+          "Estos son los resultados de las citas canceladas: ",
+          uniquePaciente
+        );
+        return;
+      }
+    } else {
+      setSearchResults([]);
     }
   };
-  
-const buscarCitasPaciente = async(idP) => {
-  if (tipoCita==='Pendientes') {
-    await obtenerCitasPendientes(idP)
-  }
-  else if(tipoCita==='Realizadas'){
-    await obtenerCitasPendientes(idP)
-  }
-  else if(tipoCita==='Canceladas'){
-    await obtenerCitasCanceladas(idP)
-  }
 
-  // } else if(tipoCita='Realizadas') {
-  //   obtenerCitasRealizadas(idP)
-  // }
-  
-}
+  const buscarCitasPaciente = async (idP) => {
+    if (tipoCita === "Pendientes") {
+      await obtenerCitasPendientes(idP);
+    } else if (tipoCita === "Realizadas") {
+      await obtenerCitasPendientes(idP);
+    } else if (tipoCita === "Canceladas") {
+      await obtenerCitasCanceladas(idP);
+    }
 
+    // } else if(tipoCita='Realizadas') {
+    //   obtenerCitasRealizadas(idP)
+    // }
+  };
 
   // const resultados = citasRealizadas.concat(citasPendientes, citasCanceladas).filter((cita) =>
   //   cita.nombrePaciente.toLowerCase().includes(consulta.toLowerCase())
   // );
   // console.log('estos son los resultados ',resultados)
   // setSearchResults(resultados);
-  
+
   return (
     <CitasContext.Provider
       value={{
@@ -430,7 +460,7 @@ const buscarCitasPaciente = async(idP) => {
         buscarPacientes,
         searchResults,
         setSearchResults,
-        buscarCitasPaciente
+        buscarCitasPaciente,
       }}
     >
       {children}
