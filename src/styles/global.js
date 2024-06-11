@@ -24,10 +24,30 @@ const globalStyles = StyleSheet.create({
     marginBottom: verticalScale(26),
     backgroundColor: "transparent",
     fontSize: scale(11),
+    fontFamily:'Quicksand_600SemiBold',
     marginHorizontal: moderateScale(25),
+    paddingBottom:verticalScale(6),
+    borderBottomWidth:moderateScale(1),
+    borderBottomColor:'#F27F1B',
+    color:'#fff'
   },
   tituloInicio: {
     fontSize: scale(32),
+  },
+  contenedorInputPass:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginHorizontal:moderateScale(25),
+    marginBottom:verticalScale(26),
+        borderBottomWidth:moderateScale(1),
+    borderBottomColor:'#F27F1B'
+  },
+  inputPass:{
+    fontSize:scale(11),
+    fontFamily:'Quicksand_600SemiBold',
+    flex:1,
+    marginLeft:moderateScale(15)
   },
   //contenedor Termo
   contTI: {
@@ -114,6 +134,7 @@ const globalStyles = StyleSheet.create({
   inputRestablecer: {
     backgroundColor: "transparent",
     fontSize: scale(11),
+    fontFamily:'Quicksand_600SemiBold',
     marginTop: isTablet ? verticalScale(27) : verticalScale(13),
   },
   //Boton para ir al inicio de sesión

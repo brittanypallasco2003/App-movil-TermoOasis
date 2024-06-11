@@ -1,6 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Text, Image, ScrollView, Dimensions, View } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import {
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  View,
+  TextInput,
+} from "react-native";
+import { Button, IconButton } from "react-native-paper";
 
 import globalStyles from "../styles/global";
 import { AuthContext } from "../context/AuthContext";
@@ -73,7 +80,7 @@ const Login = ({ navigation }) => {
         <Text style={[globalStyles.textos]}>
           Inicia Sesión con las credenciales enviadas a tu correo
         </Text>
-        <TextInput
+        {/* <TextInput
           style={[globalStyles.inputInicio]}
           underlineStyle={{
             borderWidth: moderateScale(0.8),
@@ -84,9 +91,35 @@ const Login = ({ navigation }) => {
           keyboardType={"email-address"}
           value={correoForm}
           onChangeText={(texto) => setcorreoForm(texto)}
-        />
-        {}
+        /> */}
         <TextInput
+          placeholder="Correo Electrónico"
+          keyboardType="email-address"
+          onChangeText={(texto) => setcorreoForm(texto)}
+          value={correoForm}
+          selectionColor={theme.colors.primary}
+          placeholderTextColor='#fff'
+          cursorColor={theme.colors.primary}
+          style={globalStyles.inputInicio}
+        />
+        <View style={globalStyles.contenedorInputPass}>
+          <TextInput
+            secureTextEntry={!mostrarPassword}
+            placeholder="Contraseña"
+            placeholderTextColor='#fff'
+            onChangeText={(texto) => setpasswordForm(texto)}
+            value={passwordForm}
+            cursorColor={theme.colors.primary}
+            style={globalStyles.inputPass}
+          />
+          <IconButton
+          icon={mostrarPassword? 'eye':'eye-off'}
+          size={isTablet? scale(15):scale(18)}
+          iconColor='#fff'
+          onPress={() => setmostrarPassword(!mostrarPassword)}
+          />
+        </View>
+        {/* <TextInput
           //mode="outlined"
           theme={{ fonts: { labelSmall: { fontSize: 13 } } }}
           style={[globalStyles.inputInicio]}
@@ -110,7 +143,7 @@ const Login = ({ navigation }) => {
             />
           }
           onChangeText={(texto) => setpasswordForm(texto)}
-        />
+        /> */}
 
         <Button
           mode="text"
