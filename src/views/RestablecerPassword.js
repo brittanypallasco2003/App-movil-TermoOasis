@@ -47,7 +47,6 @@ const RestablecerPassword = ({ navigation }) => {
               globalStyles.textoDescripcion,
               {
                 color: theme.colors.secondary,
-                marginBottom: verticalScale(17),
               },
             ]}
           >

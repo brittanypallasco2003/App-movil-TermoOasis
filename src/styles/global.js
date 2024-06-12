@@ -81,7 +81,8 @@ const globalStyles = StyleSheet.create({
     color: "#fff",
     marginHorizontal: moderateScale(20),
     textAlign: "center",
-    marginBottom: verticalScale(40),
+    marginBottom: verticalScale(35),
+    lineHeight:scale(20)
   },
   botonTextoLogin: {
     fontFamily: "Quicksand_600SemiBold",
@@ -126,6 +127,7 @@ const globalStyles = StyleSheet.create({
   textoDescripcion: {
     fontFamily: "Quicksand_600SemiBold",
     textAlign: "center",
+    marginBottom: isTablet?verticalScale(22):verticalScale(19),
     marginTop: verticalScale(5),
     fontSize: scale(11.5),
     lineHeight: scale(18),
@@ -155,7 +157,7 @@ const globalStyles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     marginTop: isTablet ? verticalScale(8) : verticalScale(3),
-    marginBottom:verticalScale(26),
+    marginBottom:verticalScale(27),
     borderBottomWidth:moderateScale(1),
     borderBottomColor:'#267373',
     marginHorizontal: isTablet?moderateScale(7):moderateScale(10)
