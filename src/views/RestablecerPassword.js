@@ -4,9 +4,10 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { useTheme } from "react-native-paper";
 import { AuthContext } from "../context/AuthContext";
@@ -44,42 +45,16 @@ const RestablecerPassword = ({ navigation }) => {
           <Text
             style={[
               globalStyles.textoDescripcion,
-              { color: theme.colors.secondary },
+              {
+                color: theme.colors.secondary,
+                marginBottom: verticalScale(17),
+              },
             ]}
           >
             Ingresa tu nombre, apellido y correo electrónico para que puedas
             recuperar de tu cuenta
           </Text>
-          <TextInput
-            placeholder="Nombre"
-            placeholderTextColor={theme.colors.secondary}
-            value={nombreForm}
-            onChangeText={(texto) => setNombreForm(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer,{fontFamily:'Quicksand_600SemiBold'}]}
-            underlineStyle={{
-              borderWidth: moderateScale(0.8),
-              borderColor: theme.colors.secondary,
-            }}
-          />
-          <TextInput
-            label={"Apellido"}
-            value={apellidoForm}
-            onChangeText={(texto) => setApellidoForm(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[globalStyles.inputRestablecer]}
-            underlineStyle={{
-              borderWidth: moderateScale(0.8),
-              borderColor: theme.colors.secondary,
-            }}
-          />
-          <TextInput
+          {/* <TextInput
             label={"Correo electrónico"}
             value={correoRestablecer}
             keyboardType={"email-address"}
@@ -91,12 +66,48 @@ const RestablecerPassword = ({ navigation }) => {
             style={[
               globalStyles.inputRestablecer,
               { marginBottom: verticalScale(25) },
-            ]}
-            underlineStyle={{
-              borderWidth: moderateScale(0.8),
-              borderColor: theme.colors.secondary,
-            }}
-          />
+              ]}
+              underlineStyle={{
+                borderWidth: moderateScale(0.8),
+                borderColor: theme.colors.secondary,
+                }}
+                /> */}
+          <View style={globalStyles.contenedorInputsRes}>
+            <TextInput
+              placeholder="Nombre"
+              keyboardType="default"
+              onChangeText={(texto) => setNombreForm(texto)}
+              value={nombreForm}
+              selectionColor={theme.colors.secondaryContainer}
+              placeholderTextColor="#5D9896"
+              cursorColor={theme.colors.secondary}
+              style={globalStyles.inputRes}
+            />
+          </View>
+          <View style={globalStyles.contenedorInputsRes}>
+            <TextInput
+              placeholder="Apellido"
+              keyboardType="default"
+              onChangeText={(texto) => setApellidoForm(texto)}
+              value={apellidoForm}
+              selectionColor={theme.colors.secondaryContainer}
+              placeholderTextColor="#5D9896"
+              cursorColor={theme.colors.secondary}
+              style={globalStyles.inputRes}
+            />
+          </View>
+          <View style={globalStyles.contenedorInputsRes}>
+            <TextInput
+              placeholder="Correo Electrónico"
+              keyboardType="email-address"
+              onChangeText={(texto) => setCorreoRestablecer(texto)}
+              value={correoRestablecer}
+              selectionColor={theme.colors.secondaryContainer}
+              placeholderTextColor="#5D9896"
+              cursorColor={theme.colors.secondary}
+              style={globalStyles.inputRes}
+            />
+          </View>
         </View>
         <View style={{ marginHorizontal: moderateScale(25) }}>
           <Button

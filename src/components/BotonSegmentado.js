@@ -31,7 +31,7 @@ const BotonSegmentado = () => {
           labelStyle: globalStyles.buttonSeg,
           //showSelectedCheck: true,
           style: {
-            borderColor: theme.colors.secondaryContainer,
+            borderColor: theme.colors.secondary,
             borderWidth: moderateScale(1),
             paddingVertical: isTablet? moderateScale(5):moderateScale(2),
 
@@ -45,7 +45,7 @@ const BotonSegmentado = () => {
           labelStyle: globalStyles.buttonSeg,
           //showSelectedCheck: true,
           style: {
-            borderColor: theme.colors.secondaryContainer,
+            borderColor: theme.colors.secondary,
             borderWidth: moderateScale(1),
             //height:verticalScale(20),
             paddingVertical: isTablet? moderateScale(5):moderateScale(2),
@@ -59,7 +59,7 @@ const BotonSegmentado = () => {
           //showSelectedCheck: true,
           labelStyle: globalStyles.buttonSeg,
           style: {
-            borderColor: theme.colors.secondaryContainer,
+            borderColor: theme.colors.secondary,
             borderWidth: moderateScale(1),
             paddingVertical: isTablet? moderateScale(5):moderateScale(2),
           },

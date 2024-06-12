@@ -21,14 +21,11 @@ const globalStyles = StyleSheet.create({
   },
   //inputs login
   inputInicio: {
-    marginBottom: verticalScale(26),
-    backgroundColor: "transparent",
+    flex:1,
     fontSize: scale(11),
     fontFamily:'Quicksand_600SemiBold',
-    marginHorizontal: moderateScale(25),
-    paddingBottom:verticalScale(6),
-    borderBottomWidth:moderateScale(1),
-    borderBottomColor:'#F27F1B',
+    marginLeft:moderateScale(15),
+    marginBottom:verticalScale(7),
     color:'#fff'
   },
   tituloInicio: {
@@ -38,16 +35,25 @@ const globalStyles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    marginHorizontal:moderateScale(25),
+    marginHorizontal:moderateScale(27),
+    marginBottom:verticalScale(27),
+    borderBottomWidth:moderateScale(1),
+    borderBottomColor:'#F27F1B'
+  },
+  contenedorInputEmail:{
+    flexDirection:'row',
+    alignItems:'center',
+    marginHorizontal:moderateScale(27),
     marginBottom:verticalScale(26),
-        borderBottomWidth:moderateScale(1),
+    borderBottomWidth:moderateScale(1),
     borderBottomColor:'#F27F1B'
   },
   inputPass:{
     fontSize:scale(11),
     fontFamily:'Quicksand_600SemiBold',
     flex:1,
-    marginLeft:moderateScale(15)
+    marginLeft:moderateScale(15),
+    color:'#fff'
   },
   //contenedor Termo
   contTI: {
@@ -75,7 +81,7 @@ const globalStyles = StyleSheet.create({
     color: "#fff",
     marginHorizontal: moderateScale(20),
     textAlign: "center",
-    marginBottom: verticalScale(27),
+    marginBottom: verticalScale(40),
   },
   botonTextoLogin: {
     fontFamily: "Quicksand_600SemiBold",
@@ -131,11 +137,28 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: moderateScale(25),
     paddingVertical: moderateScale(15),
   },
-  inputRestablecer: {
-    backgroundColor: "transparent",
+  // inputRestablecer: {
+  //   backgroundColor: "transparent",
+  //   fontSize: scale(11),
+  //   fontFamily:'Quicksand_600SemiBold',
+  //   marginTop: isTablet ? verticalScale(27) : verticalScale(13),
+  // },
+  inputRes:{
     fontSize: scale(11),
     fontFamily:'Quicksand_600SemiBold',
-    marginTop: isTablet ? verticalScale(27) : verticalScale(13),
+    flex:1,
+    flexDirection:'row',
+    marginLeft:moderateScale(15),
+    paddingBottom:verticalScale(5),
+  },
+  contenedorInputsRes:{
+    flexDirection:'row',
+    alignItems:'center',
+    marginTop: isTablet ? verticalScale(8) : verticalScale(3),
+    marginBottom:verticalScale(26),
+    borderBottomWidth:moderateScale(1),
+    borderBottomColor:'#267373',
+    marginHorizontal: isTablet?moderateScale(7):moderateScale(10)
   },
   //Boton para ir al inicio de sesión
   botonTexto: {

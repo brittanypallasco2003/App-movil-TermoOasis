@@ -92,31 +92,34 @@ const Login = ({ navigation }) => {
           value={correoForm}
           onChangeText={(texto) => setcorreoForm(texto)}
         /> */}
-        <TextInput
-          placeholder="Correo Electrónico"
-          keyboardType="email-address"
-          onChangeText={(texto) => setcorreoForm(texto)}
-          value={correoForm}
-          selectionColor={theme.colors.primary}
-          placeholderTextColor='#fff'
-          cursorColor={theme.colors.primary}
-          style={globalStyles.inputInicio}
-        />
+        <View style={globalStyles.contenedorInputEmail}>
+          <TextInput
+            placeholder="Correo Electrónico"
+            keyboardType="email-address"
+            onChangeText={(texto) => setcorreoForm(texto)}
+            value={correoForm}
+            selectionColor={theme.colors.primaryContainer}
+            placeholderTextColor="#B7D5CF"
+            cursorColor={theme.colors.primary}
+            style={globalStyles.inputInicio}
+          />
+        </View>
         <View style={globalStyles.contenedorInputPass}>
           <TextInput
             secureTextEntry={!mostrarPassword}
             placeholder="Contraseña"
-            placeholderTextColor='#fff'
+            placeholderTextColor="#B7D5CF"
             onChangeText={(texto) => setpasswordForm(texto)}
             value={passwordForm}
+            selectionColor={theme.colors.primaryContainer}
             cursorColor={theme.colors.primary}
             style={globalStyles.inputPass}
           />
           <IconButton
-          icon={mostrarPassword? 'eye':'eye-off'}
-          size={isTablet? scale(15):scale(18)}
-          iconColor='#fff'
-          onPress={() => setmostrarPassword(!mostrarPassword)}
+            icon={mostrarPassword ? "eye" : "eye-off"}
+            size={isTablet ? scale(15) : scale(18)}
+            iconColor="#fff"
+            onPress={() => setmostrarPassword(!mostrarPassword)}
           />
         </View>
         {/* <TextInput
