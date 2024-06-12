@@ -12,7 +12,7 @@ import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 const Tab = createBottomTabNavigator();
 const isTablet = width >= 768;
-const AppStack = () => {
+const AppTabs = () => {
   const theme = useTheme();
 
   return (
@@ -21,7 +21,7 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      tabBar={({ navigation, state, descriptors, insets }) => (
+      tabBar={({ navigation, state, insets }) => (
         <BottomNavigation.Bar
           labeled={false}
           activeIndicatorStyle={{
@@ -86,20 +86,10 @@ const AppStack = () => {
         />
       )}
     >
-      <Tab.Screen
-        name={screen.citas.tab}
-        component={CitasStack}
-        options={{
+      <Tab.Screen name={screen.citas.tab} component={CitasStack} options={{
           tabBarLabel: "Citas",
-        }}
-      />
-      <Tab.Screen
-        name={screen.perfil.tab}
-        component={PerfilStack}
-        options={{
-          tabBarLabel: "Perfil",
-        }}
-      />
+        }}/>
+      <Tab.Screen name={screen.perfil.tab} component={PerfilStack} />
     </Tab.Navigator>
   );
 };
@@ -113,4 +103,4 @@ function getIconName(routeName) {
   }
   return null;
 }
-export default AppStack;
+export default AppTabs;

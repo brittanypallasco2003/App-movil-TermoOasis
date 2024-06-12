@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
 import { ActivityIndicator, useTheme } from "react-native-paper";
-import { CitasContext } from "../context/CitasContext";
-import { scale } from "react-native-size-matters";
+import { scale, verticalScale } from "react-native-size-matters";
+import { Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
 
 const LoadingCalendar = () => {
-  return <ActivityIndicator animating={true} size={scale(60)} style={{marginTop:50}}/>;
+  const isTablet = width >= 768;
+  return (
+    <ActivityIndicator
+      animating={true}
+      size={isTablet ? scale(50) : scale(60)}
+      style={{marginTop: isTablet? verticalScale(40):verticalScale(0)}}
+    />
+  );
 };
 
 export default LoadingCalendar;

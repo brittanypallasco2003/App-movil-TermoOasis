@@ -278,7 +278,7 @@ const globalStyles = StyleSheet.create({
   },
   calendarStyles: {
     borderRadius: moderateScale(15),
-    marginHorizontal: moderateScale(25),
+    marginHorizontal: isTablet? moderateScale(35):moderateScale(25),
     paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
     paddingTop: isTablet ? verticalScale(10) : verticalScale(8),
@@ -300,7 +300,7 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     marginHorizontal: moderateScale(23),
     lineHeight: scale(19),
-    marginTop: verticalScale(15),
+    //marginTop: verticalScale(5),
   },
   //DETALLE DE CITA
   contPrincipalDetalle: {
@@ -335,12 +335,14 @@ const globalStyles = StyleSheet.create({
   },
   labelDetalle: {
     fontFamily: "LexendExa_700Bold",
+    // color:'#3F8483',
     fontSize: isTablet ? scale(9.5) : scale(11),
   },
   textoDetalle: {
     fontFamily: "LexendExa_500Medium",
     fontSize: isTablet ? scale(9) : scale(11),
     flexWrap: "wrap",
+    // color:'#000'
   },
   //BOTON CANCELAR
   botonCancelar: {

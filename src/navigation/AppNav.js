@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthContext } from "../context/AuthContext";
 ActivityIndicatorComp;
 import AuthStack from "./AuthStack";
-import AppStack from "./AppStack";
+import AppTabs from "./AppTabs";
 import ActivityIndicatorComp from "../components/ActivityIndicatorComp";
 
 const AppNav = () => {
@@ -17,7 +17,7 @@ const AppNav = () => {
   return (
     <NavigationContainer>
       {/* si se tiene un token (inicio sesión correcto) se mostraran el resto de páginas */}
-      {userToken !== "" ? <AppStack /> : <AuthStack />}
+      {userToken !== "" ? <AppTabs /> : <AuthStack />}
     </NavigationContainer>
   );
 };

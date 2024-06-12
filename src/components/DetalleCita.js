@@ -40,7 +40,7 @@ const DetalleCita = ({ item }) => {
     <View
       style={[
         globalStyles.contDetalleCita,
-        { borderColor: theme.colors.primaryContainer },
+        { borderColor: theme.colors.secondary },
       ]}
     >
       <Text style={[globalStyles.titleDetalle, globalStyles.espacioDetalle]}>

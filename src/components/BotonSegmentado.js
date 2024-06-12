@@ -19,7 +19,7 @@ const BotonSegmentado = () => {
     <SegmentedButtons
       value={value}
       style={{
-        marginHorizontal: moderateScale(25),
+        marginHorizontal: isTablet? moderateScale(35):moderateScale(25),
         marginVertical: verticalScale(20),
       }}
       onValueChange={setValue}
