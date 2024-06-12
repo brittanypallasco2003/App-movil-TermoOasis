@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PerfilStack from "./PerfilStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -23,7 +23,6 @@ const AppStack = () => {
       }}
       tabBar={({ navigation, state, descriptors, insets }) => (
         <BottomNavigation.Bar
-        //style={{padding:moderateScale(20)}}
           labeled={false}
           activeIndicatorStyle={{
             backgroundColor: "#267373",
@@ -91,18 +90,14 @@ const AppStack = () => {
         name={screen.citas.tab}
         component={CitasStack}
         options={{
-          // headerShown: isDoctor
           tabBarLabel: "Citas",
-          //tabBarLabelStyle: { fontFamily: "Quicksand_600SemiBold" },
         }}
       />
       <Tab.Screen
         name={screen.perfil.tab}
         component={PerfilStack}
         options={{
-          // title:"Termo Oasis",
           tabBarLabel: "Perfil",
-          //tabBarLabelStyle: { fontFamily: "Quicksand_600SemiBold" },
         }}
       />
     </Tab.Navigator>

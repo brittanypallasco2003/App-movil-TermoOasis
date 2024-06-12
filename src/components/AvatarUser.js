@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Avatar, useTheme } from "react-native-paper";
-import { scale } from "react-native-size-matters";
+import { scale, verticalScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
+import globalStyles from "../styles/global";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 const AvatarUser = () => {
@@ -11,9 +12,10 @@ const AvatarUser = () => {
   const { isDoctor } = infoUsuariObtenida;
   return (
     <Avatar.Icon
-      size={isTablet? scale(118):scale(160)}
+      size={isTablet ? scale(118) : scale(145)}
       icon={isDoctor ? "doctor" : "account"}
-      style={{ backgroundColor: theme.colors.primaryContainer }}
+      //color="#B7D5CF"
+      style={[globalStyles.avatarUser,{ backgroundColor: theme.colors.secondary }]}
     />
   );
 };

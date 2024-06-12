@@ -21,39 +21,39 @@ const globalStyles = StyleSheet.create({
   },
   //inputs login
   inputInicio: {
-    flex:1,
+    flex: 1,
     fontSize: scale(11),
-    fontFamily:'Quicksand_600SemiBold',
-    marginLeft:moderateScale(15),
-    marginBottom:verticalScale(7),
-    color:'#fff'
+    fontFamily: "Quicksand_600SemiBold",
+    marginLeft: moderateScale(15),
+    marginBottom: verticalScale(7),
+    color: "#fff",
   },
   tituloInicio: {
     fontSize: scale(32),
   },
-  contenedorInputPass:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    marginHorizontal:moderateScale(27),
-    marginBottom:verticalScale(27),
-    borderBottomWidth:moderateScale(1),
-    borderBottomColor:'#F27F1B'
+  contenedorInputPass: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: moderateScale(27),
+    marginBottom: verticalScale(27),
+    borderBottomWidth: moderateScale(1),
+    borderBottomColor: "#F27F1B",
   },
-  contenedorInputEmail:{
-    flexDirection:'row',
-    alignItems:'center',
-    marginHorizontal:moderateScale(27),
-    marginBottom:verticalScale(26),
-    borderBottomWidth:moderateScale(1),
-    borderBottomColor:'#F27F1B'
+  contenedorInputEmail: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: moderateScale(27),
+    marginBottom: verticalScale(26),
+    borderBottomWidth: moderateScale(1),
+    borderBottomColor: "#F27F1B",
   },
-  inputPass:{
-    fontSize:scale(11),
-    fontFamily:'Quicksand_600SemiBold',
-    flex:1,
-    marginLeft:moderateScale(15),
-    color:'#fff'
+  inputPass: {
+    fontSize: scale(11),
+    fontFamily: "Quicksand_600SemiBold",
+    flex: 1,
+    marginLeft: moderateScale(15),
+    color: "#fff",
   },
   //contenedor Termo
   contTI: {
@@ -82,7 +82,7 @@ const globalStyles = StyleSheet.create({
     marginHorizontal: moderateScale(20),
     textAlign: "center",
     marginBottom: verticalScale(35),
-    lineHeight:scale(20)
+    lineHeight: scale(20),
   },
   botonTextoLogin: {
     fontFamily: "Quicksand_600SemiBold",
@@ -122,15 +122,17 @@ const globalStyles = StyleSheet.create({
     marginBottom: verticalScale(15),
     //paddingVertical:verticalScale(10),
     textAlign: "center",
+    lineHeight: scale(22),
     marginTop: verticalScale(12),
   },
   textoDescripcion: {
     fontFamily: "Quicksand_600SemiBold",
     textAlign: "center",
-    marginBottom: isTablet?verticalScale(22):verticalScale(19),
+    marginBottom: isTablet ? verticalScale(22) : verticalScale(19),
     marginTop: verticalScale(5),
     fontSize: scale(11.5),
-    lineHeight: scale(18),
+    lineHeight: scale(19),
+    marginHorizontal: moderateScale(5),
   },
   contentenidoTarjeta: {
     backgroundColor: "#fff",
@@ -145,22 +147,22 @@ const globalStyles = StyleSheet.create({
   //   fontFamily:'Quicksand_600SemiBold',
   //   marginTop: isTablet ? verticalScale(27) : verticalScale(13),
   // },
-  inputRes:{
+  inputRes: {
     fontSize: scale(11),
-    fontFamily:'Quicksand_600SemiBold',
-    flex:1,
-    flexDirection:'row',
-    marginLeft:moderateScale(15),
-    paddingBottom:verticalScale(5),
+    fontFamily: "Quicksand_600SemiBold",
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: moderateScale(15),
+    paddingBottom: verticalScale(5),
   },
-  contenedorInputsRes:{
-    flexDirection:'row',
-    alignItems:'center',
-    marginTop: isTablet ? verticalScale(8) : verticalScale(3),
-    marginBottom:verticalScale(27),
-    borderBottomWidth:moderateScale(1),
-    borderBottomColor:'#267373',
-    marginHorizontal: isTablet?moderateScale(7):moderateScale(10)
+  contenedorInputsRes: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: isTablet ? verticalScale(9) : verticalScale(3),
+    marginBottom: verticalScale(29),
+    borderBottomWidth: moderateScale(1),
+    borderBottomColor: "#267373",
+    marginHorizontal: isTablet ? moderateScale(7) : moderateScale(10),
   },
   //Boton para ir al inicio de sesión
   botonTexto: {
@@ -194,7 +196,53 @@ const globalStyles = StyleSheet.create({
   contenedorPerfil: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    marginTop: verticalScale(27),
+  },
+  contentStCard: {
+    width: isTablet ? moderateScale(390) : moderateScale(310),
+    backgroundColor: "#B7D5CF",
+    borderRadius: isTablet ? moderateScale(20) : moderateScale(15),
+    paddingHorizontal: isTablet ? moderateScale(18) : moderateScale(10),
+    paddingBottom: verticalScale(15),
+    borderWidth:moderateScale(1),
+    borderColor:'#267373',
+  },
+  contenedoresText: {
+    marginTop: isTablet ? verticalScale(13.5) : verticalScale(13),
+    textAlign: "center",
+    lineHeight: scale(22),
+  },
+  titleDatos: {
+    fontFamily: "LexendExa_700Bold",
+    fontSize: scale(17),
+    textAlign: "center",
+    paddingTop: verticalScale(10),
+    color: "#000",
+  },
+  textosLabel: {
+    fontFamily: "LexendExa_700Bold",
+    fontSize: isTablet ? scale(11.7) : scale(13.5),
+    color: "#267373",
+  },
+  textosInfo: {
+    fontFamily: "LexendExa_500Medium",
+    fontSize: isTablet ? scale(10.5) : scale(11),
+    color: "#000",
+  },
+  contenedorAvatar: {
+    alignItems: "center",
+    marginTop: isTablet ? verticalScale(108) : verticalScale(75),
+  },
+  avatarUser: {
+    position: "absolute",
+    top: isTablet ? verticalScale(-163) : verticalScale(-145),
+    zIndex: 1,
+    elevation: moderateScale(10),
+  },
+  stLogoutBoton: {
+    //backgroundColor: "#B7D5CF",
+    borderRadius: isTablet?moderateScale(8):moderateScale(15),
   },
   // ALERTAS
   cuadroAlerta: {
@@ -214,7 +262,7 @@ const globalStyles = StyleSheet.create({
     fontSize: isTablet ? scale(9) : scale(11.5),
     fontFamily: "Quicksand_500Medium",
     lineHeight: isTablet ? scale(17) : scale(18),
-    textAlign: "left",
+    textAlign: "center",
   },
 
   botonAlert: {
@@ -234,7 +282,7 @@ const globalStyles = StyleSheet.create({
     paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
     paddingTop: isTablet ? verticalScale(10) : verticalScale(8),
-    marginBottom: verticalScale(20)
+    marginBottom: verticalScale(20),
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
@@ -256,17 +304,16 @@ const globalStyles = StyleSheet.create({
   },
   //DETALLE DE CITA
   contPrincipalDetalle: {
-    flex:1,
+    flex: 1,
     width: isTablet ? moderateScale(440) : moderateScale(360),
-    marginLeft:'auto',
-    marginRight:'auto',
-    marginBottom:verticalScale(20),
-    justifyContent:'center',
-    alignItems:'center'
-    
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: verticalScale(20),
+    justifyContent: "center",
+    alignItems: "center",
   },
   contDetalleCita: {
-    flex:1,
+    flex: 1,
     backgroundColor: "#fff",
     borderWidth: moderateScale(1),
     borderRadius: moderateScale(15),
@@ -297,16 +344,17 @@ const globalStyles = StyleSheet.create({
   },
   //BOTON CANCELAR
   botonCancelar: {
-    width: isTablet? "45%":"60%",
+    width: isTablet ? "45%" : "60%",
     borderRadius: moderateScale(15),
     marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
   },
-  LabelbotonCancelar:{
-    fontFamily: "Quicksand_600SemiBold", fontSize: isTablet? scale(9):scale(11)
+  LabelbotonCancelar: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: isTablet ? scale(9) : scale(11),
   },
-  contentBotonCancelar:{
+  contentBotonCancelar: {
     paddingVertical: isTablet ? moderateScale(4) : moderateScale(0),
   },
   espacioDetalle: {
@@ -348,11 +396,11 @@ const globalStyles = StyleSheet.create({
   },
   flatlistPacientes: {
     height: isTablet ? verticalScale(55) : verticalScale(70),
-    marginHorizontal:moderateScale(25),
+    marginHorizontal: moderateScale(25),
     // marginVertical:isTablet?verticalScale(5):verticalScale(8)
   },
   logoAppbar: {
-    height: isTablet ? verticalScale(30) : verticalScale(40),
+    height: isTablet ? verticalScale(33) : verticalScale(42),
     aspectRatio: 1,
     flex: 1,
   },
@@ -362,7 +410,7 @@ const globalStyles = StyleSheet.create({
     elevation: moderateScale(10),
     borderRadius: moderateScale(90),
     overflow: "hidden",
-    marginVertical: verticalScale(8),
+    marginVertical: verticalScale(10),
   },
   botonWhatsapp: {
     fontFamily: isTablet ? "Quicksand_600SemiBold" : "Quicksand_700Bold",
@@ -376,32 +424,31 @@ const globalStyles = StyleSheet.create({
     paddingVertical: isTablet ? moderateScale(3) : moderateScale(0),
   },
   //APPBAR DOCTOR
-  appBarTitleDoctor:{
-    fontFamily:'Quicksand_700Bold',
-    color:'#B7D5CF',
-    fontSize:isTablet?scale(14):scale(17),
-    paddingVertical: isTablet?verticalScale(6):verticalScale(1)
+  appBarTitleDoctor: {
+    fontFamily: "Quicksand_700Bold",
+    color: "#B7D5CF",
+    fontSize: isTablet ? scale(14) : scale(17),
+    paddingVertical: isTablet ? verticalScale(6) : verticalScale(1),
   },
-  searchbarInputSt:{
-    fontFamily:'Quicksand_700Bold',color:'#fff',
-    fontSize:isTablet?scale(11):scale(15),
+  searchbarInputSt: {
+    fontFamily: "Quicksand_700Bold",
+    color: "#fff",
+    fontSize: isTablet ? scale(11) : scale(15),
   },
-//RESULTADO DEL BUSCADOR
-titleStyleListResult:{
-  fontFamily:'Quicksand_600SemiBold',
-  fontSize:isTablet?scale(10):scale(13)
-},
+  //RESULTADO DEL BUSCADOR
+  titleStyleListResult: {
+    fontFamily: "Quicksand_600SemiBold",
+    fontSize: isTablet ? scale(10) : scale(13),
+  },
 
-titleStListItem:{
-  fontFamily: isTablet?'Quicksand_500Medium':'Quicksand_600SemiBold',
-  fontSize:isTablet?scale(9.5):scale(12.5)
-},
-descripListItem:{
-  fontFamily: isTablet?'Quicksand_400Regular':'Quicksand_500Medium',
-  fontSize:isTablet?scale(8):scale(11)
-}
-
-  
+  titleStListItem: {
+    fontFamily: isTablet ? "Quicksand_500Medium" : "Quicksand_600SemiBold",
+    fontSize: isTablet ? scale(9.5) : scale(12.5),
+  },
+  descripListItem: {
+    fontFamily: isTablet ? "Quicksand_400Regular" : "Quicksand_500Medium",
+    fontSize: isTablet ? scale(8) : scale(11),
+  },
 });
 
 export default globalStyles;

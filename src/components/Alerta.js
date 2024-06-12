@@ -39,7 +39,7 @@ const Alerta = () => {
             ? "check-circle"
             : "alert-circle"}
           size={isTablet? scale(30):scale(40)}
-          color={citaCancelada?theme.colors.secondary:theme.colors.primary}
+          color={passwordCambiado? theme.colors.secondary: citaCancelada? theme.colors.secondary:theme.colors.primary}
         />
         <Dialog.Title style={globalStyles.titleAlert}>
           {passwordCambiado
@@ -59,7 +59,7 @@ const Alerta = () => {
               mostrarAlerta(false);
               mostrarMensajePassword(false);
             }}
-            textColor={citaCancelada?theme.colors.secondary:theme.colors.primary}
+            textColor={passwordCambiado? theme.colors.secondary: citaCancelada? theme.colors.secondary:theme.colors.primary}
           >
             Entendido
           </Button>

@@ -18,8 +18,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const verificarCorreoIngresado = (textoIngresado) => {
-    let re = /\S+@\S+\.\S+/;
-    //si el correo no cumple con el formato salta la alerta
+    let re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (!re.test(textoIngresado)) {
       guardarMensaje("Formato de correo Inválido");
       mostrarAlerta(true);
@@ -118,18 +117,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  //si inició sesión y no la cerró, su token se almacenará en storage y por tanto, no se logueara de nuevo
   const sesionIniciada = async () => {
     try {
       setCargando(true);
 
       let token = await AsyncStorage.getItem("userToken");
       let userdata = await AsyncStorage.getItem("userInfo");
-      //convierte el storage en objeto
       userdata = JSON.parse(userdata);
       console.log("user: ", userdata);
-
-      //si existe un usuario en storage, entonces también su token, permitimos que el token del storage se almacene en el estado para permitirle entrar directo al perfil
       if (userdata) {
         setUserToken(token);
         obtenerInfoUsuario(userdata);
