@@ -15,7 +15,7 @@ const ListaPacientes = ({ item }) => {
   const theme = useTheme();
   const isTablet = width >= 768;
 
-  const { apellidoPaciente, nombrePaciente, idPaciente } = item;
+  const { apellidoPaciente, nombrePaciente, idPaciente,cedulaPaciente } = item;
 
   return (
     // <View style={{ flex: 1, padding: 20 }}>
@@ -32,7 +32,7 @@ const ListaPacientes = ({ item }) => {
     >
       <List.Item
         title={`${nombrePaciente} ${apellidoPaciente}`}
-        description={idPaciente}
+        description={`${cedulaPaciente}`}
         style={{ borderBottomWidth: moderateScale(1) }}
         //onLongPress={() => buscarCitasPaciente(idPaciente)}
         titleStyle={globalStyles.titleStListItem}

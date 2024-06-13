@@ -53,6 +53,7 @@ export const CitasProvider = ({ children }) => {
     settipoCita("");
     setdetallesCitas([]);
     setSearchVisible(false);
+    setcitaCancelada(false);
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -63,6 +64,12 @@ export const CitasProvider = ({ children }) => {
     setSearchResults([]);
   }, [searchVisible]);
 
+  //cada vez que se marquen de nuevo las fechas se quitan las tarjetas de info cita
+  useEffect(() => {
+    setdetallesCitas([])
+  }, [markDates])
+  
+
   const obtenerCitas = async () => {
     try {
       setLoadingCalendar(true);
@@ -71,12 +78,12 @@ export const CitasProvider = ({ children }) => {
       const response = await obtener_todas_citas(tokenStorage);
       if (response && response.data) {
         const citas = response.data.data;
-
         const citasFormateadas = citas.map((citaFormateada) => ({
           idCita: citaFormateada._id,
           start: new Date(citaFormateada.start),
           end: new Date(citaFormateada.end),
           idPaciente: citaFormateada.idPaciente._id,
+          cedulaPaciente: citaFormateada.idPaciente.cedula,
           nombrePaciente: citaFormateada.idPaciente.nombre,
           apellidoPaciente: citaFormateada.idPaciente.apellido,
           idDoctor: citaFormateada.idDoctor,
@@ -97,6 +104,7 @@ export const CitasProvider = ({ children }) => {
 
   const obtenerCitasPaciente = async (id) => {
     try {
+      console.log("función CITAS PACIENTE");
       setLoadingCalendar(true);
       const tokenStorage = await obtenerTokenStorage();
       const response = await obtener_citas_paciente_especifico(
@@ -106,11 +114,16 @@ export const CitasProvider = ({ children }) => {
       if (response && response.data) {
         const citas = response.data.data;
 
+        console.log(
+          "estas ES LA RESPUESTA DE LAS CITAS DE UN PACIENTE ESPECÍFICO: ",
+          citas
+        );
         const citasFormtP = citas.map((citaFormateada) => ({
           idCita: citaFormateada._id,
           start: citaFormateada.start,
           end: citaFormateada.end,
           idPaciente: citaFormateada.idPaciente._id,
+          nombrePaciente: citaFormateada.idPaciente.nombre,
           nombreDoctor: citaFormateada.idDoctor.nombre,
           apellidoDoctor: citaFormateada.idDoctor.apellido,
           citaCancelada: citaFormateada.isCancelado,
@@ -158,6 +171,7 @@ export const CitasProvider = ({ children }) => {
         const fechasMarcadas = marcarFechas(citasPendientes);
         console.log("fecha pendiente marcada: ", fechasMarcadas);
         setMarkdates(fechasMarcadas);
+       
       } catch (error) {
         console.log(error);
       } finally {
@@ -236,7 +250,7 @@ export const CitasProvider = ({ children }) => {
     return citas.reduce((acc, cita) => {
       const date = new Date(cita.start);
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses son de 0-11
+      const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
 
@@ -285,6 +299,8 @@ export const CitasProvider = ({ children }) => {
               registroMedico: citaF.registroMedico,
               nombrePaciente: citaF.idPaciente.nombre,
               apellidoPaciente: citaF.idPaciente.apellido,
+              cedulaPaciente: citaF.idPaciente.cedula,
+              telefonoPaciente: citaF.idPaciente.telefono,
               emailPaciente: citaF.idPaciente.email,
               nombreDoctor: citaF.idDoctor.nombre,
               apellidoDoctor: citaF.idDoctor.apellido,
@@ -317,11 +333,15 @@ export const CitasProvider = ({ children }) => {
       if (response && response.data) {
         guardarMensaje(response.data.msg);
         setcitaCancelada(true);
-        const nuevasDetallesCitas = detallesCitas.filter((cita) => cita.idCita !== id);
-        setdetallesCitas(nuevasDetallesCitas);
+        // const nuevasDetallesCitas = detallesCitas.filter(
+        //   (cita) => cita.idCita !== id
+        // );
+        // setdetallesCitas(nuevasDetallesCitas);
 
-        const citaPendientesAct=citasPendientes.filter((cita) =>cita.idCita!==id);
-        setCitasPendientes(citaPendientesAct)
+        const citaPendientesAct = citasPendientes.filter(
+          (cita) => cita.idCita !== id
+        );
+        setCitasPendientes(citaPendientesAct);
 
         const nuevasFechasMarcadas = { ...markDates };
         Object.keys(nuevasFechasMarcadas).forEach((fecha) => {
@@ -382,7 +402,7 @@ export const CitasProvider = ({ children }) => {
         }, []);
         setSearchResults(uniquePaciente);
         console.log(
-          "Estos son los resultados de las citas realizadas: ",
+          "Estos son los resultados de las citas realizadas DEL BUSCADOR: ",
           uniquePaciente
         );
         return;
@@ -410,12 +430,14 @@ export const CitasProvider = ({ children }) => {
   };
 
   const buscarCitasPaciente = async (idP) => {
-    if (tipoCita === "Pendientes") {
-      await obtenerCitasPendientes(idP);
-    } else if (tipoCita === "Realizadas") {
-      await obtenerCitasPendientes(idP);
-    } else if (tipoCita === "Canceladas") {
-      await obtenerCitasCanceladas(idP);
+    if (idP) {
+      if (tipoCita === "Pendientes") {
+        await obtenerCitasPendientes(idP);
+      } else if (tipoCita === "Realizadas") {
+        await obtenerCitasRealizadas(idP);
+      } else if (tipoCita === "Canceladas") {
+        await obtenerCitasCanceladas(idP);
+      }
     }
 
     // } else if(tipoCita='Realizadas') {

@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
 import AlertaCancelar from "./AlertaCancelar";
-import { moderateScale } from "react-native-size-matters";
+import { moderateScale, scale } from "react-native-size-matters";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
@@ -21,6 +21,7 @@ const DetalleCita = ({ item }) => {
     nombrePaciente,
     start,
     idCita,
+    telefonoPaciente,
   } = item;
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { setmostrarAlertaCancelar, setIdCitaCancelar } =
@@ -57,7 +58,7 @@ const DetalleCita = ({ item }) => {
         </Text>
       </Text>
       <View style={{width:isTablet?moderateScale(360):moderateScale(290)}}>
-        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
+        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle,{lineHeight:scale(16)}]}>
           Lugar:{" "}
           <Text style={globalStyles.textoDetalle}>
             detrás del Estadio del Aucas, Apuela S28-180 Y, Quito 170606
@@ -82,8 +83,8 @@ const DetalleCita = ({ item }) => {
       )}
       {isDoctor && (
         <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
-          Correo electrónico:{" "}
-          <Text style={globalStyles.textoDetalle}>{`${emailPaciente}`}</Text>
+          Teléfono:{" "}
+          <Text style={globalStyles.textoDetalle}>{`0${telefonoPaciente}`}</Text>
         </Text>
       )}
       {fechaCita > fechaHoy && isPaciente && isCancel === false && (
