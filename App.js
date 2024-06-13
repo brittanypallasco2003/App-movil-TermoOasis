@@ -51,7 +51,7 @@ const theme = {
     secondary: "#3F8483",
     background: "#3F8483",
     primaryContainer: "#F89138",
-    secondaryContainer: "#5D9896",
+    secondaryContainer: "#3F8483",
     elevation: {
       level2: "#3B8C8C",
     },

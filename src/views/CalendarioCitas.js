@@ -69,7 +69,7 @@ const CalendarioCitas = () => {
             citasCanceladas.length === 0 &&
             tipoCita === "" && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary }]}
+                style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
               >
                 Debes primero seleccionar el tipo de citas que quieras
                 visualizar
@@ -89,7 +89,7 @@ const CalendarioCitas = () => {
             Object.keys(markDates).length === 0 &&
             tipoCita === "Realizadas" && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary }]}
+                style={[globalStyles.msgUser, { color: theme.colors.primary,marginTop:verticalScale(10) }]}
               >
                 No existen citas Realizadas que mostrar
               </Text>
@@ -98,7 +98,7 @@ const CalendarioCitas = () => {
             Object.keys(markDates).length === 0 &&
             tipoCita === "Pendientes" && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary }]}
+                style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
               >
                 No existen citas Pendientes que mostrar
               </Text>

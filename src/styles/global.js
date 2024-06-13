@@ -293,6 +293,7 @@ const globalStyles = StyleSheet.create({
   buttonSeg: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: isTablet ? scale(9) : scale(11),
+    
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
@@ -300,7 +301,7 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     marginHorizontal: moderateScale(23),
     lineHeight: scale(19),
-    //marginTop: verticalScale(5),
+    //marginTop: verticalScale(10),
   },
   //DETALLE DE CITA
   contPrincipalDetalle: {

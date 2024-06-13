@@ -311,22 +311,17 @@ export const CitasProvider = ({ children }) => {
 
   const cancelarCita = async (id) => {
     try {
-      console.log("este es el id de cancel ", id);
       setloadBotonCancel(true);
-      const tokenStorage = await obtenerTokenStorage();
-      console.log(tokenStorage);
-      const response = await eliminarCita(id, tokenStorage);
+      const token = userToken;
+      const response = await eliminarCita(id, token);
       if (response && response.data) {
-        console.log(
-          "esta es la respuesta de las cita cancelada: ",
-          response.data
-        );
         guardarMensaje(response.data.msg);
         setcitaCancelada(true);
-        const nuevasDetallesCitas = detallesCitas.filter(
-          (cita) => cita.idCita !== id
-        );
+        const nuevasDetallesCitas = detallesCitas.filter((cita) => cita.idCita !== id);
         setdetallesCitas(nuevasDetallesCitas);
+
+        const citaPendientesAct=citasPendientes.filter((cita) =>cita.idCita!==id);
+        setCitasPendientes(citaPendientesAct)
 
         const nuevasFechasMarcadas = { ...markDates };
         Object.keys(nuevasFechasMarcadas).forEach((fecha) => {
