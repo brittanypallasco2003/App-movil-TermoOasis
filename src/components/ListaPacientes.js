@@ -18,14 +18,6 @@ const ListaPacientes = ({ item }) => {
   const { apellidoPaciente, nombrePaciente, idPaciente,cedulaPaciente } = item;
 
   return (
-    // <View style={{ flex: 1, padding: 20 }}>
-    //      <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ccc' }}>
-    //   <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-    //     {nombrePaciente} {apellidoPaciente}  {idPaciente}
-    //   </Text>
-
-    //      </View>
-    // </View>
     <List.Section
     // title="Resultados..." NO DESCOMENTAR, se renderiza esto por cada paciente, no una sola vez
     // titleStyle={globalStyles.titleStyleListResult}
@@ -40,10 +32,10 @@ const ListaPacientes = ({ item }) => {
         // right={() => ( <ActivityIndicator animating={true} color='red' />)}
         right={() => (
           <IconButton
-            mode="outlined"
+            //mode="outlined"
             icon="calendar-search"
             iconColor={theme.colors.primary}
-            size={isTablet ? scale(13) : scale(18)}
+            size={isTablet ? scale(14) : scale(18)}
             onPress={() => buscarCitasPaciente(idPaciente)}
           />
         )}
