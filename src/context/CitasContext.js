@@ -54,7 +54,6 @@ export const CitasProvider = ({ children }) => {
     setdetallesCitas([]);
     setSearchVisible(false);
     setcitaCancelada(false);
-    
   }, [isLoggedIn]);
 
   useEffect(() => {

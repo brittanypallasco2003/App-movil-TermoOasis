@@ -96,7 +96,7 @@ const Calendario = ({ markedDates }) => {
       minDate={fechaInicio.toISOString()}
       maxDate={fechaFinal.toISOString()}
       markingType={"multi-dot"}
-      //displayLoadingIndicator={loadingCalendar}
+      displayLoadingIndicator={loadingCalendar}
       markedDates={markedDates}
       renderArrow={(direction) => (
         <MaterialCommunityIcons
