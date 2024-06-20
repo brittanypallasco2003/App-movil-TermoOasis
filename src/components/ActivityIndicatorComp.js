@@ -13,14 +13,14 @@ const ActivityIndicatorComp = () => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: theme.colors.background,
+        backgroundColor: "#3F8483",
       }}
     >
       <Image
         style={globalStyles.imageLoader}
         source={require("../../assets/logoTermo.png")}
       />
-      <ActivityIndicator animating={true} size={scale(60)} />
+      <ActivityIndicator animating={true} size={scale(60)} color="#F27F1B" />
     </View>
   );
 };

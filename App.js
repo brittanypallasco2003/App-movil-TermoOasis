@@ -22,27 +22,12 @@ import {
   LexendExa_700Bold,
   LexendExa_500Medium,
 } from "@expo-google-fonts/lexend-exa";
-import { useDevToolsPluginClient } from "expo/devtools";
 import { CitasProvider } from "./src/context/CitasContext";
-import * as SplashScreen from "expo-splash-screen";
-
-const fontConfig = {
-  ...DefaultTheme.fonts,
-  regular: {
-    fontFamily: "Quicksand_600SemiBold",
-    fontWeight: "normal",
-  },
-  medium: {
-    fontFamily: "Quicksand_700Bold",
-    fontWeight: "normal",
-  },
-};
+import ActivityIndicatorComp from "./src/components/ActivityIndicatorComp";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 const theme = {
-  ...DefaultTheme,
-  fonts: configureFonts({
-    default: fontConfig,
-  }),
   colors: {
     ...DefaultTheme.colors,
     primary: "#F27F1B",
@@ -58,7 +43,6 @@ const theme = {
 
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
-  const client = useDevToolsPluginClient("my-devtools-plugin");
 
   let [fontsLoaded] = useFonts({
     Quicksand_400Regular,
@@ -71,16 +55,11 @@ const App = () => {
   });
 
   useEffect(() => {
-    client?.addMessageListener("ping", (data) => {
-      alert(`Received ping from ${data.from}`);
-    });
-    client?.sendMessage("ping", { from: "app" });
-
     async function prepare() {
       try {
         if (fontsLoaded) {
           setAppIsReady(true);
-          await SplashScreen.hideAsync();
+          // await SplashScreen.hideAsync();
         }
       } catch (error) {
         console.warn(error);
@@ -88,20 +67,25 @@ const App = () => {
     }
 
     prepare();
-  }, [fontsLoaded]);
+  }, [fontsLoaded, appIsReady]);
 
   if (!appIsReady) {
     return null;
   }
   return (
     <>
-      <AuthProvider>
-        <CitasProvider>
-          <PaperProvider theme={theme}>
-            <AppNav />
-          </PaperProvider>
-        </CitasProvider>
-      </AuthProvider>
+      <SafeAreaProvider>
+        <StatusBar style="auto" />
+        {/* <SafeAreaView style={{flex:1}}> */}
+        <AuthProvider>
+          <CitasProvider>
+            <PaperProvider theme={theme}>
+              <AppNav />
+            </PaperProvider>
+          </CitasProvider>
+        </AuthProvider>
+        {/* </SafeAreaView> */}
+      </SafeAreaProvider>
     </>
   );
 };

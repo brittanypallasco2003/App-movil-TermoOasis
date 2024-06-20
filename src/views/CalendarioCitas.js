@@ -14,6 +14,8 @@ import AppBarPBuscador from "../components/AppBarPBuscador";
 import ListaPacientes from "../components/ListaPacientes";
 import { verticalScale } from "react-native-size-matters";
 import { AuthContext } from "../context/AuthContext";
+import LoadCalendarioCitas from "../components/LoadCalendarioCitas";
+LoadCalendarioCitas
 const CalendarioCitas = () => {
   const theme = useTheme();
   const {
@@ -24,6 +26,7 @@ const CalendarioCitas = () => {
     tipoCita,
     detallesCitas,
     loadDetalle,
+    loadingCalendar,
     searchResults,
   } = useContext(CitasContext);
   const { infoUsuariObtenida } = useContext(AuthContext);
@@ -105,6 +108,9 @@ const CalendarioCitas = () => {
             )}
 
           <BotonSegmentado />
+          {loadingCalendar &&
+            (<LoadCalendarioCitas/>)
+          }
           <Calendario markedDates={markDates} />
 
           {/* 

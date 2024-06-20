@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Linking,
   Alert,
@@ -9,18 +9,21 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import globalStyles from "../styles/global";
 const { width } = Dimensions.get("window");
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { AuthContext } from "../context/AuthContext";
 const isTablet = width >= 768;
 
 const BotonWhatsapp = () => {
+  const {guardarMensaje, mostrarAlerta} = useContext(AuthContext)
   const openWhatsApp = () => {
     const phoneNumber = "+593995129878";
-    const message = "Hola, quisiera agendar una cita";
+    const message = "Hola, quisiera agendar una cita con ustedes";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
 
     Linking.openURL(url).catch((err) => {
-      Alert.alert("Error", "No se pudo abrir el enlace.");
+      guardarMensaje("Error al intentar abrir WhatsApp")
+      mostrarAlerta(true)
       console.error("Error al intentar abrir WhatsApp", err);
     });
   };

@@ -128,10 +128,10 @@ export const AuthProvider = ({ children }) => {
         setUserToken(token);
         obtenerInfoUsuario(userdata);
       }
-
-      setCargando(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setCargando(false);
     }
   };
 
