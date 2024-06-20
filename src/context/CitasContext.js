@@ -312,6 +312,7 @@ export const CitasProvider = ({ children }) => {
             setdetallesCitas(citasAgendadasFil);
           } catch (error) {
             console.error("Error al hacer peticiones a la API: ", error);
+            guardarMensaje("Lo sentimos, no puedes ver el detalle de tu cita, inténtalo más tarde")
           }
         } else {
           guardarMensaje("No tienes una cita agendada ese día");

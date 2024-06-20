@@ -60,6 +60,7 @@ const Calendario = ({ markedDates }) => {
   const { loadingCalendar, obtenerCitasFecha } = useContext(CitasContext);
   const [deshabilitarFlechaD, setdeshabilitarFlechaD] = useState(false);
   const [deshabilitarFlechaI, setdeshabilitarFlechaI] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const ObtenerfechaInicio = () => {
     const fechahoy = new Date();
@@ -86,6 +87,16 @@ const Calendario = ({ markedDates }) => {
   console.log("fechas marcadas jjj", markedDates);
 
   const theme = useTheme();
+  const combinedMarkedDates = {
+    ...markedDates,
+    ...(selectedDate && {
+      [selectedDate]: {
+        selected: true,
+        selectedColor: theme.colors.secondary,
+      },
+    }),
+  };
+
 
   return (
     <Calendar
@@ -97,7 +108,7 @@ const Calendario = ({ markedDates }) => {
       maxDate={fechaFinal.toISOString()}
       markingType={"multi-dot"}
       // displayLoadingIndicator={loadingCalendar}
-      markedDates={markedDates}
+      markedDates={combinedMarkedDates}
       renderArrow={(direction) => (
         <MaterialCommunityIcons
           name={direction === 'left' ? 'arrow-left-drop-circle' : 'arrow-right-drop-circle'}
@@ -119,6 +130,7 @@ const Calendario = ({ markedDates }) => {
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {
+        setSelectedDate(day.dateString);
         obtenerCitasFecha(day.dateString);
       }}
       onMonthChange={(month) => {
