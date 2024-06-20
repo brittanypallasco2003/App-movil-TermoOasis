@@ -62,6 +62,10 @@ const Calendario = ({ markedDates }) => {
   const [deshabilitarFlechaI, setdeshabilitarFlechaI] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
+  useEffect(() => {
+    setSelectedDate(null)
+  }, [markedDates])
+  
   const ObtenerfechaInicio = () => {
     const fechahoy = new Date();
     return new Date(
@@ -87,6 +91,7 @@ const Calendario = ({ markedDates }) => {
   console.log("fechas marcadas jjj", markedDates);
 
   const theme = useTheme();
+
   const combinedMarkedDates = {
     ...markedDates,
     ...(selectedDate && {
@@ -130,7 +135,9 @@ const Calendario = ({ markedDates }) => {
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {
-        setSelectedDate(day.dateString);
+        if (markedDates[day.dateString]) {
+          setSelectedDate(day.dateString);
+        }
         obtenerCitasFecha(day.dateString);
       }}
       onMonthChange={(month) => {
