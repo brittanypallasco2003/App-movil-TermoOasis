@@ -452,6 +452,16 @@ const globalStyles = StyleSheet.create({
     fontFamily: isTablet ? "Quicksand_400Regular" : "Quicksand_500Medium",
     fontSize: isTablet ? scale(8) : scale(11),
   },
+  resultado:{
+    marginHorizontal: moderateScale(25),
+    paddingVertical:verticalScale(12),
+    borderBottomWidth:moderateScale(1),
+    borderColor:'#000'
+  },
+  resultadosTextos:{
+    fontFamily:"Quicksand_600SemiBold",
+    textAlign:'center'
+  }
 });
 
 export default globalStyles;

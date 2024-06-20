@@ -28,6 +28,7 @@ const CalendarioCitas = () => {
     loadDetalle,
     loadingCalendar,
     searchResults,
+    searchVisible
   } = useContext(CitasContext);
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { isDoctor } = infoUsuariObtenida;
@@ -61,6 +62,11 @@ const CalendarioCitas = () => {
           />
         </View>
       )}
+      {searchResults.length===0 && searchVisible && tipoCita.length>0 &&(
+        <View style={globalStyles.resultado}>
+        <Text style={globalStyles.resultadosTextos}>No se encontraron resultados</Text>
+      </View>
+      )}
       <SafeAreaView style={globalStyles.contenedorCitas}>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: "flex-start" }}
@@ -70,7 +76,7 @@ const CalendarioCitas = () => {
             citasRealizadas.length === 0 &&
             citasPendientes.length === 0 &&
             citasCanceladas.length === 0 &&
-            tipoCita === "" && (
+            tipoCita === "" && loadingCalendar===false &&(
               <Text
                 style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
               >
@@ -81,7 +87,7 @@ const CalendarioCitas = () => {
 
           {citasCanceladas.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Canceladas" && (
+            tipoCita === "Canceladas" && loadingCalendar===false && (
               <Text
                 style={[globalStyles.msgUser, { color: theme.colors.primary }]}
               >
@@ -90,7 +96,7 @@ const CalendarioCitas = () => {
             )}
           {citasRealizadas.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Realizadas" && (
+            tipoCita === "Realizadas" && loadingCalendar===false &&(
               <Text
                 style={[globalStyles.msgUser, { color: theme.colors.primary,marginTop:verticalScale(10) }]}
               >
@@ -99,7 +105,7 @@ const CalendarioCitas = () => {
             )}
           {citasPendientes.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Pendientes" && (
+            tipoCita === "Pendientes" && loadingCalendar===false &&(
               <Text
                 style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
               >
