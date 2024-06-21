@@ -58,10 +58,10 @@ const App = () => {
     async function prepare() {
       try {
         if (fontsLoaded) {
-          setTimeout(async () => {
-            await SplashScreen.hideAsync();
+          await SplashScreen.hideAsync();
+          setTimeout(() => {
             setAppIsReady(true);
-          }, 1400);
+          }, 1600);
         }
       } catch (error) {
         console.warn(error);

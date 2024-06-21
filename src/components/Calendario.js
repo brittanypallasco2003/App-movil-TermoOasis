@@ -97,11 +97,10 @@ const Calendario = ({ markedDates }) => {
     ...(selectedDate && {
       [selectedDate]: {
         selected: true,
-        selectedColor: theme.colors.secondary,
+        selectedColor: markedDates[selectedDate] ? theme.colors.secondary : theme.colors.primary,
       },
     }),
   };
-
 
   return (
     <Calendar
@@ -136,6 +135,8 @@ const Calendario = ({ markedDates }) => {
       }}
       onDayPress={(day) => {
         if (markedDates[day.dateString]) {
+          setSelectedDate(day.dateString);
+        } else {
           setSelectedDate(day.dateString);
         }
         obtenerCitasFecha(day.dateString);

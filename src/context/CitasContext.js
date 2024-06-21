@@ -481,6 +481,7 @@ export const CitasProvider = ({ children }) => {
         searchResults,
         setSearchResults,
         buscarCitasPaciente,
+        setcitaCancelada
       }}
     >
       {children}

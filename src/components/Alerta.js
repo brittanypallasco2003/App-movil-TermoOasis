@@ -1,12 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import {
-  Button,
-  Dialog,
-  Paragraph,
-  Portal,
-  useTheme,
-} from "react-native-paper";
+import { Button, Dialog, Portal, useTheme } from "react-native-paper";
 import globalStyles from "../styles/global";
 import { Text } from "react-native";
 import { CitasContext } from "../context/CitasContext";
@@ -22,24 +16,35 @@ const Alerta = () => {
     passwordCambiado,
     mostrarMensajePassword,
   } = useContext(AuthContext);
-  const { citaCancelada } = useContext(CitasContext);
-  const theme=useTheme()
+  const { citaCancelada, setcitaCancelada } = useContext(CitasContext);
+  const theme = useTheme();
   return (
     <Portal>
-      {/* con onDismiss se puede cerrar la ventana de alerta si se presiona fuera de ella */}
       <Dialog
         visible={alerta}
-        onDismiss={() => mostrarAlerta(false)}
+        onDismiss={() => {
+          mostrarAlerta(false);
+          mostrarMensajePassword(false);
+          setcitaCancelada(false);
+        }}
         style={[globalStyles.cuadroAlerta]}
       >
         <Dialog.Icon
-          icon={passwordCambiado
-            ? "account-check"
-            : citaCancelada
-            ? "check-circle"
-            : "alert-circle"}
-          size={isTablet? scale(30):scale(40)}
-          color={passwordCambiado? theme.colors.secondary: citaCancelada? theme.colors.secondary:theme.colors.primary}
+          icon={
+            passwordCambiado
+              ? "account-check"
+              : citaCancelada
+              ? "check-circle"
+              : "alert-circle"
+          }
+          size={isTablet ? scale(30) : scale(40)}
+          color={
+            passwordCambiado
+              ? theme.colors.secondary
+              : citaCancelada
+              ? theme.colors.secondary
+              : theme.colors.primary
+          }
         />
         <Dialog.Title style={globalStyles.titleAlert}>
           {passwordCambiado
@@ -58,8 +63,15 @@ const Alerta = () => {
             onPress={() => {
               mostrarAlerta(false);
               mostrarMensajePassword(false);
+              setcitaCancelada(false);
             }}
-            textColor={passwordCambiado? theme.colors.secondary: citaCancelada? theme.colors.secondary:theme.colors.primary}
+            textColor={
+              passwordCambiado
+                ? theme.colors.secondary
+                : citaCancelada
+                ? theme.colors.secondary
+                : theme.colors.primary
+            }
           >
             Entendido
           </Button>
