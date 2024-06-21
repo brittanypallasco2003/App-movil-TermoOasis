@@ -118,8 +118,6 @@ export const AuthProvider = ({ children }) => {
 
   const sesionIniciada = async () => {
     try {
-      setCargando(true);
-
       let token = await AsyncStorage.getItem("userToken");
       let userdata = await AsyncStorage.getItem("userInfo");
       userdata = JSON.parse(userdata);
@@ -130,8 +128,6 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setCargando(false);
     }
   };
 

@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import {
   PaperProvider,
   MD3LightTheme as DefaultTheme,
-  configureFonts,
 } from "react-native-paper";
 
 import { AuthProvider } from "./src/context/AuthContext";
 import AppNav from "./src/navigation/AppNav";
-//herramienta expo
+
 import {
   useFonts,
   Quicksand_400Regular,
@@ -24,9 +23,10 @@ import {
 } from "@expo-google-fonts/lexend-exa";
 import { CitasProvider } from "./src/context/CitasContext";
 import ActivityIndicatorComp from "./src/components/ActivityIndicatorComp";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 
+SplashScreen.preventAutoHideAsync();
 const theme = {
   colors: {
     ...DefaultTheme.colors,
@@ -58,8 +58,10 @@ const App = () => {
     async function prepare() {
       try {
         if (fontsLoaded) {
-          setAppIsReady(true);
-          // await SplashScreen.hideAsync();
+          setTimeout(async () => {
+            await SplashScreen.hideAsync();
+            setAppIsReady(true);
+          }, 1400);
         }
       } catch (error) {
         console.warn(error);
@@ -70,22 +72,18 @@ const App = () => {
   }, [fontsLoaded, appIsReady]);
 
   if (!appIsReady) {
-    return null;
+    return <ActivityIndicatorComp />;
   }
   return (
     <>
-      <SafeAreaProvider>
-        <StatusBar style="auto" />
-        {/* <SafeAreaView style={{flex:1}}> */}
-        <AuthProvider>
-          <CitasProvider>
-            <PaperProvider theme={theme}>
-              <AppNav />
-            </PaperProvider>
-          </CitasProvider>
-        </AuthProvider>
-        {/* </SafeAreaView> */}
-      </SafeAreaProvider>
+      <StatusBar style="auto" />
+      <AuthProvider>
+        <CitasProvider>
+          <PaperProvider theme={theme}>
+            <AppNav />
+          </PaperProvider>
+        </CitasProvider>
+      </AuthProvider>
     </>
   );
 };
