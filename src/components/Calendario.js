@@ -1,17 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  scale,
-  verticalScale
-} from "react-native-size-matters";
+import { scale } from "react-native-size-matters";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import globalStyles from "../styles/global";
-import { Icon, IconButton, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { CitasContext } from "../context/CitasContext";
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Quicksand_700Bold } from "@expo-google-fonts/quicksand";
+
 LocaleConfig.locales["es"] = {
   monthNames: [
     "Enero",
@@ -63,9 +60,9 @@ const Calendario = ({ markedDates }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
-    setSelectedDate(null)
-  }, [markedDates])
-  
+    setSelectedDate(null);
+  }, [markedDates]);
+
   const ObtenerfechaInicio = () => {
     const fechahoy = new Date();
     return new Date(
@@ -97,7 +94,9 @@ const Calendario = ({ markedDates }) => {
     ...(selectedDate && {
       [selectedDate]: {
         selected: true,
-        selectedColor: markedDates[selectedDate] ? theme.colors.secondary : theme.colors.primary,
+        selectedColor: markedDates[selectedDate]
+          ? theme.colors.secondary
+          : theme.colors.primary,
       },
     }),
   };
@@ -115,22 +114,26 @@ const Calendario = ({ markedDates }) => {
       markedDates={combinedMarkedDates}
       renderArrow={(direction) => (
         <MaterialCommunityIcons
-          name={direction === 'left' ? 'arrow-left-drop-circle' : 'arrow-right-drop-circle'}
-          size={isTablet?scale(13):scale(18)} 
-          color={theme.colors.secondary} 
+          name={
+            direction === "left"
+              ? "arrow-left-drop-circle"
+              : "arrow-right-drop-circle"
+          }
+          size={isTablet ? scale(13) : scale(18)}
+          color={theme.colors.secondary}
         />
       )}
       theme={{
-        backgroundColor: 'blue',
+        backgroundColor: "blue",
         monthTextColor: theme.colors.secondary,
         selectedDayBackgroundColor: theme.colors.secondary,
         arrowColor: theme.colors.secondary,
         textDayFontFamily: "Quicksand_600SemiBold",
         textMonthFontFamily: "Quicksand_700Bold",
         textDayHeaderFontFamily: "Quicksand_700Bold",
-        textDayFontSize: isTablet? scale(9):scale(12),
-        textMonthFontSize:isTablet? scale(10):scale(12),
-        textDayHeaderFontSize: isTablet? scale(9):scale(12),
+        textDayFontSize: isTablet ? scale(9) : scale(12),
+        textMonthFontSize: isTablet ? scale(10) : scale(12),
+        textDayHeaderFontSize: isTablet ? scale(9) : scale(12),
         todayTextColor: theme.colors.secondary,
       }}
       onDayPress={(day) => {
