@@ -61,7 +61,7 @@ const App = () => {
           await SplashScreen.hideAsync();
           setTimeout(() => {
             setAppIsReady(true);
-          }, 1400);
+          }, 1124);
         }
       } catch (error) {
         console.warn(error);
