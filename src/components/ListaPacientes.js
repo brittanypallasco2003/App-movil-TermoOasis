@@ -29,7 +29,6 @@ const ListaPacientes = ({ item }) => {
         //onLongPress={() => buscarCitasPaciente(idPaciente)}
         titleStyle={globalStyles.titleStListItem}
         descriptionStyle={globalStyles.descripListItem}
-        // right={() => ( <ActivityIndicator animating={true} color='red' />)}
         right={() => (
           <IconButton
             //mode="outlined"

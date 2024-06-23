@@ -25,6 +25,7 @@ import { CitasProvider } from "./src/context/CitasContext";
 import ActivityIndicatorComp from "./src/components/ActivityIndicatorComp";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
+import LoadScreen from "./src/components/LoadScreen";
 
 SplashScreen.preventAutoHideAsync();
 const theme = {
@@ -72,7 +73,7 @@ const App = () => {
   }, [fontsLoaded, appIsReady]);
 
   if (!appIsReady) {
-    return <ActivityIndicatorComp />;
+    return <LoadScreen/>;
   }
   return (
     <>

@@ -197,7 +197,7 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: verticalScale(27),
+    // marginTop: verticalScale(27),
   },
   contentStCard: {
     width: isTablet ? moderateScale(390) : moderateScale(310),
@@ -205,20 +205,21 @@ const globalStyles = StyleSheet.create({
     borderRadius: isTablet ? moderateScale(20) : moderateScale(15),
     paddingHorizontal: isTablet ? moderateScale(18) : moderateScale(10),
     paddingBottom: verticalScale(15),
-    borderWidth:moderateScale(1),
-    borderColor:'#267373',
+    borderWidth: moderateScale(1),
+    borderColor: "#267373",
+    alignItems: "center",
   },
   contenedoresText: {
-    marginTop: isTablet ? verticalScale(13.5) : verticalScale(13),
+    marginTop: verticalScale(12),
     textAlign: "center",
     lineHeight: scale(22),
   },
   titleDatos: {
     fontFamily: "LexendExa_700Bold",
-    fontSize: scale(17),
+    fontSize: scale(17.5),
     textAlign: "center",
-    paddingTop: verticalScale(10),
     color: "#000",
+    paddingVertical:isTablet?verticalScale(10):verticalScale(0)
   },
   textosLabel: {
     fontFamily: "LexendExa_700Bold",
@@ -232,17 +233,13 @@ const globalStyles = StyleSheet.create({
   },
   contenedorAvatar: {
     alignItems: "center",
-    marginTop: isTablet ? verticalScale(108) : verticalScale(75),
   },
   avatarUser: {
-    position: "absolute",
-    top: isTablet ? verticalScale(-163) : verticalScale(-145),
-    zIndex: 1,
     elevation: moderateScale(10),
   },
   stLogoutBoton: {
     //backgroundColor: "#B7D5CF",
-    borderRadius: isTablet?moderateScale(8):moderateScale(15),
+    borderRadius: isTablet ? moderateScale(8) : moderateScale(15),
   },
   // ALERTAS
   cuadroAlerta: {
@@ -278,7 +275,7 @@ const globalStyles = StyleSheet.create({
   },
   calendarStyles: {
     borderRadius: moderateScale(15),
-    marginHorizontal: isTablet? moderateScale(35):moderateScale(25),
+    marginHorizontal: isTablet ? moderateScale(35) : moderateScale(25),
     paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
     paddingTop: isTablet ? verticalScale(10) : verticalScale(8),
@@ -293,7 +290,6 @@ const globalStyles = StyleSheet.create({
   buttonSeg: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: isTablet ? scale(9) : scale(11),
-    
   },
   msgUser: {
     fontFamily: "Quicksand_600SemiBold",
@@ -452,16 +448,16 @@ const globalStyles = StyleSheet.create({
     fontFamily: isTablet ? "Quicksand_400Regular" : "Quicksand_500Medium",
     fontSize: isTablet ? scale(8) : scale(11),
   },
-  resultado:{
+  resultado: {
     marginHorizontal: moderateScale(25),
-    paddingVertical:verticalScale(12),
-    borderBottomWidth:moderateScale(1),
-    borderColor:'#000'
+    paddingVertical: verticalScale(12),
+    borderBottomWidth: moderateScale(1),
+    borderColor: "#000",
   },
-  resultadosTextos:{
-    fontFamily:"Quicksand_600SemiBold",
-    textAlign:'center'
-  }
+  resultadosTextos: {
+    fontFamily: "Quicksand_600SemiBold",
+    textAlign: "center",
+  },
 });
 
 export default globalStyles;

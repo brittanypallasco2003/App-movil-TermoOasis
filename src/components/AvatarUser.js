@@ -12,7 +12,7 @@ const AvatarUser = () => {
   const { isDoctor } = infoUsuariObtenida;
   return (
     <Avatar.Icon
-      size={isTablet ? scale(118) : scale(145)}
+      size={isTablet ? scale(118) : scale(135)}
       icon={isDoctor ? "doctor" : "account"}
       //color="#B7D5CF"
       style={[globalStyles.avatarUser,{ backgroundColor: theme.colors.secondary }]}
