@@ -62,7 +62,7 @@ const App = () => {
           await SplashScreen.hideAsync();
           setTimeout(() => {
             setAppIsReady(true);
-          }, 1124);
+          }, 2000);
         }
       } catch (error) {
         console.warn(error);
@@ -73,7 +73,7 @@ const App = () => {
   }, [fontsLoaded, appIsReady]);
 
   if (!appIsReady) {
-    return <LoadScreen/>;
+    return <LoadScreen />;
   }
   return (
     <>
