@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PerfilStack from "./PerfilStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -8,13 +8,16 @@ import CitasStack from "./CitasStack";
 import { CommonActions } from "@react-navigation/native";
 import { moderateScale, scale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
+import { AuthContext } from "../context/AuthContext";
+import RegistrosStack from "./RegistrosStack";
 
 const { width } = Dimensions.get("window");
 const Tab = createBottomTabNavigator();
 const isTablet = width >= 768;
 const AppTabs = () => {
   const theme = useTheme();
-
+  const { infoUsuariObtenida } = useContext(AuthContext);
+  const { isDoctor } = infoUsuariObtenida;
   return (
     <Tab.Navigator
       initialRouteName={screen.citas.tab}
@@ -86,10 +89,17 @@ const AppTabs = () => {
         />
       )}
     >
-      <Tab.Screen name={screen.citas.tab} component={CitasStack} options={{
+      <Tab.Screen
+        name={screen.citas.tab}
+        component={CitasStack}
+        options={{
           tabBarLabel: "Citas",
-        }}/>
+        }}
+      />
       <Tab.Screen name={screen.perfil.tab} component={PerfilStack} />
+      {isDoctor && (
+        <Tab.Screen name={screen.registros.tab} component={RegistrosStack} />
+      )}
     </Tab.Navigator>
   );
 };
@@ -100,6 +110,9 @@ function getIconName(routeName) {
   }
   if (routeName === screen.perfil.tab) {
     return "account";
+  }
+  if (routeName ===screen.registros.tab){
+    return "file-document-outline"
   }
   return null;
 }

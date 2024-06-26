@@ -7,7 +7,7 @@ import {
 
 import { AuthProvider } from "./src/context/AuthContext";
 import AppNav from "./src/navigation/AppNav";
-
+import { RegistrosProvider } from "./src/context/RegistrosContext";
 import {
   useFonts,
   Quicksand_400Regular,
@@ -25,7 +25,6 @@ import { CitasProvider } from "./src/context/CitasContext";
 import ActivityIndicatorComp from "./src/components/ActivityIndicatorComp";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-
 
 SplashScreen.preventAutoHideAsync();
 const theme = {
@@ -73,16 +72,18 @@ const App = () => {
   }, [fontsLoaded, appIsReady]);
 
   if (!appIsReady) {
-    return <ActivityIndicatorComp/>;
+    return <ActivityIndicatorComp />;
   }
   return (
     <>
       <StatusBar style="auto" />
       <AuthProvider>
         <CitasProvider>
-          <PaperProvider theme={theme}>
-            <AppNav />
-          </PaperProvider>
+          <RegistrosProvider>
+            <PaperProvider theme={theme}>
+              <AppNav />
+            </PaperProvider>
+          </RegistrosProvider>
         </CitasProvider>
       </AuthProvider>
     </>

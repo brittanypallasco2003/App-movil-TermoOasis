@@ -9,8 +9,14 @@ const citasStack = {
   pageName:"Citas-Page"
 };
 
+const registrosStack={
+  tab:"RegistrosTab",
+  pageName:"Registros-Page",
+  pageDetalle:"Registros-Detalle"
+}
 
 export const screen = {
     perfil: perfilStack,
-    citas: citasStack
+    citas: citasStack,
+    registros:registrosStack
 };
