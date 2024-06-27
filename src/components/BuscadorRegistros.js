@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Searchbar, useTheme } from "react-native-paper";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, scale } from "react-native-size-matters";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import globalStyles from "../styles/global";
 import { Dimensions } from "react-native";

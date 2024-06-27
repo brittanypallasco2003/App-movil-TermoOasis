@@ -1,10 +1,11 @@
-import { Appbar,useTheme } from "react-native-paper";
+import { Appbar, useTheme } from "react-native-paper";
 import { getHeaderTitle } from "@react-navigation/elements";
 import { useContext } from "react";
 import { RegistrosContext } from "../context/RegistrosContext";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { Dimensions } from "react-native";
 import BuscadorRegistro from "./BuscadorRegistros";
+import globalStyles from "../styles/global";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 export default function AppBarRegistros({ navigation, route, options, back }) {
@@ -32,7 +33,11 @@ export default function AppBarRegistros({ navigation, route, options, back }) {
         <BuscadorRegistro />
       ) : (
         <>
-          <Appbar.Content title={title} />
+          <Appbar.Content
+            title={title}
+            titleStyle={globalStyles.appBarTitleDoctor}
+            style={{paddingLeft:moderateScale(25)}}
+          />
           <Appbar.Action
             icon="file-search-outline"
             style={{

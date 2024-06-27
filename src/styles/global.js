@@ -398,6 +398,7 @@ const globalStyles = StyleSheet.create({
     marginHorizontal: moderateScale(25),
     // marginVertical:isTablet?verticalScale(5):verticalScale(8)
   },
+  
   logoAppbar: {
     height: isTablet ? verticalScale(33) : verticalScale(42),
     aspectRatio: 1,
