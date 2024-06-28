@@ -56,7 +56,22 @@ const CitasStack = () => {
       <Stack.Screen
         name={screen.citas.pageRegistro}
         component={RegistrosMedicos}
-        options={{ title: "Registros Médicos" }}
+        options={({ navigation, route }) => ({
+          title: "Registro Médico",
+          headerShown: true,
+          header: (props) => (
+            <AppBarPBuscador
+              {...props}
+              navigation={navigation}
+              route={route}
+              options={props.options}
+              back={props.back}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+        })}
       />
     </Stack.Navigator>
   );

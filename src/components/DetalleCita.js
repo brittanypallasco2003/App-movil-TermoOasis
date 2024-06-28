@@ -7,7 +7,8 @@ import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
 import AlertaCancelar from "./AlertaCancelar";
 import { moderateScale, scale } from "react-native-size-matters";
-import { obtener_registro_id } from "../api/api_citas";
+import { useNavigation } from '@react-navigation/native';
+import { screen } from "../utils";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
@@ -33,11 +34,17 @@ const DetalleCita = ({ item }) => {
     setmostrarAlertaCancelar(true);
   };
 
+  const verRegistro =()=>{
+    navigation.navigate(screen.citas.pageRegistro, { idCita,nombrePaciente,apellidoPaciente });
+    obtenerRegistroMedico(idCita);
+  }
+
   const { isDoctor, isPaciente } = infoUsuariObtenida;
   const fechaHoy = new Date();
   const fechaCita = new Date(start);
 
   const theme = useTheme();
+  const navigation = useNavigation();
   return (
     <View
       style={[
@@ -119,7 +126,7 @@ const DetalleCita = ({ item }) => {
           style={[globalStyles.botonRegistroMedico]}
           buttonColor={theme.colors.secondary}
           textColor="#fff"
-          onPress={() => obtenerRegistroMedico(idCita)}
+          onPress={() => verRegistro()}
         >
           Ver Registro Médico
         </Button>

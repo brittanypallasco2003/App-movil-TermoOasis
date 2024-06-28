@@ -35,7 +35,9 @@ export const CitasProvider = ({ children }) => {
   const [citasPendPacienteEsp, setcitasPendPacienteEsp] = useState([]);
   const [citasReaPacienteEsp, setcitasReaPacienteEsp] = useState([]);
   const [citasCanPacienteEsp, setcitasCanPacienteEsp] = useState([]);
-
+  const [detalleRegistro, setDetalleRegistro] = useState({});
+  const [recetaRegisro, setrecetaRegisro] = useState({});
+  const [cargandoRegistro, setcargandoRegistro] = useState(false);
   const {
     guardarMensaje,
     mostrarAlerta,
@@ -55,6 +57,8 @@ export const CitasProvider = ({ children }) => {
     setdetallesCitas([]);
     setSearchVisible(false);
     setcitaCancelada(false);
+    setDetalleRegistro({})
+    setrecetaRegisro({})
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -67,16 +71,20 @@ export const CitasProvider = ({ children }) => {
 
   //cada vez que se marquen de nuevo las fechas se quitan las tarjetas de info cita
   useEffect(() => {
-    setdetallesCitas([])
-  }, [markDates])
-  
+    setdetallesCitas([]);
+  }, [markDates]);
 
   const obtenerCitas = async () => {
     try {
       setLoadingCalendar(true);
       const tokenStorage = await obtenerTokenStorage();
 
-      const response = await obtener_todas_citas(tokenStorage, isSecre, isDoctor, isPaciente);
+      const response = await obtener_todas_citas(
+        tokenStorage,
+        isSecre,
+        isDoctor,
+        isPaciente
+      );
       if (response && response.data) {
         const citas = response.data.data;
         const citasFormateadas = citas.map((citaFormateada) => ({
@@ -171,11 +179,10 @@ export const CitasProvider = ({ children }) => {
           ? setcitasPendPacienteEsp(citasPendientes)
           : setCitasPendientes(citasPendientes);
 
-          const fechasMarcadas = marcarFechas(citasPendientes);
-          console.log("fecha pendiente marcada: ", fechasMarcadas);
-          setMarkdates(fechasMarcadas);
-          settipoCita("Pendientes");
-       
+        const fechasMarcadas = marcarFechas(citasPendientes);
+        console.log("fecha pendiente marcada: ", fechasMarcadas);
+        setMarkdates(fechasMarcadas);
+        settipoCita("Pendientes");
       } catch (error) {
         console.log(error);
       } finally {
@@ -197,7 +204,7 @@ export const CitasProvider = ({ children }) => {
           console.log("soy paciente");
           citas = await obtenerCitasPaciente(_id);
         }
-        
+
         const fechaHoy = new Date();
         const citasRealizadas = citas.filter(
           (citasR) => new Date(citasR.start) < fechaHoy && !citasR.citaCancelada
@@ -205,9 +212,9 @@ export const CitasProvider = ({ children }) => {
 
         console.log("estas son las citas realizadas", citasRealizadas);
         idP
-        ? setcitasReaPacienteEsp(citasRealizadas)
-        : setCitasRealizadas(citasRealizadas);
-        
+          ? setcitasReaPacienteEsp(citasRealizadas)
+          : setCitasRealizadas(citasRealizadas);
+
         const fechasMarcadas = marcarFechas(citasRealizadas);
         setMarkdates(fechasMarcadas);
         settipoCita("Realizadas");
@@ -234,10 +241,10 @@ export const CitasProvider = ({ children }) => {
         }
         const citasCanceladas = citas.filter((citasC) => citasC.citaCancelada);
         console.log("estas son las citas canceladas: ", citasCanceladas);
-        
+
         idP
-        ? setcitasCanPacienteEsp(citasCanceladas)
-        : setCitasCanceladas(citasCanceladas);
+          ? setcitasCanPacienteEsp(citasCanceladas)
+          : setCitasCanceladas(citasCanceladas);
         const fechasMarcadas = marcarFechas(citasCanceladas);
         setMarkdates(fechasMarcadas);
         settipoCita("Canceladas");
@@ -291,11 +298,13 @@ export const CitasProvider = ({ children }) => {
           try {
             const token = userToken;
             console.log(token);
-            const peticionesCitas = ids.map((id) => obtener_cita_id(id, token, isPaciente, isDoctor, isSecre));
+            const peticionesCitas = ids.map((id) =>
+              obtener_cita_id(id, token, isPaciente, isDoctor, isSecre)
+            );
             const respuestas = await Promise.all(peticionesCitas);
             // console.log('Respuestas de las citas',respuestas)
             const datosCitas = respuestas.map((res) => res.data.data);
-            console.log('estos son datos citas ',datosCitas)
+            console.log("estos son datos citas ", datosCitas);
             const citasAgendadasFil = datosCitas.map((citaF) => ({
               idCita: citaF._id,
               start: citaF.start,
@@ -317,8 +326,10 @@ export const CitasProvider = ({ children }) => {
             setdetallesCitas(citasAgendadasFil);
           } catch (error) {
             console.error("Error al hacer peticiones a la API: ", error);
-            guardarMensaje("Lo sentimos, no puedes ver el detalle de tu cita, inténtalo más tarde")
-            mostrarAlerta(true)
+            guardarMensaje(
+              "Lo sentimos, no puedes ver el detalle de tu cita, inténtalo más tarde"
+            );
+            mostrarAlerta(true);
           }
         } else {
           guardarMensaje("No tienes una cita agendada ese día");
@@ -380,9 +391,12 @@ export const CitasProvider = ({ children }) => {
         mostrarAlerta(true);
         return;
       } else if (tipoCita === "Pendientes") {
-        const resPendientes = citasPendientes.filter((cita) =>
-          cita.cedulaPaciente?.toLowerCase().includes(consulta.toLowerCase()) ||
-          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        const resPendientes = citasPendientes.filter(
+          (cita) =>
+            cita.cedulaPaciente
+              ?.toLowerCase()
+              .includes(consulta.toLowerCase()) ||
+            cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
         );
         const uniquePaciente = resPendientes.reduce((unique, cita) => {
           return unique.some(
@@ -398,9 +412,12 @@ export const CitasProvider = ({ children }) => {
         );
         return;
       } else if (tipoCita === "Realizadas") {
-        const resRealizadas = citasRealizadas.filter((cita) =>
-          cita.cedulaPaciente?.toLowerCase().includes(consulta.toLowerCase()) ||
-          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        const resRealizadas = citasRealizadas.filter(
+          (cita) =>
+            cita.cedulaPaciente
+              ?.toLowerCase()
+              .includes(consulta.toLowerCase()) ||
+            cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
         );
         const uniquePaciente = resRealizadas.reduce((unique, cita) => {
           return unique.some(
@@ -416,9 +433,12 @@ export const CitasProvider = ({ children }) => {
         );
         return;
       } else if (tipoCita === "Canceladas") {
-        const resCanceladas = citasCanceladas.filter((cita) =>
-          cita.cedulaPaciente?.toLowerCase().includes(consulta.toLowerCase()) ||
-          cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
+        const resCanceladas = citasCanceladas.filter(
+          (cita) =>
+            cita.cedulaPaciente
+              ?.toLowerCase()
+              .includes(consulta.toLowerCase()) ||
+            cita.nombrePaciente?.toLowerCase().includes(consulta.toLowerCase())
         );
         const uniquePaciente = resCanceladas.reduce((unique, cita) => {
           return unique.some(
@@ -443,28 +463,30 @@ export const CitasProvider = ({ children }) => {
     if (idP) {
       if (tipoCita === "Pendientes") {
         await obtenerCitasPendientes(idP);
-        setSearchResults([])
-        setSearchVisible(false)
+        setSearchResults([]);
+        setSearchVisible(false);
       } else if (tipoCita === "Realizadas") {
         await obtenerCitasRealizadas(idP);
-        setSearchResults([])
-        setSearchVisible(false)
+        setSearchResults([]);
+        setSearchVisible(false);
       } else if (tipoCita === "Canceladas") {
         await obtenerCitasCanceladas(idP);
-        setSearchResults([])
-        setSearchVisible(false)
+        setSearchResults([]);
+        setSearchVisible(false);
       }
     }
   };
 
-  const obtenerRegistroMedico = async(id_Cita) => {
+  const obtenerRegistroMedico = async (id_Cita) => {
     try {
-      setLoadingCalendar(true);
-      const token=userToken
+      setcargandoRegistro(true);
+      const token = userToken;
       const response = await obtener_registro_id(id_Cita, token, isDoctor);
       if (response && response.data) {
-        const citas = response.data.data;
-        console.log(citas)
+        const registroMedico = response.data.data;
+        console.log(registroMedico);
+        const recetaRegisro = registroMedico.receta;
+        setDetalleRegistro(registroMedico);
       } else {
         throw new Error("Respuesta inválida del servidor");
       }
@@ -472,11 +494,9 @@ export const CitasProvider = ({ children }) => {
       console.log(error.response?.data?.msg);
       return [];
     } finally {
-      setLoadingCalendar(false);
+      setcargandoRegistro(false);
     }
-    
-  }
-  
+  };
 
   return (
     <CitasContext.Provider
@@ -509,7 +529,10 @@ export const CitasProvider = ({ children }) => {
         setSearchResults,
         buscarCitasPaciente,
         setcitaCancelada,
-        obtenerRegistroMedico
+        obtenerRegistroMedico,
+        detalleRegistro,
+        cargandoRegistro,
+        recetaRegisro
       }}
     >
       {children}
