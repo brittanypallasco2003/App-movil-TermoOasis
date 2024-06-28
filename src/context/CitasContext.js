@@ -10,6 +10,7 @@ import {
   obtener_citas_paciente_especifico,
   obtener_todas_citas,
   eliminarCita,
+  obtener_registro_id,
 } from "../api/api_citas";
 import { obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
@@ -43,7 +44,7 @@ export const CitasProvider = ({ children }) => {
     userToken,
   } = useContext(AuthContext);
 
-  const { _id, isDoctor, isPaciente } = infoUsuariObtenida;
+  const { _id, isDoctor, isPaciente, isSecre } = infoUsuariObtenida;
 
   useEffect(() => {
     setCitasCanceladas([]);
@@ -75,7 +76,7 @@ export const CitasProvider = ({ children }) => {
       setLoadingCalendar(true);
       const tokenStorage = await obtenerTokenStorage();
 
-      const response = await obtener_todas_citas(tokenStorage);
+      const response = await obtener_todas_citas(tokenStorage, isSecre, isDoctor, isPaciente);
       if (response && response.data) {
         const citas = response.data.data;
         const citasFormateadas = citas.map((citaFormateada) => ({
@@ -109,7 +110,10 @@ export const CitasProvider = ({ children }) => {
       const tokenStorage = await obtenerTokenStorage();
       const response = await obtener_citas_paciente_especifico(
         tokenStorage,
-        id
+        id,
+        isSecre,
+        isDoctor,
+        isPaciente
       );
       if (response && response.data) {
         const citas = response.data.data;
@@ -287,10 +291,11 @@ export const CitasProvider = ({ children }) => {
           try {
             const token = userToken;
             console.log(token);
-            const peticionesCitas = ids.map((id) => obtener_cita_id(id, token));
+            const peticionesCitas = ids.map((id) => obtener_cita_id(id, token, isPaciente, isDoctor, isSecre));
             const respuestas = await Promise.all(peticionesCitas);
             // console.log('Respuestas de las citas',respuestas)
             const datosCitas = respuestas.map((res) => res.data.data);
+            console.log('estos son datos citas ',datosCitas)
             const citasAgendadasFil = datosCitas.map((citaF) => ({
               idCita: citaF._id,
               start: citaF.start,
@@ -313,6 +318,7 @@ export const CitasProvider = ({ children }) => {
           } catch (error) {
             console.error("Error al hacer peticiones a la API: ", error);
             guardarMensaje("Lo sentimos, no puedes ver el detalle de tu cita, inténtalo más tarde")
+            mostrarAlerta(true)
           }
         } else {
           guardarMensaje("No tienes una cita agendada ese día");
@@ -451,6 +457,27 @@ export const CitasProvider = ({ children }) => {
     }
   };
 
+  const obtenerRegistroMedico = async(id_Cita) => {
+    try {
+      setLoadingCalendar(true);
+      const token=userToken
+      const response = await obtener_registro_id(id_Cita, token, isDoctor);
+      if (response && response.data) {
+        const citas = response.data.data;
+        console.log(citas)
+      } else {
+        throw new Error("Respuesta inválida del servidor");
+      }
+    } catch (error) {
+      console.log(error.response?.data?.msg);
+      return [];
+    } finally {
+      setLoadingCalendar(false);
+    }
+    
+  }
+  
+
   return (
     <CitasContext.Provider
       value={{
@@ -481,7 +508,8 @@ export const CitasProvider = ({ children }) => {
         searchResults,
         setSearchResults,
         buscarCitasPaciente,
-        setcitaCancelada
+        setcitaCancelada,
+        obtenerRegistroMedico
       }}
     >
       {children}

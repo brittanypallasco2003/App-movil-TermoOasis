@@ -1,4 +1,4 @@
-import { View, Text,Dimensions } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import React, { useContext } from "react";
 import { Button, useTheme } from "react-native-paper";
 import { formatearFecha, formatearFechaHora } from "../helpers";
@@ -7,6 +7,7 @@ import globalStyles from "../styles/global";
 import { CitasContext } from "../context/CitasContext";
 import AlertaCancelar from "./AlertaCancelar";
 import { moderateScale, scale } from "react-native-size-matters";
+import { obtener_registro_id } from "../api/api_citas";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
@@ -14,7 +15,6 @@ const DetalleCita = ({ item }) => {
   const {
     apellidoDoctor,
     apellidoPaciente,
-    emailPaciente,
     nombreDoctor,
     end,
     isCancel,
@@ -22,9 +22,10 @@ const DetalleCita = ({ item }) => {
     start,
     idCita,
     telefonoPaciente,
+    registroMedico
   } = item;
   const { infoUsuariObtenida } = useContext(AuthContext);
-  const { setmostrarAlertaCancelar, setIdCitaCancelar } =
+  const { setmostrarAlertaCancelar, setIdCitaCancelar, obtenerRegistroMedico } =
     useContext(CitasContext);
 
   const handleCancel = () => {
@@ -57,8 +58,16 @@ const DetalleCita = ({ item }) => {
           {`${formatearFechaHora(start)} - ${formatearFechaHora(end)}`}
         </Text>
       </Text>
-      <View style={{width:isTablet?moderateScale(360):moderateScale(290)}}>
-        <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle,{lineHeight:scale(16)}]}>
+      <View
+        style={{ width: isTablet ? moderateScale(360) : moderateScale(290) }}
+      >
+        <Text
+          style={[
+            globalStyles.labelDetalle,
+            globalStyles.espacioDetalle,
+            { lineHeight: scale(16) },
+          ]}
+        >
           Lugar:{" "}
           <Text style={globalStyles.textoDetalle}>
             detrás del Estadio del Aucas, Apuela S28-180 Y, Quito 170606
@@ -84,7 +93,9 @@ const DetalleCita = ({ item }) => {
       {isDoctor && (
         <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
           Teléfono:{" "}
-          <Text style={globalStyles.textoDetalle}>{`0${telefonoPaciente}`}</Text>
+          <Text
+            style={globalStyles.textoDetalle}
+          >{`0${telefonoPaciente}`}</Text>
         </Text>
       )}
       {fechaCita > fechaHoy && isPaciente && isCancel === false && (
@@ -98,6 +109,19 @@ const DetalleCita = ({ item }) => {
           onPress={() => handleCancel()}
         >
           Cancelar Cita
+        </Button>
+      )}
+      {fechaCita < fechaHoy && isDoctor && isCancel === false && registroMedico && (
+        <Button
+          mode="elevated"
+          contentStyle={globalStyles.contentBotonCancelar}
+          labelStyle={globalStyles.LabelbotonCancelar}
+          style={[globalStyles.botonRegistroMedico]}
+          buttonColor={theme.colors.secondary}
+          textColor="#fff"
+          onPress={() => obtenerRegistroMedico(idCita)}
+        >
+          Ver Registro Médico
         </Button>
       )}
       <AlertaCancelar />

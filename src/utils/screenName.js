@@ -6,7 +6,8 @@ const perfilStack = {
 };
 const citasStack = {
   tab: "CitasTab",
-  pageName:"Citas-Page"
+  pageName:"Citas-Page",
+  pageRegistro:"Registro-Medico"
 };
 
 

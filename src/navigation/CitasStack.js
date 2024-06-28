@@ -15,47 +15,49 @@ import { scale, verticalScale } from "react-native-size-matters";
 import { StyleSheet, Dimensions } from "react-native";
 import Logo from "../components/Logo";
 import BotonWhatsapp from "../components/BotonWhatsapp";
+import RegistrosMedicos from "../views/RegistrosMedicos";
+import AppBarPBuscador from "../components/AppBarPBuscador";
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
 const Stack = createNativeStackNavigator();
-
 
 const CitasStack = () => {
   const theme = useTheme();
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { isPaciente } = infoUsuariObtenida;
 
-
   return (
-    <Stack.Navigator
-      initialRouteName={screen.citas.pageName}
-      screenOptions={{
-        headerTitleAlign: 'left',
-        headerStyle: {
-          backgroundColor: theme.colors.secondary,
-        },
-        headerTitleStyle:{
-          fontFamily:'Quicksand_700Bold',
-          color:'#FFF',
-          fontSize:isTablet? scale(14):scale(16)
-        },
-        
-      }}
-    >
+    <Stack.Navigator initialRouteName={screen.citas.pageName}>
       <Stack.Screen
         name={screen.citas.pageName}
         component={CalendarioCitas}
-        options={{
-          title: "",
-          headerShown: isPaciente, //si es doctor, el app bar se mostrará. Si es paciente se ocultará
-          headerLeft:() => <Logo/>,
-          headerRight:()=><BotonWhatsapp/>,
-          headerStyle:{
+        options={({ navigation, route }) => ({
+          title: isPaciente?"":"Citas",
+          headerShown: true,
+          header: isPaciente
+            ? undefined
+            : (props) => (
+                <AppBarPBuscador
+                  {...props}
+                  navigation={navigation}
+                  route={route}
+                  options={props.options}
+                  back={props.back}
+                />
+              ),
+          headerLeft: isPaciente ? () => <Logo /> : null,
+          headerRight: isPaciente ? () => <BotonWhatsapp /> : null,
+          headerStyle: {
             backgroundColor: theme.colors.secondary,
-          }
-        }}
-      /> 
+          },
+        })}
+      />
+      <Stack.Screen
+        name={screen.citas.pageRegistro}
+        component={RegistrosMedicos}
+        options={{ title: "Registros Médicos" }}
+      />
     </Stack.Navigator>
   );
 };

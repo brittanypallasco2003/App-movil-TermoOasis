@@ -349,6 +349,13 @@ const globalStyles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  botonRegistroMedico: {
+    width: isTablet ? "60%" : "75%",
+    borderRadius: moderateScale(15),
+    marginTop: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
   LabelbotonCancelar: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: isTablet ? scale(9) : scale(11),

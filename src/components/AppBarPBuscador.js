@@ -1,23 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+import { getHeaderTitle } from "@react-navigation/elements";
 import { Dimensions } from "react-native";
 import { Appbar, useTheme } from "react-native-paper";
 import SearchBarComp from "./SearchBarComp";
 import { CitasContext } from "../context/CitasContext";
 import globalStyles from "../styles/global";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+
 const { width } = Dimensions.get("window");
 const isTablet = width >= 768;
 
-const AppBarPBuscador = () => {
-  const { searchVisible, setSearchVisible, buscarPacientes } =
-    useContext(CitasContext);
-  // const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
+const AppBarPBuscador = ({ navigation, route, options, back }) => {
+  const { searchVisible, setSearchVisible } = useContext(CitasContext);
 
-  // const onChangeSearch = (query) => {
-  //   setSearchQuery(query);
-  //   buscarPacientes(query);
-  // };
+  const theme = useTheme();
+  const title = options ? getHeaderTitle(options, route.name) : '';
 
   return (
     <Appbar.Header
@@ -34,16 +31,14 @@ const AppBarPBuscador = () => {
       }}
       elevated={true}
     >
+      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       {searchVisible ? (
-        <SearchBarComp
-        // searchQuery={searchQuery}
-        // onChangeSearch={onChangeSearch}
-        />
+        <SearchBarComp />
       ) : (
         <>
           <Appbar.Content
-            title="Citas"
-            titleStyle={[globalStyles.appBarTitleDoctor]}
+            title={title}
+            titleStyle={globalStyles.appBarTitleDoctor}
             style={{ paddingLeft: moderateScale(25) }}
           />
           <Appbar.Action

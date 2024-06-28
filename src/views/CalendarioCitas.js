@@ -48,7 +48,6 @@ const CalendarioCitas = () => {
 
   return (
     <>
-      {isDoctor && <AppBarPBuscador />}
       {searchResults.length > 0 && (
         <View>
           <FlatList
