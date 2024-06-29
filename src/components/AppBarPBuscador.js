@@ -31,7 +31,7 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
       }}
       elevated={true}
     >
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      {back ? <Appbar.BackAction onPress={navigation.goBack} color='#B7D5CF' /> : null}
       {searchVisible ? (
         <SearchBarComp />
       ) : (
@@ -41,7 +41,7 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
             titleStyle={globalStyles.appBarTitleDoctor}
             style={{ paddingLeft: moderateScale(25) }}
           />
-          <Appbar.Action
+          {!back && (<Appbar.Action
             icon="account-search"
             style={{
               backgroundColor: "#B7D5CF",
@@ -50,7 +50,7 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
             }}
             size={isTablet ? scale(14) : scale(20)}
             onPress={() => setSearchVisible(true)}
-          />
+          />)}
         </>
       )}
     </Appbar.Header>

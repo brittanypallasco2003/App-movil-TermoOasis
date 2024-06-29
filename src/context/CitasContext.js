@@ -36,7 +36,7 @@ export const CitasProvider = ({ children }) => {
   const [citasReaPacienteEsp, setcitasReaPacienteEsp] = useState([]);
   const [citasCanPacienteEsp, setcitasCanPacienteEsp] = useState([]);
   const [detalleRegistro, setDetalleRegistro] = useState({});
-  const [recetaRegisro, setrecetaRegisro] = useState({});
+  const [recetaRegistro, setrecetaRegitsro] = useState([]);
   const [cargandoRegistro, setcargandoRegistro] = useState(false);
   const {
     guardarMensaje,
@@ -58,7 +58,7 @@ export const CitasProvider = ({ children }) => {
     setSearchVisible(false);
     setcitaCancelada(false);
     setDetalleRegistro({})
-    setrecetaRegisro({})
+    setrecetaRegitsro([])
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -170,6 +170,7 @@ export const CitasProvider = ({ children }) => {
         }
 
         const fechaHoy = new Date();
+
         const citasPendientes = citas.filter(
           (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
         );
@@ -485,8 +486,11 @@ export const CitasProvider = ({ children }) => {
       if (response && response.data) {
         const registroMedico = response.data.data;
         console.log(registroMedico);
-        const recetaRegisro = registroMedico.receta;
+        const receta = registroMedico.receta;
+        console.log('mi receta: ',receta)
         setDetalleRegistro(registroMedico);
+        setrecetaRegitsro(receta)
+
       } else {
         throw new Error("Respuesta inválida del servidor");
       }
@@ -532,7 +536,7 @@ export const CitasProvider = ({ children }) => {
         obtenerRegistroMedico,
         detalleRegistro,
         cargandoRegistro,
-        recetaRegisro
+        recetaRegistro
       }}
     >
       {children}
