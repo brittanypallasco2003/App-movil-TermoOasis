@@ -219,7 +219,7 @@ const globalStyles = StyleSheet.create({
     fontSize: scale(17.5),
     textAlign: "center",
     color: "#000",
-    paddingVertical:isTablet?verticalScale(10):verticalScale(0)
+    paddingVertical: isTablet ? verticalScale(10) : verticalScale(0),
   },
   textosLabel: {
     fontFamily: "LexendExa_700Bold",
@@ -349,6 +349,13 @@ const globalStyles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  botonRegistroMedico: {
+    width: isTablet ? "60%" : "75%",
+    borderRadius: moderateScale(15),
+    marginTop: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
   LabelbotonCancelar: {
     fontFamily: "Quicksand_600SemiBold",
     fontSize: isTablet ? scale(9) : scale(11),
@@ -458,6 +465,70 @@ const globalStyles = StyleSheet.create({
     fontFamily: "Quicksand_600SemiBold",
     textAlign: "center",
   },
+  //Registros
+  contenedorRegistros: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  CardRegistros: {
+    backgroundColor: "#3F8483",
+    borderRadius: isTablet ? moderateScale(20) : moderateScale(30),
+    marginHorizontal: moderateScale(25),
+    // paddingHorizontal: isTablet ? moderateScale(8) : moderateScale(10),
+    paddingTop: verticalScale(15),
+    borderWidth: moderateScale(1),
+    borderColor: "#3F8483",
+    alignItems:'center',
+    marginBottom:verticalScale(20)
+  },
+  labelDetalleR: {
+    fontFamily: "LexendExa_700Bold",
+    // color:'#267373',
+    fontSize: isTablet ? scale(9.5) : scale(11),
+  },
+  textoDetalleR: {
+    fontFamily: "LexendExa_500Medium",
+    fontSize: isTablet ? scale(9) : scale(11),
+    flexWrap: "wrap",
+    lineHeight: isTablet ? scale(16.5) : scale(18),
+    // color:'#000'
+  },
+  titleDetalleR: {
+    fontFamily: "LexendExa_700Bold",
+    textAlign: "center",
+    fontSize: isTablet ? scale(15) : scale(16),
+    color:'#fff'
+  },
+  infoRegistros: {
+    backgroundColor:'#fff',
+    flex:1,
+    borderRadius: isTablet ? moderateScale(20) : moderateScale(30),
+    paddingHorizontal: isTablet ? moderateScale(25) : moderateScale(20),
+    borderWidth: moderateScale(1),
+    borderColor: "#3F8483",
+    paddingTop:verticalScale(15)
+  },
+  iconMedicina:{
+    elevation:10,
+    backgroundColor:'#3F8483',
+    borderWidth:moderateScale(2),
+    borderColor:'#fff'
+  },
+  DividerSt:{
+    borderWidth:moderateScale(0.5),
+    backgroundColor:'#3F8483',
+    borderColor:'#3F8483',
+  },
+  contPrincipalReceta: {
+    flex: 1,
+    width: isTablet ? moderateScale(440) : moderateScale(360),
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: verticalScale(20),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
 });
 
 export default globalStyles;

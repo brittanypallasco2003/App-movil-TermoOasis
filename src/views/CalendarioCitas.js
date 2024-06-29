@@ -14,8 +14,8 @@ import AppBarPBuscador from "../components/AppBarPBuscador";
 import ListaPacientes from "../components/ListaPacientes";
 import { verticalScale } from "react-native-size-matters";
 import { AuthContext } from "../context/AuthContext";
-import LoadCalendarioCitas from "../components/LoadCalendarioCitas";
-LoadCalendarioCitas
+import CargandoDatosComp from "../components/CargandoDatosComp";
+
 const CalendarioCitas = () => {
   const theme = useTheme();
   const {
@@ -48,7 +48,6 @@ const CalendarioCitas = () => {
 
   return (
     <>
-      {isDoctor && <AppBarPBuscador />}
       {searchResults.length > 0 && (
         <View>
           <FlatList
@@ -115,7 +114,7 @@ const CalendarioCitas = () => {
 
           <BotonSegmentado />
           {loadingCalendar &&
-            (<LoadCalendarioCitas/>)
+            (<CargandoDatosComp/>)
           }
           <Calendario markedDates={markDates} />
 
