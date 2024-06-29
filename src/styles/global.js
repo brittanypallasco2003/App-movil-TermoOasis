@@ -475,10 +475,11 @@ const globalStyles = StyleSheet.create({
     borderRadius: isTablet ? moderateScale(20) : moderateScale(30),
     marginHorizontal: moderateScale(25),
     // paddingHorizontal: isTablet ? moderateScale(8) : moderateScale(10),
-    // paddingBottom: verticalScale(15),
+    paddingTop: verticalScale(15),
     borderWidth: moderateScale(1),
     borderColor: "#3F8483",
-    alignItems:'center'
+    alignItems:'center',
+    marginBottom:verticalScale(20)
   },
   labelDetalleR: {
     fontFamily: "LexendExa_700Bold",
@@ -509,8 +510,24 @@ const globalStyles = StyleSheet.create({
   },
   iconMedicina:{
     elevation:10,
-    backgroundColor:'#267373'
-  }
+    backgroundColor:'#3F8483',
+    borderWidth:moderateScale(2),
+    borderColor:'#fff'
+  },
+  DividerSt:{
+    borderWidth:moderateScale(0.5),
+    backgroundColor:'#3F8483',
+    borderColor:'#3F8483',
+  },
+  contPrincipalReceta: {
+    flex: 1,
+    width: isTablet ? moderateScale(440) : moderateScale(360),
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: verticalScale(20),
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
 });
 
