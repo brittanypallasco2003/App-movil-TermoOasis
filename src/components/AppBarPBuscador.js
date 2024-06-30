@@ -31,7 +31,7 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
       }}
       elevated={true}
     >
-      {back ? <Appbar.BackAction onPress={navigation.goBack} color='#B7D5CF' /> : null}
+      {back ? <Appbar.BackAction onPress={navigation.goBack} color='#B7D5CF' size={isTablet? scale(14):scale(20)}/> : null}
       {searchVisible ? (
         <SearchBarComp />
       ) : (

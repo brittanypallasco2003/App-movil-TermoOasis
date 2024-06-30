@@ -86,11 +86,7 @@ const RegistrosMedicos = () => {
                   >{`${informacionMedica?.peso} kg`}</Text>
                 </Text>
                 <Divider
-                  style={{
-                    borderWidth: moderateScale(0.5),
-                    borderColor: theme.colors.secondary,
-                    backgroundColor: theme.colors.secondary,
-                  }}
+                  style={globalStyles.DividerSt}
                 />
                 <Text
                   style={[

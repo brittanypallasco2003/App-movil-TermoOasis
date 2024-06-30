@@ -20,7 +20,7 @@ const Receta = ({ item }) => {
         Receta
       </Text> */}
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
-        Medicamento Concentrado:{" "}<Text style={globalStyles.textoDetalle}>{nombre}</Text>
+        Medicamento Concentrado:{" "}<Text style={[globalStyles.textoDetalle,{ lineHeight: isTablet ? scale(16.5) : scale(18),}]}>{nombre}</Text>
       </Text>
       <Text style={[globalStyles.labelDetalle, globalStyles.espacioDetalle]}>
         Frecuencia:{" "}
