@@ -25,13 +25,16 @@ const RegistrosMedicos = () => {
   return (
     <SafeAreaView style={globalStyles.contenedorRegistros}>
       <ScrollView
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          alignItems: "center",
+        }}
       >
         {cargandoRegistro ? (
           <CargandoDatosComp />
         ) : (
           <View style={globalStyles.CardRegistros}>
-            <Text
+            {/* <Text
               style={[
                 globalStyles.titleDetalleR,
                 globalStyles.espacioDetalle,
@@ -39,84 +42,94 @@ const RegistrosMedicos = () => {
               ]}
             >
               Paciente:
-            </Text>
+            </Text> */}
             <Text
               style={globalStyles.titleDetalleR}
             >{`${nombrePaciente} ${apellidoPaciente}`}</Text>
             <Avatar.Icon
               size={isTablet ? scale(105) : scale(130)}
-              style={[globalStyles.iconMedicina,]}
+              style={[globalStyles.iconMedicina]}
               icon="heart-pulse"
             />
             <View style={globalStyles.infoRegistros}>
-            <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Información Medica:
-              </Text>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Altura:{" "}
+              <View>
                 <Text
-                  style={globalStyles.textoDetalleR}
-                >{`${informacionMedica?.altura} cm`}</Text>
-              </Text>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Peso:{" "}
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,{
+                      textAlign:'center'
+                    }
+                  ]}
+                >
+                  Información Medica:
+                </Text>
                 <Text
-                  style={globalStyles.textoDetalleR}
-                >{`${informacionMedica?.peso} kg`}</Text>
-              </Text>
-              <Divider style={{borderWidth:moderateScale(0.5), borderColor:theme.colors.secondary, backgroundColor:theme.colors.secondary}}/>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Dieta prescrita:{" "}
-                <Text style={globalStyles.textoDetalleR}>{dieta}</Text>
-              </Text>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Actividad recomendada:{" "}
-                <Text style={globalStyles.textoDetalleR}>{actividad}</Text>
-              </Text>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Cuidados:{" "}
-                <Text style={globalStyles.textoDetalleR}>{cuidados}</Text>
-              </Text>
-              <Text
-                style={[
-                  globalStyles.labelDetalleR,
-                  globalStyles.espacioDetalle,
-                ]}
-              >
-                Comentarios:{" "}
-                <Text style={globalStyles.textoDetalleR}>{comments}</Text>
-              </Text>
-              <Divider style={globalStyles.DividerSt}/>
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Altura:{" "}
+                  <Text
+                    style={globalStyles.textoDetalleR}
+                  >{`${informacionMedica?.altura} cm`}</Text>
+                </Text>
+                <Text
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Peso:{" "}
+                  <Text
+                    style={globalStyles.textoDetalleR}
+                  >{`${informacionMedica?.peso} kg`}</Text>
+                </Text>
+                <Divider
+                  style={{
+                    borderWidth: moderateScale(0.5),
+                    borderColor: theme.colors.secondary,
+                    backgroundColor: theme.colors.secondary,
+                  }}
+                />
+                <Text
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Dieta prescrita:{" "}
+                  <Text style={globalStyles.textoDetalleR}>{dieta}</Text>
+                </Text>
+                <Text
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Actividad recomendada:{" "}
+                  <Text style={globalStyles.textoDetalleR}>{actividad}</Text>
+                </Text>
+                <Text
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Cuidados:{" "}
+                  <Text style={globalStyles.textoDetalleR}>{cuidados}</Text>
+                </Text>
+                <Text
+                  style={[
+                    globalStyles.labelDetalleR,
+                    globalStyles.espacioDetalle,
+                  ]}
+                >
+                  Comentarios:{" "}
+                  <Text style={globalStyles.textoDetalleR}>{comments}</Text>
+                </Text>
+                <Divider style={globalStyles.DividerSt} />
+              </View>
               <Text
                 style={[
                   globalStyles.labelDetalleR,
@@ -125,17 +138,19 @@ const RegistrosMedicos = () => {
               >
                 Receta:
               </Text>
-              <SwiperFlatList
-                showPagination
-                paginationStyle={globalStyles.paginationStyle}
-                paginationStyleItem={globalStyles.paginationDot}
-                paginationActiveColor={
-                  globalStyles.paginationDotActive.backgroundColor
-                }
-                data={recetaRegistro}
-                keyExtractor={(item) => item._id.toString()}
-                renderItem={({ item }) => <Receta item={item} />}
-              />
+              <View style={globalStyles.contPrincipalReceta}>
+                <SwiperFlatList
+                  showPagination
+                  paginationStyle={globalStyles.paginationStyle}
+                  paginationStyleItem={globalStyles.paginationDot}
+                  paginationActiveColor={
+                    globalStyles.paginationDotActive.backgroundColor
+                  }
+                  data={recetaRegistro}
+                  keyExtractor={(item) => item._id.toString()}
+                  renderItem={({ item }) => <Receta item={item} />}
+                />
+              </View>
             </View>
           </View>
         )}

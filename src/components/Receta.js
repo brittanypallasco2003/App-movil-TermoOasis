@@ -12,7 +12,7 @@ const Receta = ({ item }) => {
   return (
     <View
       style={[
-        globalStyles.contDetalleCita,
+        globalStyles.contReceta,
         { borderColor: theme.colors.secondary },
       ]}
     >

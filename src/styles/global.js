@@ -473,13 +473,13 @@ const globalStyles = StyleSheet.create({
   CardRegistros: {
     backgroundColor: "#3F8483",
     borderRadius: isTablet ? moderateScale(20) : moderateScale(30),
-    marginHorizontal: moderateScale(25),
-    // paddingHorizontal: isTablet ? moderateScale(8) : moderateScale(10),
+    marginHorizontal: moderateScale(40),
+  
     paddingTop: verticalScale(15),
     borderWidth: moderateScale(1),
     borderColor: "#3F8483",
-    alignItems:'center',
-    marginBottom:verticalScale(20)
+    marginBottom: verticalScale(20),
+    width: "90%",
   },
   labelDetalleR: {
     fontFamily: "LexendExa_700Bold",
@@ -497,38 +497,56 @@ const globalStyles = StyleSheet.create({
     fontFamily: "LexendExa_700Bold",
     textAlign: "center",
     fontSize: isTablet ? scale(15) : scale(16),
-    color:'#fff'
+    color: "#fff",
   },
   infoRegistros: {
-    backgroundColor:'#fff',
-    flex:1,
+    backgroundColor: "#fff",
     borderRadius: isTablet ? moderateScale(20) : moderateScale(30),
     paddingHorizontal: isTablet ? moderateScale(25) : moderateScale(20),
     borderWidth: moderateScale(1),
     borderColor: "#3F8483",
-    paddingTop:verticalScale(15)
+    paddingTop: verticalScale(15),
+    flex: 1,
+    alignItems:'center',
+    marginHorizontal: isTablet ? moderateScale(10) : moderateScale(10),
+    marginBottom:isTablet ? moderateScale(8) : moderateScale(10),
   },
-  iconMedicina:{
-    elevation:10,
-    backgroundColor:'#3F8483',
-    borderWidth:moderateScale(2),
-    borderColor:'#fff'
+  iconMedicina: {
+    elevation: 10,
+    backgroundColor: "#3F8483",
+    borderWidth: moderateScale(2),
+    borderColor: "#fff",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginVertical:verticalScale(17)
   },
-  DividerSt:{
-    borderWidth:moderateScale(0.5),
-    backgroundColor:'#3F8483',
-    borderColor:'#3F8483',
+  DividerSt: {
+    borderWidth: moderateScale(0.5),
+    backgroundColor: "#3F8483",
+    borderColor: "#3F8483",
   },
   contPrincipalReceta: {
     flex: 1,
-    width: isTablet ? moderateScale(440) : moderateScale(360),
-    marginLeft: "auto",
-    marginRight: "auto",
+    width: isTablet ? moderateScale(400) : moderateScale(320),
     marginBottom: verticalScale(20),
     justifyContent: "center",
     alignItems: "center",
   },
-
+  contReceta: {
+    backgroundColor: "#fff",
+    borderWidth: moderateScale(1),
+    borderRadius: moderateScale(15),
+    paddingHorizontal: moderateScale(20),
+    paddingTop: verticalScale(15),
+    // width,
+    width: isTablet ? moderateScale(370) : moderateScale(280),
+    // width: isTablet ? moderateScale(340) : moderateScale(330),
+    marginHorizontal: isTablet ? moderateScale(15) : moderateScale(20),
+    justifyContent: "center",
+    paddingBottom: verticalScale(15),
+    marginBottom: verticalScale(25),
+    // height: isTablet? verticalScale(210):verticalScale(260), NO DESCOMENTAR ESTO, la altura se ajusta sola
+  },
 });
 
 export default globalStyles;
