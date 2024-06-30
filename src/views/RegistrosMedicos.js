@@ -8,7 +8,7 @@ import CargandoDatosComp from "../components/CargandoDatosComp";
 import Receta from "../components/Receta";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { ScrollView } from "react-native";
-import { Avatar, Card, Divider, useTheme } from "react-native-paper";
+import { Avatar, Divider } from "react-native-paper";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 const { width } = Dimensions.get("window");
 
@@ -20,7 +20,6 @@ const RegistrosMedicos = () => {
     useContext(CitasContext);
   const { actividad, comments, cuidados, dieta, informacionMedica } =
     detalleRegistro;
-  const theme = useTheme();
   const isTablet = width >= 768;
   return (
     <SafeAreaView style={globalStyles.contenedorRegistros}>

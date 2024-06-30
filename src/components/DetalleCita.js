@@ -41,7 +41,7 @@ const DetalleCita = ({ item }) => {
 
   const { isDoctor, isPaciente } = infoUsuariObtenida;
   const fechaHoy = new Date();
-  const fechaCita = new Date(start);
+  const fechaCita = new Date(end);
 
   const theme = useTheme();
   const navigation = useNavigation();

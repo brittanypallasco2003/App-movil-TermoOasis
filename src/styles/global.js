@@ -434,7 +434,7 @@ const globalStyles = StyleSheet.create({
     fontFamily: "Quicksand_700Bold",
     color: "#B7D5CF",
     fontSize: isTablet ? scale(14) : scale(17),
-    paddingVertical: isTablet ? verticalScale(6) : verticalScale(1),
+    paddingVertical: isTablet ? verticalScale(8) : verticalScale(1),
   },
   searchbarInputSt: {
     fontFamily: "Quicksand_700Bold",
@@ -464,6 +464,7 @@ const globalStyles = StyleSheet.create({
   resultadosTextos: {
     fontFamily: "Quicksand_600SemiBold",
     textAlign: "center",
+    fontSize: isTablet ? scale(9.5) : scale(12.5),
   },
   //Registros
   contenedorRegistros: {
@@ -548,6 +549,10 @@ const globalStyles = StyleSheet.create({
     marginBottom: verticalScale(25),
     // height: isTablet? verticalScale(210):verticalScale(260), NO DESCOMENTAR ESTO, la altura se ajusta sola
   },
+  iconBack:{
+    paddingBottom: isTablet? verticalScale(4):verticalScale(0),
+    paddingTop:isTablet? verticalScale(0):verticalScale(4)
+  }
 });
 
 export default globalStyles;

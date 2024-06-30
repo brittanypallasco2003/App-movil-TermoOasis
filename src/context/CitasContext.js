@@ -208,9 +208,8 @@ export const CitasProvider = ({ children }) => {
 
         const fechaHoy = new Date();
         const citasRealizadas = citas.filter(
-          (citasR) => new Date(citasR.start) < fechaHoy && !citasR.citaCancelada
+          (citasR) => new Date(citasR.end) < fechaHoy && !citasR.citaCancelada
         );
-
         console.log("estas son las citas realizadas", citasRealizadas);
         idP
           ? setcitasReaPacienteEsp(citasRealizadas)

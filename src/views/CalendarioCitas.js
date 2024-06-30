@@ -33,18 +33,6 @@ const CalendarioCitas = () => {
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { isDoctor } = infoUsuariObtenida;
 
-  // const navigation =useNavigation()
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerLargeTitle:true,
-  //     headerTitle:'Citas Paciente',
-  //     headerTitleStyle:{fontFamily:'Quicksand_600SemiBold'},
-  //     headerSearchBarOptions:{
-  //       placeholder:'Paciente...'
-  //     }
-
-  //   })
-  // }, [navigation])
 
   return (
     <>

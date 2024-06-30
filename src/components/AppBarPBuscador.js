@@ -14,7 +14,7 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
   const { searchVisible, setSearchVisible } = useContext(CitasContext);
 
   const theme = useTheme();
-  const title = options ? getHeaderTitle(options, route.name) : '';
+  const title = options ? getHeaderTitle(options, route.name) : "";
 
   return (
     <Appbar.Header
@@ -31,7 +31,14 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
       }}
       elevated={true}
     >
-      {back ? <Appbar.BackAction onPress={navigation.goBack} color='#B7D5CF' size={isTablet? scale(14):scale(20)}/> : null}
+      {back ? (
+        <Appbar.BackAction
+          onPress={navigation.goBack}
+          color="#B7D5CF"
+          size={isTablet ? scale(14) : scale(20)}
+          style={globalStyles.iconBack}
+        />
+      ) : null}
       {searchVisible ? (
         <SearchBarComp />
       ) : (
@@ -41,16 +48,18 @@ const AppBarPBuscador = ({ navigation, route, options, back }) => {
             titleStyle={globalStyles.appBarTitleDoctor}
             style={{ paddingLeft: moderateScale(25) }}
           />
-          {!back && (<Appbar.Action
-            icon="account-search"
-            style={{
-              backgroundColor: "#B7D5CF",
-              borderRadius: isTablet ? moderateScale(7) : moderateScale(15),
-              marginRight: moderateScale(25),
-            }}
-            size={isTablet ? scale(14) : scale(20)}
-            onPress={() => setSearchVisible(true)}
-          />)}
+          {!back && (
+            <Appbar.Action
+              icon="account-search"
+              style={{
+                backgroundColor: "#B7D5CF",
+                borderRadius: isTablet ? moderateScale(7) : moderateScale(15),
+                marginRight: moderateScale(25),
+              }}
+              size={isTablet ? scale(14) : scale(20)}
+              onPress={() => setSearchVisible(true)}
+            />
+          )}
         </>
       )}
     </Appbar.Header>
