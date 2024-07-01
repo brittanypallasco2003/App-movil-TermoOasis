@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import globalStyles from "../styles/global";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppBarComp from "../components/AppBarComp";
 import AvatarUser from "../components/AvatarUser";
-import { Card, Headline, useTheme } from "react-native-paper";
+import { Card, useTheme } from "react-native-paper";
 import {
   scale,
   verticalScale,

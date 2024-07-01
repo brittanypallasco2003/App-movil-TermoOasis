@@ -53,24 +53,6 @@ const RestablecerPassword = ({ navigation }) => {
             Ingresa tu nombre, apellido y correo electrónico para que puedas
             recuperar de tu cuenta
           </Text>
-          {/* <TextInput
-            label={"Correo electrónico"}
-            value={correoRestablecer}
-            keyboardType={"email-address"}
-            onChangeText={(texto) => setCorreoRestablecer(texto)}
-            selectionColor={theme.colors.secondary}
-            activeUnderlineColor={theme.colors.secondary}
-            cursorColor={theme.colors.secondary}
-            textColor={theme.colors.secondary}
-            style={[
-              globalStyles.inputRestablecer,
-              { marginBottom: verticalScale(25) },
-              ]}
-              underlineStyle={{
-                borderWidth: moderateScale(0.8),
-                borderColor: theme.colors.secondary,
-                }}
-                /> */}
           <View style={globalStyles.contenedorInputsRes}>
             <TextInput
               placeholder="Nombre"

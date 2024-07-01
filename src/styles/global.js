@@ -279,7 +279,6 @@ const globalStyles = StyleSheet.create({
     paddingBottom: isTablet ? verticalScale(20) : verticalScale(10),
     borderWidth: moderateScale(1),
     paddingTop: isTablet ? verticalScale(10) : verticalScale(8),
-    marginBottom: verticalScale(20),
   },
   tituloCitas: {
     fontFamily: "LexendExa_700Bold",
@@ -297,7 +296,6 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     marginHorizontal: moderateScale(23),
     lineHeight: scale(19),
-    //marginTop: verticalScale(10),
   },
   //DETALLE DE CITA
   contPrincipalDetalle: {
@@ -310,6 +308,7 @@ const globalStyles = StyleSheet.create({
     alignItems: "center",
   },
   contDetalleCita: {
+    marginTop: verticalScale(20),
     flex: 1,
     backgroundColor: "#fff",
     borderWidth: moderateScale(1),

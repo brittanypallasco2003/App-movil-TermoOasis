@@ -28,11 +28,10 @@ const CalendarioCitas = () => {
     loadDetalle,
     loadingCalendar,
     searchResults,
-    searchVisible
+    searchVisible,
   } = useContext(CitasContext);
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { isDoctor } = infoUsuariObtenida;
-
 
   return (
     <>
@@ -49,10 +48,12 @@ const CalendarioCitas = () => {
           />
         </View>
       )}
-      {searchResults.length===0 && searchVisible && tipoCita.length>0 &&(
+      {searchResults.length === 0 && searchVisible && tipoCita.length > 0 && (
         <View style={globalStyles.resultado}>
-        <Text style={globalStyles.resultadosTextos}>No se encontraron resultados</Text>
-      </View>
+          <Text style={globalStyles.resultadosTextos}>
+            No se encontraron resultados
+          </Text>
+        </View>
       )}
       <SafeAreaView style={globalStyles.contenedorCitas}>
         <ScrollView
@@ -63,9 +64,13 @@ const CalendarioCitas = () => {
             citasRealizadas.length === 0 &&
             citasPendientes.length === 0 &&
             citasCanceladas.length === 0 &&
-            tipoCita === "" && loadingCalendar===false &&(
+            tipoCita === "" &&
+            loadingCalendar === false && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
+                style={[
+                  globalStyles.msgUser,
+                  { color: theme.colors.primary, marginTop: verticalScale(10) },
+                ]}
               >
                 Debes primero seleccionar el tipo de citas que quieras
                 visualizar
@@ -74,7 +79,8 @@ const CalendarioCitas = () => {
 
           {citasCanceladas.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Canceladas" && loadingCalendar===false && (
+            tipoCita === "Canceladas" &&
+            loadingCalendar === false && (
               <Text
                 style={[globalStyles.msgUser, { color: theme.colors.primary }]}
               >
@@ -83,64 +89,62 @@ const CalendarioCitas = () => {
             )}
           {citasRealizadas.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Realizadas" && loadingCalendar===false &&(
+            tipoCita === "Realizadas" &&
+            loadingCalendar === false && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary,marginTop:verticalScale(10) }]}
+                style={[
+                  globalStyles.msgUser,
+                  { color: theme.colors.primary, marginTop: verticalScale(10) },
+                ]}
               >
                 No existen citas Realizadas que mostrar
               </Text>
             )}
           {citasPendientes.length === 0 &&
             Object.keys(markDates).length === 0 &&
-            tipoCita === "Pendientes" && loadingCalendar===false &&(
+            tipoCita === "Pendientes" &&
+            loadingCalendar === false && (
               <Text
-                style={[globalStyles.msgUser, { color: theme.colors.primary, marginTop:verticalScale(10) }]}
+                style={[
+                  globalStyles.msgUser,
+                  { color: theme.colors.primary, marginTop: verticalScale(10) },
+                ]}
               >
                 No existen citas Pendientes que mostrar
               </Text>
             )}
 
           <BotonSegmentado />
-          {loadingCalendar &&
-            (<CargandoDatosComp/>)
-          }
+          {loadingCalendar && <CargandoDatosComp />}
           <Calendario markedDates={markDates} />
-
-          {/* 
-          {/* <SwiperFlatList
-          showPagination
-          data={detallesCitas}
-          keyExtractor={(item) => item.idCita.toString()}
-          renderItem={({ item }) => (
-            <View style={{ width: 350, paddingHorizontal: 10, flex:1, justifyContent:'center', alignItems:'center' }}>
-              <DetalleCita item={item} />
-            </View>
-          )}
-        /> */}
           <View style={globalStyles.contPrincipalDetalle}>
             {loadDetalle ? (
               <LoadingCalendar />
             ) : (
-              detallesCitas.length == 0 &&
-              Object.keys(markDates).length > 0 && (
-                <Text style={[globalStyles.msgUser]}>
-                  Selecciona alguna de las fechas marcadas para ver tus citas
-                  programadas de ese día
-                </Text>
-              )
+              <>
+                {detallesCitas.length == 0 &&
+                Object.keys(markDates).length > 0 ? (
+                  <Text style={[globalStyles.msgUser]}>
+                    Selecciona alguna de las fechas marcadas para ver tus citas
+                    programadas de ese día
+                  </Text>
+                ) : (
+                  <SwiperFlatList
+                    showPagination
+                    paginationStyle={globalStyles.paginationStyle}
+                    paginationStyleItem={globalStyles.paginationDot}
+                    paginationActiveColor={
+                      globalStyles.paginationDotActive.backgroundColor
+                    }
+                    data={detallesCitas}
+                    keyExtractor={(item) => item.idCita.toString()}
+                    renderItem={({ item }) => <DetalleCita item={item} />}
+                  />
+                )}
+              </>
             )}
-            <SwiperFlatList
-              showPagination
-              paginationStyle={globalStyles.paginationStyle}
-              paginationStyleItem={globalStyles.paginationDot}
-              paginationActiveColor={
-                globalStyles.paginationDotActive.backgroundColor
-              }
-              data={detallesCitas}
-              keyExtractor={(item) => item.idCita.toString()}
-              renderItem={({ item }) => <DetalleCita item={item} />}
-            />
           </View>
+
           <Alerta />
         </ScrollView>
       </SafeAreaView>

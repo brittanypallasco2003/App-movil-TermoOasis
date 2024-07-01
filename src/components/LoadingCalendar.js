@@ -10,7 +10,7 @@ const LoadingCalendar = () => {
     <ActivityIndicator
       animating={true}
       size={isTablet ? scale(50) : scale(60)}
-      style={{marginTop: isTablet? verticalScale(40):verticalScale(0)}}
+      style={{marginTop: isTablet? verticalScale(40):verticalScale(25)}}
     />
   );
 };

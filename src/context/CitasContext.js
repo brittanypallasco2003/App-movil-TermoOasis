@@ -12,9 +12,7 @@ import {
   eliminarCita,
   obtener_registro_id,
 } from "../api/api_citas";
-import { obtenerTokenStorage } from "../storage/storage";
 import { AuthContext } from "./AuthContext";
-
 export const CitasContext = createContext();
 
 export const CitasProvider = ({ children }) => {
@@ -43,10 +41,9 @@ export const CitasProvider = ({ children }) => {
     mostrarAlerta,
     isLoggedIn,
     infoUsuariObtenida,
-    userToken,
   } = useContext(AuthContext);
 
-  const { _id, isDoctor, isPaciente, isSecre } = infoUsuariObtenida;
+  const { _id, isDoctor, isPaciente, isSecre, token:tokenUsuario } = infoUsuariObtenida;
 
   useEffect(() => {
     setCitasCanceladas([]);
@@ -77,10 +74,9 @@ export const CitasProvider = ({ children }) => {
   const obtenerCitas = async () => {
     try {
       setLoadingCalendar(true);
-      const tokenStorage = await obtenerTokenStorage();
-
+      // console.log('antes de la api:',tokenUsuario)
       const response = await obtener_todas_citas(
-        tokenStorage,
+        tokenUsuario,
         isSecre,
         isDoctor,
         isPaciente
@@ -113,11 +109,11 @@ export const CitasProvider = ({ children }) => {
 
   const obtenerCitasPaciente = async (id) => {
     try {
-      console.log("función CITAS PACIENTE");
+      // console.log("función CITAS PACIENTE");
       setLoadingCalendar(true);
-      const tokenStorage = await obtenerTokenStorage();
+      // console.log('antes de la api:',tokenUsuario)
       const response = await obtener_citas_paciente_especifico(
-        tokenStorage,
+        tokenUsuario,
         id,
         isSecre,
         isDoctor,
@@ -125,11 +121,10 @@ export const CitasProvider = ({ children }) => {
       );
       if (response && response.data) {
         const citas = response.data.data;
-
-        console.log(
-          "estas ES LA RESPUESTA DE LAS CITAS DE UN PACIENTE ESPECÍFICO: ",
-          citas
-        );
+        // console.log(
+        //   "estas ES LA RESPUESTA DE LAS CITAS DE UN PACIENTE ESPECÍFICO: ",
+        //   citas
+        // );
         const citasFormtP = citas.map((citaFormateada) => ({
           idCita: citaFormateada._id,
           start: citaFormateada.start,
@@ -162,10 +157,8 @@ export const CitasProvider = ({ children }) => {
         setLoadingCalendar(true);
         let citas;
         if (isDoctor) {
-          console.log("soy doctor: ", isDoctor);
           citas = idP ? await obtenerCitasPaciente(idP) : await obtenerCitas();
         } else {
-          console.log("soy paciente");
           citas = await obtenerCitasPaciente(_id);
         }
 
@@ -174,14 +167,11 @@ export const CitasProvider = ({ children }) => {
         const citasPendientes = citas.filter(
           (citasP) => new Date(citasP.start) > fechaHoy && !citasP.citaCancelada
         );
-        console.log("estas son las citas pendientes", citasPendientes);
-
         idP
           ? setcitasPendPacienteEsp(citasPendientes)
           : setCitasPendientes(citasPendientes);
 
         const fechasMarcadas = marcarFechas(citasPendientes);
-        console.log("fecha pendiente marcada: ", fechasMarcadas);
         setMarkdates(fechasMarcadas);
         settipoCita("Pendientes");
       } catch (error) {
@@ -296,10 +286,8 @@ export const CitasProvider = ({ children }) => {
           const citasParaFecha = markDates[fechaSeleccionada];
           const ids = citasParaFecha.dots.map((dot) => dot.key);
           try {
-            const token = userToken;
-            console.log(token);
             const peticionesCitas = ids.map((id) =>
-              obtener_cita_id(id, token, isPaciente, isDoctor, isSecre)
+              obtener_cita_id(id, tokenUsuario, isPaciente, isDoctor, isSecre)
             );
             const respuestas = await Promise.all(peticionesCitas);
             // console.log('Respuestas de las citas',respuestas)
@@ -346,8 +334,7 @@ export const CitasProvider = ({ children }) => {
   const cancelarCita = async (id) => {
     try {
       setloadBotonCancel(true);
-      const token = userToken;
-      const response = await eliminarCita(id, token);
+      const response = await eliminarCita(id, tokenUsuario);
       if (response && response.data) {
         guardarMensaje(response.data.msg);
         setcitaCancelada(true);
@@ -480,8 +467,7 @@ export const CitasProvider = ({ children }) => {
   const obtenerRegistroMedico = async (id_Cita) => {
     try {
       setcargandoRegistro(true);
-      const token = userToken;
-      const response = await obtener_registro_id(id_Cita, token, isDoctor);
+      const response = await obtener_registro_id(id_Cita, tokenUsuario, isDoctor);
       if (response && response.data) {
         const registroMedico = response.data.data;
         console.log(registroMedico);

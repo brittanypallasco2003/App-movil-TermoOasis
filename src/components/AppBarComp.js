@@ -26,7 +26,6 @@ const AppBarComp = () => {
         size={isTablet ? scale(15) : scale(20)}
         onPress={() => cerrarSesion()}
         accessibilityLabel="Cerrar Sesión"
-        rippleColor={theme.colors.primary}
         style={globalStyles.stLogoutBoton}
       />
     </Appbar.Header>

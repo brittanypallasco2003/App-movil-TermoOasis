@@ -58,6 +58,7 @@ export const AuthProvider = ({ children }) => {
         obtenerInfoUsuario(userInfo);
         console.log("info usuario token:", userInfo);
         const { token } = userInfo;
+        // console.log('token al iniciar sesión: ',token)
         setUserToken(token);
         await AsyncStorage.setItem("userToken", token);
         await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       guardarMensaje(
-        error.response?.data?.msg || "Error desconocido al iniciar sesión"
+        error.response?.data?.msg || "Error desconocido al iniciar sesión. Inténtalo más tarde"
       );
       mostrarAlerta(true);
     } finally {
@@ -93,7 +94,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       guardarMensaje(
-        error.response.data.msg || "Error desconocido al recuperar cuenta"
+        error.response.data.msg || "Error desconocido al recuperar cuenta. Inténtalo más tarde"
       );
       mostrarMensajePassword(false);
       mostrarAlerta(true);
@@ -122,7 +123,6 @@ export const AuthProvider = ({ children }) => {
       let token = await AsyncStorage.getItem("userToken");
       let userdata = await AsyncStorage.getItem("userInfo");
       userdata = JSON.parse(userdata);
-      console.log("user: ", userdata);
       if (userdata) {
         setUserToken(token);
         obtenerInfoUsuario(userdata);

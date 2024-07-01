@@ -1,6 +1,7 @@
 import axiosInstance from "./axiosConfig";
 
 export const obtener_todas_citas = async (token, isSecre, isDoctor, isPaciente) => {
+  // console.log('en la api:',token)
   try {
     const res = await axiosInstance.get("/citas/mostrar-todas", {
       headers: {
@@ -27,6 +28,7 @@ export const obtener_todas_citas = async (token, isSecre, isDoctor, isPaciente) 
 };
 
 export const obtener_citas_paciente_especifico = async (token, id, isSecre, isDoctor, isPaciente) => {
+  // console.log('en la api:',token)
   try {
     const res = await axiosInstance.get(`/citas/mostrar-por-paciente/${id}`, {
       headers: {
