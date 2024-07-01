@@ -36,14 +36,16 @@ export const CitasProvider = ({ children }) => {
   const [detalleRegistro, setDetalleRegistro] = useState({});
   const [recetaRegistro, setrecetaRegitsro] = useState([]);
   const [cargandoRegistro, setcargandoRegistro] = useState(false);
-  const {
-    guardarMensaje,
-    mostrarAlerta,
-    isLoggedIn,
-    infoUsuariObtenida,
-  } = useContext(AuthContext);
+  const { guardarMensaje, mostrarAlerta, isLoggedIn, infoUsuariObtenida } =
+    useContext(AuthContext);
 
-  const { _id, isDoctor, isPaciente, isSecre, token:tokenUsuario } = infoUsuariObtenida;
+  const {
+    _id,
+    isDoctor,
+    isPaciente,
+    isSecre,
+    token: tokenUsuario,
+  } = infoUsuariObtenida;
 
   useEffect(() => {
     setCitasCanceladas([]);
@@ -54,8 +56,8 @@ export const CitasProvider = ({ children }) => {
     setdetallesCitas([]);
     setSearchVisible(false);
     setcitaCancelada(false);
-    setDetalleRegistro({})
-    setrecetaRegitsro([])
+    setDetalleRegistro({});
+    setrecetaRegitsro([]);
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -467,21 +469,27 @@ export const CitasProvider = ({ children }) => {
   const obtenerRegistroMedico = async (id_Cita) => {
     try {
       setcargandoRegistro(true);
-      const response = await obtener_registro_id(id_Cita, tokenUsuario, isDoctor);
+      const response = await obtener_registro_id(
+        id_Cita,
+        tokenUsuario,
+        isDoctor
+      );
       if (response && response.data) {
         const registroMedico = response.data.data;
-        console.log(registroMedico);
         const receta = registroMedico.receta;
-        console.log('mi receta: ',receta)
         setDetalleRegistro(registroMedico);
-        setrecetaRegitsro(receta)
-
+        setrecetaRegitsro(receta);
       } else {
         throw new Error("Respuesta inválida del servidor");
       }
     } catch (error) {
       console.log(error.response?.data?.msg);
-      return [];
+      setDetalleRegistro([]);
+      setrecetaRegitsro([]);
+      guardarMensaje(
+        "Lo sentimos, no podemos mostrar este registro médico por el momento, inténtalo más tarde"
+      );
+      mostrarAlerta(true);
     } finally {
       setcargandoRegistro(false);
     }
@@ -521,7 +529,7 @@ export const CitasProvider = ({ children }) => {
         obtenerRegistroMedico,
         detalleRegistro,
         cargandoRegistro,
-        recetaRegistro
+        recetaRegistro,
       }}
     >
       {children}
