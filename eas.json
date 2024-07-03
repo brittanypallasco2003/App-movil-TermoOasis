@@ -9,7 +9,7 @@
     },
     "preview": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://api.production.com"
+        "EXPO_PUBLIC_API_URL": "https://backend-termo-oasis.vercel.app/api"
       },
       "android": {
         "buildType": "apk"
