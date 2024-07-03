@@ -60,7 +60,7 @@ const RegistrosMedicos = () => {
                     }
                   ]}
                 >
-                  Información Medica:
+                  Información Médica:
                 </Text>
                 <Text
                   style={[
