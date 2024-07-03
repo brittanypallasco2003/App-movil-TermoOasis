@@ -336,7 +336,7 @@ export const CitasProvider = ({ children }) => {
   const cancelarCita = async (id) => {
     try {
       setloadBotonCancel(true);
-      const response = await eliminarCita(id, tokenUsuario);
+      const response = await eliminarCita(id, tokenUsuario,isPaciente,isSecre);
       if (response && response.data) {
         guardarMensaje(response.data.msg);
         setcitaCancelada(true);
