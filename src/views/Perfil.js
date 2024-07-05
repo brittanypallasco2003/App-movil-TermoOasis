@@ -100,7 +100,7 @@ const Perfil = () => {
                 >
                   Teléfono:{" "}
                 </Text>
-                <Text style={globalStyles.textosInfo}>{`0${telefono}`}</Text>
+                <Text style={globalStyles.textosInfo}>{`+${telefono}`}</Text>
               </Text>
 
               <Text style={globalStyles.contenedoresText}>

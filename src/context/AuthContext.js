@@ -43,16 +43,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const iniciarSesion = async (email, contraseña) => {
+  const iniciarSesion = async (email, password) => {
     // Validación - formato de correo
-    if (email && contraseña) {
+    if (email && password) {
       let correoInvalido = verificarCorreoIngresado(email);
       if (correoInvalido) return;
     }
     setCargando(true);
 
     try {
-      const response = await user_login(email, contraseña);
+      email = email.charAt(0).toLowerCase() + email.slice(1);
+      const response = await user_login(email, password);
       if (response && response.data) {
         const userInfo = response.data;
         obtenerInfoUsuario(userInfo);

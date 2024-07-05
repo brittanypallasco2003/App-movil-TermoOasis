@@ -1,8 +1,8 @@
 import axiosInstance from './axiosConfig'
 
-export const user_login = async (email, contraseña) => {
+export const user_login = async (email, password) => {
   try {
-    const res = await axiosInstance.post('/login', { email, contraseña });
+    const res = await axiosInstance.post('/login', { email, password });
     return res;
   } catch (error) {
     if (error.response) {

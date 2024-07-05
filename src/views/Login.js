@@ -166,7 +166,7 @@ const Login = ({ navigation }) => {
           style={globalStyles.botonLogin}
           contentStyle={globalStyles.contentStyleLogin}
           onPress={() =>
-            iniciarSesion(correoForm.toLocaleLowerCase(), passwordForm)
+            iniciarSesion(correoForm, passwordForm)
           }
         >
           Iniciar Sesión
