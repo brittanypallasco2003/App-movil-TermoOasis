@@ -18,10 +18,12 @@ const Alerta = () => {
   } = useContext(AuthContext);
   const { citaCancelada, setcitaCancelada } = useContext(CitasContext);
   const theme = useTheme();
+  const isPrimaryColor = alerta && !passwordCambiado && !citaCancelada;
+
   return (
     <Portal>
       <Dialog
-        visible={alerta}
+        visible={alerta || passwordCambiado || citaCancelada}
         onDismiss={() => {
           mostrarAlerta(false);
           mostrarMensajePassword(false);
@@ -62,15 +64,15 @@ const Alerta = () => {
             labelStyle={globalStyles.botonAlert}
             onPress={() => {
               mostrarAlerta(false);
-              mostrarMensajePassword(false);
               setcitaCancelada(false);
+              mostrarMensajePassword(false);
             }}
             textColor={
-              passwordCambiado
+              citaCancelada || passwordCambiado
                 ? theme.colors.secondary
-                : citaCancelada
-                ? theme.colors.secondary
-                : theme.colors.primary
+                : alerta
+                ? theme.colors.primary
+                : 'transparent'
             }
           >
             Entendido

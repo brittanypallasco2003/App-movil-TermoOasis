@@ -101,7 +101,7 @@ const RestablecerPassword = ({ navigation }) => {
               restablecerPassword(
                 nombreForm,
                 apellidoForm,
-                correoRestablecer.toLowerCase()
+                correoRestablecer
               )
             }
           >

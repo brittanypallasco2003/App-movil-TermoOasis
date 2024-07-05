@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const restablecerPassword = async (nombre, apellido, correoRest) => {
+    correoRest = correoRest.charAt(0).toLowerCase() + correoRest.slice(1);
     if (nombre && apellido && correoRest) {
       let nombreInvalido = validarNombre(nombre);
       let apellidoInvalido = validarApellido(apellido);
@@ -89,7 +90,6 @@ export const AuthProvider = ({ children }) => {
       if (response && response.data) {
         guardarMensaje(response.data.msg);
         mostrarMensajePassword(true);
-        mostrarAlerta(true);
       } else {
         throw new Error("Respuesta Inválida del servidor");
       }

@@ -16,7 +16,7 @@ const BotonWhatsapp = () => {
   const {guardarMensaje, mostrarAlerta} = useContext(AuthContext)
   const openWhatsApp = () => {
     const phoneNumber = "+593995129878";
-    const message = "Hola, quisiera agendar una cita con ustedes";
+    const message = "Hola 👋, quisiera agendar una cita con ustedes";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;

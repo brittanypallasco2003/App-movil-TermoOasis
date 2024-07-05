@@ -365,10 +365,10 @@ export const CitasProvider = ({ children }) => {
       }
     } catch (error) {
       guardarMensaje(error.response.data.msg);
+      mostrarAlerta(true)
     } finally {
       setloadBotonCancel(false);
       setmostrarAlertaCancelar(false);
-      mostrarAlerta(true);
     }
   };
 
