@@ -106,15 +106,12 @@ export const AuthProvider = ({ children }) => {
 
   const cerrarSesion = async () => {
     try {
-      setCargando(true);
       obtenerInfoUsuario("");
       setUserToken("");
       AsyncStorage.removeItem("userToken");
       AsyncStorage.removeItem("userInfo");
     } catch (error) {
       console.log(error);
-    } finally {
-      setCargando(false);
     }
   };
 

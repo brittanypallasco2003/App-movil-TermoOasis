@@ -102,7 +102,7 @@ const DetalleCita = ({ item }) => {
           Teléfono:{" "}
           <Text
             style={globalStyles.textoDetalle}
-          >{`0${telefonoPaciente}`}</Text>
+          >{`+${telefonoPaciente}`}</Text>
         </Text>
       )}
       {fechaCita > fechaHoy && isPaciente && isCancel === false && (
