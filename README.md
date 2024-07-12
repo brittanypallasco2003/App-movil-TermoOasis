@@ -32,9 +32,10 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ||- Visualizar el detalle de sus citas (pendientes, realizadas y canceladas)|
 ||- Cancelar Cita|
 
-## Aplicación Construida
+## Aplicación Construida 📱
+[Descarga la .apk](/Termo_Oasis.apk)
 
-## Manual de instalación
+## Manual de instalación 👤
 
 ### Dispositivo
 1. Clona el repositorio
