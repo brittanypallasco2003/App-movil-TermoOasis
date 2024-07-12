@@ -18,7 +18,17 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 - [Manual de Usuario](#manual-de-usuario)
 
 ## Perfiles - Usuarios
-
+|Rol|Funciones|
+|-|-|
+|Doctor|- Iniciar y cerrar sesión|
+||- Restablecer Contraseña|
+||- Visualizar Perfil|
+||- Visualizar por paciente el detalle de sus citas (pendientes, realizadas y canceladas)|
+||- Visualizar el detalle de todas las citas de sus pacientes(pendientes, realizadas y canceladas)|
+||- Visualizar el registro médico generado|
+|Paciente|- Iniciar y cerrar sesión|
+||- Restablecer Contraseña|
+||- Visualizar Perfil|
 ## Aplicación Construida
 
 ## Manual de instalación
