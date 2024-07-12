@@ -79,5 +79,4 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
    ![image](https://github.com/user-attachments/assets/e278f1bc-4752-44de-95d6-46a194024033)
 
  
-
-
+## Manual de Usuario
