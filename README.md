@@ -11,7 +11,14 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 * [React Native Paper](https://callstack.github.io/react-native-paper/) - Librería de componentes personalizables listos para producción para React Native.
 * [React Navigation](https://reactnavigation.org/docs/getting-started/) - Librería para enrutamiento y navegación de aplicaciones Expo y React Native.
 
-## Tabla de Contenido
+## Índice de Contenido 🔍
+- [Perfiles - Usuarios](#perfiles---usuarios)
+- [Aplicación Construida](#aplicación-construida)
+- [Manual de Instalación](#manual-de-instalación)
+- [Manual de Usuario](#manual-de-usuario)
+
+## Perfiles - Usuarios
+
 ## Aplicación Construida
 
 ## Manual de instalación
@@ -69,7 +76,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 
 6. Escribe la letra a en la terminal para ejecutar el proyecto en un emulador de android studio
    
-![image](https://github.com/user-attachments/assets/e278f1bc-4752-44de-95d6-46a194024033)
+   ![image](https://github.com/user-attachments/assets/e278f1bc-4752-44de-95d6-46a194024033)
 
  
 
