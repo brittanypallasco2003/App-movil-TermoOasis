@@ -24,11 +24,14 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ||- Restablecer Contraseña|
 ||- Visualizar Perfil|
 ||- Visualizar por paciente el detalle de sus citas (pendientes, realizadas y canceladas)|
-||- Visualizar el detalle de todas las citas de sus pacientes(pendientes, realizadas y canceladas)|
+||- Visualizar el detalle de todas las citas de sus pacientes (pendientes, realizadas y canceladas)|
 ||- Visualizar el registro médico generado|
 |Paciente|- Iniciar y cerrar sesión|
 ||- Restablecer Contraseña|
 ||- Visualizar Perfil|
+||- Visualizar el detalle de sus citas (pendientes, realizadas y canceladas)|
+||- Cancelar Cita|
+
 ## Aplicación Construida
 
 ## Manual de instalación
