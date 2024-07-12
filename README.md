@@ -33,7 +33,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ||- Cancelar Cita|
 
 ## Aplicación Construida
-
+(Descarga la .apk)[Termo_Oasis.apk]
 ## Manual de instalación
 
 ### Dispositivo
