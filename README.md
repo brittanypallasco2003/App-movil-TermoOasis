@@ -19,23 +19,20 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 1. Clona el repositorio
    
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
+  git clone https://github.com/tu-usuario/tu-repositorio.git
 ```
+
 2. Ejecuta el siguiente comando para instala dependencias
    
 ```bash
-npm install
+  npm install
 ```
 
-3. Descargar desde la Play Store 
+3. Descargar desde la Play Store Expo Go
    
-[Clic aquí para instalar Expo Go](https://play.google.com/store/search?q=expo%20go&c=apps&hl=es_419)
+[Instala Expo Go](https://play.google.com/store/search?q=expo%20go&c=apps&hl=es_419)
 
 
 
-Ejecutar el siguiente comando para observar el codigo QR que se utilizara luego para observar el proyecto desde el dispositivo móvil:
-```bash
-npx espo start
-```
 
 
