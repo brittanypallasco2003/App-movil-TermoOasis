@@ -17,7 +17,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 - [Manual de Instalación](#manual-de-instalación)
 - [Manual de Usuario](#manual-de-usuario)
 
-## Perfiles - Usuarios
+## Perfiles - Usuarios 👤
 |Rol|Funciones|
 |-|-|
 |Doctor|- Iniciar y cerrar sesión|
@@ -32,9 +32,10 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ||- Visualizar el detalle de sus citas (pendientes, realizadas y canceladas)|
 ||- Cancelar Cita|
 
-## Aplicación Construida
+## Aplicación Construida 📱
+[Descarga la .apk](/Termo_Oasis.apk)
 
-## Manual de instalación
+## Manual de instalación ⬇️
 
 ### Dispositivo
 1. Clona el repositorio
@@ -92,4 +93,4 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
    ![image](https://github.com/user-attachments/assets/e278f1bc-4752-44de-95d6-46a194024033)
 
  
-## Manual de Usuario
+## Manual de Usuario 📽️
