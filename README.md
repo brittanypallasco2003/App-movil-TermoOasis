@@ -19,15 +19,15 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ### Dispositivo
 1. Clona el repositorio
    
-```bash
-  git clone https://github.com/tu-usuario/tu-repositorio.git
-```
+   ```bash
+     git clone https://github.com/tu-usuario/tu-repositorio.git
+   ```
 
 2. Instala dependencias
    
-```bash
-  npm install
-```
+   ```bash
+     npm install
+   ```
 
 3. Descarga desde la Play Store Expo Go
    
@@ -35,24 +35,25 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 
 4. Inicia el servidor
 
-```bash
-  npx expo start
-```
+   ```bash
+     npx expo start
+   ```
+   
 5. Escanea con la cámara de tu celular el código QR que aparecerá en consola
 
 ### Emulador
 
 1. Clona el repositorio
    
-```bash
-  git clone https://github.com/tu-usuario/tu-repositorio.git
-```
+   ```bash
+     git clone https://github.com/tu-usuario/tu-repositorio.git
+   ```
 
 2. Instala dependencias
    
-```bash
-  npm install
-```
+   ```bash
+     npm install
+   ```
 
 3. Inicia un emulador desde android studio
    
@@ -62,9 +63,9 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 
 5. Inicia el servidor
 
-```bash
-  npx expo start
-```
+   ```bash
+     npx expo start
+   ```
 
 6. Escribe la letra a en la terminal para ejecutar el proyecto en un emulador de android studio
    
