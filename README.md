@@ -15,6 +15,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ## Aplicación Construida
 
 ## Manual de instalación
+
 ### Dispositivo
 1. Clona el repositorio
    
@@ -28,7 +29,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
   npm install
 ```
 
-3. Descargar desde la Play Store Expo Go
+3. Descarga desde la Play Store Expo Go
    
    [Instala Expo Go](https://play.google.com/store/search?q=expo%20go&c=apps&hl=es_419)
 
@@ -40,6 +41,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 5. Escanea con la cámara de tu celular el código QR que aparecerá en consola
 
 ### Emulador
+
 1. Clona el repositorio
    
 ```bash
@@ -52,7 +54,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
   npm install
 ```
 
-3. Iniciar un emulador de android studio
+3. Inicia un emulador desde android studio
    
 4. Descargar desde la Play Store Expo Go en el emulador
    
@@ -65,6 +67,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 ```
 
 6. Escribe la letra a en la terminal para ejecutar el proyecto en un emulador de android studio
+   
 ![image](https://github.com/user-attachments/assets/e278f1bc-4752-44de-95d6-46a194024033)
 
  
