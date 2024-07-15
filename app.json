@@ -6,19 +6,19 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#3F8483"
-    },
+    // "splash": {
+    //   "image": "./assets/splash.png",
+    //   "resizeMode": "contain",
+    //   "backgroundColor": "#3F8483"
+    // },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      // "adaptiveIcon": {
-      //   "foregroundImage": "./assets/adaptive-icon.png",
-      //   "backgroundColor": "#3F8483"
-      // },
+    //   "adaptiveIcon": {
+    //   //   "foregroundImage": "./assets/adaptive-icon.png",
+    //     "backgroundColor": "#3F8483"
+    //  },
       "package": "com.nohemiespinel0.AppmovilTermoOasis"
     },
     "web": {

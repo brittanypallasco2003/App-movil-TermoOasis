@@ -27,7 +27,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 const theme = {
   colors: {
     ...DefaultTheme.colors,
@@ -59,7 +59,7 @@ const App = () => {
     async function prepare() {
       try {
         if (fontsLoaded) {
-          await SplashScreen.hideAsync();
+          // await SplashScreen.hideAsync();
           setTimeout(() => {
             setAppIsReady(true);
           }, 1200);
