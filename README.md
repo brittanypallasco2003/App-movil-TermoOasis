@@ -34,7 +34,7 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 
 ## Aplicación Construida 📱
 
-[Descarga la .apk](/Termo_Oasis.apk)
+[Descarga la .apk]()
 
 ## Manual de instalación ⬇️
 
@@ -96,4 +96,4 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
  
 ## Manual de Usuario 📽️
 
-[Video de Youtube]()
+[Video de Youtube](https://youtu.be/So2V_U3TvBk)
