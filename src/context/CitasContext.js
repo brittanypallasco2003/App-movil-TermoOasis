@@ -58,6 +58,9 @@ export const CitasProvider = ({ children }) => {
     setcitaCancelada(false);
     setDetalleRegistro({});
     setrecetaRegitsro([]);
+    setcitasPendPacienteEsp([]);
+    setcitasReaPacienteEsp([]);
+    setcitasCanPacienteEsp([]);
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -85,18 +88,30 @@ export const CitasProvider = ({ children }) => {
       );
       if (response && response.data) {
         const citas = response.data.data;
-        const citasFormateadas = citas.map((citaFormateada) => ({
-          idCita: citaFormateada._id,
-          start: new Date(citaFormateada.start),
-          end: new Date(citaFormateada.end),
-          idPaciente: citaFormateada.idPaciente._id,
-          cedulaPaciente: citaFormateada.idPaciente.cedula,
-          nombrePaciente: citaFormateada.idPaciente.nombre,
-          apellidoPaciente: citaFormateada.idPaciente.apellido,
-          idDoctor: citaFormateada.idDoctor,
-          citaCancelada: citaFormateada.isCancelado,
-        }));
-        console.log("esta es la respuesta de las citas: ", citasFormateadas);
+        const citasFormateadas = [];
+        citas.forEach((citaFormateada) => {
+          const cita = {
+            idCita: citaFormateada._id,
+            start: new Date(citaFormateada.start),
+            end: new Date(citaFormateada.end),
+            idPaciente: citaFormateada.idPaciente
+              ? citaFormateada.idPaciente._id
+              : null,
+            cedulaPaciente: citaFormateada.idPaciente
+              ? citaFormateada.idPaciente.cedula
+              : null,
+            nombrePaciente: citaFormateada.idPaciente
+              ? citaFormateada.idPaciente.nombre
+              : null,
+            apellidoPaciente: citaFormateada.idPaciente
+              ? citaFormateada.idPaciente.apellido
+              : null,
+            idDoctor: citaFormateada.idDoctor,
+            citaCancelada: citaFormateada.isCancelado,
+          };
+
+          citasFormateadas.push(cita);
+        });
         return citasFormateadas;
       } else {
         throw new Error("Respuesta inválida del servidor");
@@ -123,22 +138,22 @@ export const CitasProvider = ({ children }) => {
       );
       if (response && response.data) {
         const citas = response.data.data;
-        // console.log(
-        //   "estas ES LA RESPUESTA DE LAS CITAS DE UN PACIENTE ESPECÍFICO: ",
-        //   citas
-        // );
-        const citasFormtP = citas.map((citaFormateada) => ({
-          idCita: citaFormateada._id,
-          start: citaFormateada.start,
-          end: citaFormateada.end,
-          idPaciente: citaFormateada.idPaciente._id,
-          nombrePaciente: citaFormateada.idPaciente.nombre,
-          nombreDoctor: citaFormateada.idDoctor.nombre,
-          apellidoDoctor: citaFormateada.idDoctor.apellido,
-          citaCancelada: citaFormateada.isCancelado,
-        }));
+
+        const citasFormtP = [];
+        citas.forEach((citaFormateada) => {
+          citasFormtP.push({
+            idCita: citaFormateada._id,
+            start: citaFormateada.start,
+            end: citaFormateada.end,
+            idPaciente: citaFormateada.idPaciente._id,
+            nombrePaciente: citaFormateada.idPaciente.nombre,
+            nombreDoctor: citaFormateada.idDoctor.nombre,
+            apellidoDoctor: citaFormateada.idDoctor.apellido,
+            citaCancelada: citaFormateada.isCancelado,
+          });
+        });
         console.log(
-          "esta es la respuesta de las citas todas, antes de su tipo: ",
+          "esta es la respuesta de las citas de un paciente, antes de su tipo: ",
           citasFormtP
         );
         return citasFormtP;
@@ -173,6 +188,7 @@ export const CitasProvider = ({ children }) => {
           ? setcitasPendPacienteEsp(citasPendientes)
           : setCitasPendientes(citasPendientes);
 
+        console.log("estas son las citas pendientes:", citasPendientes);
         const fechasMarcadas = marcarFechas(citasPendientes);
         setMarkdates(fechasMarcadas);
         settipoCita("Pendientes");
@@ -295,20 +311,22 @@ export const CitasProvider = ({ children }) => {
             // console.log('Respuestas de las citas',respuestas)
             const datosCitas = respuestas.map((res) => res.data.data);
             console.log("estos son datos citas ", datosCitas);
-            const citasAgendadasFil = datosCitas.map((citaF) => ({
-              idCita: citaF._id,
-              start: citaF.start,
-              end: citaF.end,
-              isCancel: citaF.isCancelado,
-              registroMedico: citaF.registroMedico,
-              nombrePaciente: citaF.idPaciente.nombre,
-              apellidoPaciente: citaF.idPaciente.apellido,
-              cedulaPaciente: citaF.idPaciente.cedula,
-              telefonoPaciente: citaF.idPaciente.telefono,
-              emailPaciente: citaF.idPaciente.email,
-              nombreDoctor: citaF.idDoctor.nombre,
-              apellidoDoctor: citaF.idDoctor.apellido,
-            }));
+            const citasAgendadasFil = [];
+            datosCitas.forEach((citaF) => {
+              citasAgendadasFil.push({
+                idCita: citaF._id,
+                start: citaF.start,
+                end: citaF.end,
+                isCancel: citaF.isCancelado,
+                registroMedico: citaF.registroMedico,
+                nombrePaciente: citaF.idPaciente.nombre,
+                apellidoPaciente: citaF.idPaciente.apellido,
+                cedulaPaciente: citaF.idPaciente.cedula,
+                telefonoPaciente: citaF.idPaciente.telefono,
+                nombreDoctor: citaF.idDoctor.nombre,
+                apellidoDoctor: citaF.idDoctor.apellido,
+              });
+            });
             console.log(
               "estas son las citas agendadas filtradas: ",
               citasAgendadasFil
@@ -336,7 +354,12 @@ export const CitasProvider = ({ children }) => {
   const cancelarCita = async (id) => {
     try {
       setloadBotonCancel(true);
-      const response = await eliminarCita(id, tokenUsuario,isPaciente,isSecre);
+      const response = await eliminarCita(
+        id,
+        tokenUsuario,
+        isPaciente,
+        isSecre
+      );
       if (response && response.data) {
         guardarMensaje(response.data.msg);
         setcitaCancelada(true);
@@ -365,7 +388,7 @@ export const CitasProvider = ({ children }) => {
       }
     } catch (error) {
       guardarMensaje(error.response.data.msg);
-      mostrarAlerta(true)
+      mostrarAlerta(true);
     } finally {
       setloadBotonCancel(false);
       setmostrarAlertaCancelar(false);

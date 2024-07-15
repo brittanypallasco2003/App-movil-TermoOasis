@@ -25,6 +25,7 @@ const DetalleCita = ({ item }) => {
     telefonoPaciente,
     registroMedico
   } = item;
+
   const { infoUsuariObtenida } = useContext(AuthContext);
   const { setmostrarAlertaCancelar, setIdCitaCancelar, obtenerRegistroMedico } =
     useContext(CitasContext);

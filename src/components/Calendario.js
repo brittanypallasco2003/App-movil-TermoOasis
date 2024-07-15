@@ -85,7 +85,7 @@ const Calendario = ({ markedDates }) => {
 
   let fechaFinal = ObtenerfechaFinal();
 
-  console.log("fechas marcadas jjj", markedDates);
+
 
   const theme = useTheme();
 

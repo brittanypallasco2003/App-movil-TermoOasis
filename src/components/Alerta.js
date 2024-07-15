@@ -18,7 +18,7 @@ const Alerta = () => {
   } = useContext(AuthContext);
   const { citaCancelada, setcitaCancelada } = useContext(CitasContext);
   const theme = useTheme();
-  const isPrimaryColor = alerta && !passwordCambiado && !citaCancelada;
+  
 
   return (
     <Portal>
@@ -41,11 +41,11 @@ const Alerta = () => {
           }
           size={isTablet ? scale(30) : scale(40)}
           color={
-            passwordCambiado
-              ? theme.colors.secondary
-              : citaCancelada
-              ? theme.colors.secondary
-              : theme.colors.primary
+            citaCancelada || passwordCambiado
+                ? theme.colors.secondary
+                : alerta
+                ? theme.colors.primary
+                : 'transparent'
           }
         />
         <Dialog.Title style={globalStyles.titleAlert}>

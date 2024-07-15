@@ -105,10 +105,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const cerrarSesion = async () => {
-    setCargando(true)
     try {
-      obtenerInfoUsuario("");
+      setCargando(true)
       setUserToken("");
+      obtenerInfoUsuario("");
       AsyncStorage.removeItem("userToken");
       AsyncStorage.removeItem("userInfo");
     } catch (error) {
