@@ -36,6 +36,10 @@ El presente repositorio tiene como propósito el desarrrollo e implementación d
 
 [Descarga la .apk](/Termo_Oasis.apk)
 
+## Publicación en Uptodown
+[Clic aquí para descargarla en la tienda](https://termo-oasis.uptodown.com/android)
+![image](https://github.com/user-attachments/assets/55347bb6-0566-4312-92fe-016c7957db27)
+
 ## Manual de instalación ⬇️
 
 ### Dispositivo
